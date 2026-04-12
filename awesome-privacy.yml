@@ -4806,6 +4806,13 @@ categories:
         url: https://www.minds.com
         github: minds/minds
 
+      - name: Lemmy
+        description: |
+          A federated, open-source link aggregator and discussion platform, similar to Reddit.
+          Built on ActivityPub. Wide range of cross-platform [client apps](https://join-lemmy.org/apps).
+        url: https://join-lemmy.org
+        github: LemmyNet/lemmy
+
       notableMentions: |
         - [diaspora\*](https://diasporafoundation.org), [Pleroma](https://pleroma.social), [Friendica](https://friendi.ca) and [Hubzilla ](https://hubzilla.org) - distributed, decentralized social networks, built on open protocols
         - [Tildes](https://tildes.net), [Lemmy](https://dev.lemmy.ml) and [notabug.io](https://notabug.io) - bulletin boards and news aggregators (similar to Reddit)
