@@ -4807,11 +4807,13 @@ categories:
         github: minds/minds
 
       - name: Lemmy
+        url: https://join-lemmy.org
+        github: LemmyNet/lemmy
+        icon: https://join-lemmy.org/static/assets/icons/apple-touch-icon.png
         description: |
           A federated, open-source link aggregator and discussion platform, similar to Reddit.
           Built on ActivityPub. Wide range of cross-platform [client apps](https://join-lemmy.org/apps).
-        url: https://join-lemmy.org
-        github: LemmyNet/lemmy
+        androidApp: com.jerboa
 
       notableMentions: |
         - [diaspora\*](https://diasporafoundation.org), [Pleroma](https://pleroma.social), [Friendica](https://friendi.ca) and [Hubzilla ](https://hubzilla.org) - distributed, decentralized social networks, built on open protocols
