@@ -2168,10 +2168,10 @@ categories:
         description: |
           Open-source self-hosted VPN and firewall built on WireGuard®.
 
-    ##########################
-    ###### Mix networks ######
-    ##########################
-    - name: Mix Networks
+    ####################################
+    ###### Anonymity/Mix networks ######
+    ####################################
+    - name: Anonymity Networks
       services:
       - name: Tor
         url: https://www.torproject.org
@@ -3094,7 +3094,7 @@ categories:
         openSource: true
         description: |
           A free, open-source note-taking application built with Qt, focused on providing a pleasant Markdown
-          editing experience. It manages notes directly as plain text files on your local system. 
+          editing experience. It manages notes directly as plain text files on your local system.
 
       notableMentions: |
         If you are already tied into Evernote, One Note etc, then [SafeRoom](https://www.getsaferoom.com)
