@@ -97,7 +97,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Other Payment Methods](#other-payment-methods) (3)
 	- [Secure Budgeting](#secure-budgeting) (5)
 - **Social**
-	- [Social Networks](#social-networks) (4)
+	- [Social Networks](#social-networks) (5)
 	- [Video Platforms](#video-platforms) (3)
 	- [Blogging Platforms](#blogging-platforms) (6)
 	- [News Readers](#news-readers) (1)
@@ -4081,6 +4081,13 @@ following sites aim to do.
 		<summary>Stats</summary>
 
 		[![GitHub: minds/minds](https://img.shields.io/github/stars/minds/minds?style=flat&logo=github&label=minds&color=%235f53f4&cacheSeconds=3600)](https://github.com/minds/minds) [![Minds on Awesome Privacy](https://img.shields.io/badge/View%20Report-FC60A8?style=flat&logo=awesomelists&label=Minds)](https://awesome-privacy.xyz/social/social-networks/minds)ㅤ 
+
+		</details>
+- **[<img src='https://join-lemmy.org/static/assets/icons/apple-touch-icon.png' width='16' height='16' alt='icon' /> Lemmy](https://join-lemmy.org)** - A federated, open-source link aggregator and discussion platform, similar to Reddit. Built on ActivityPub. Wide range of cross-platform [client apps](https://join-lemmy.org/apps). 
+	- <details>
+		<summary>Stats</summary>
+
+		[![GitHub: LemmyNet/lemmy](https://img.shields.io/github/stars/LemmyNet/lemmy?style=flat&logo=github&label=lemmy&color=%235f53f4&cacheSeconds=3600)](https://github.com/LemmyNet/lemmy) [![Lemmy on Awesome Privacy](https://img.shields.io/badge/View%20Report-FC60A8?style=flat&logo=awesomelists&label=Lemmy)](https://awesome-privacy.xyz/social/social-networks/lemmy) [![Lemmy on Google Play](https://img.shields.io/badge/-Lemmy-3bd47f?style=flat&logo=android&logoColor=white)](https://play.google.com/store/apps/details?id=com.jerboa)ㅤ 
 
 		</details>
 

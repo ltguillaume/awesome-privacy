@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-12T21:16:54Z",
+  "generatedAt": "2026-04-13T12:55:46Z",
   "processedShas": [
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
     "0565145265ae63168dafcd48c5e13d8604691a10",
@@ -34,6 +34,7 @@
     "4155d6bcfc0d01136a323bfb841452e478be1fa6",
     "463d62190462ca5dfdf71fa72234a10e6dbcdd48",
     "474de7b56c37fb9bf8991fcc3e42df91acc74049",
+    "47cd53ef705bb9ae855e521bc68c0597b14f7325",
     "5b772f3ea6f2e480b07bb09a1b523553198fd386",
     "5ec99fe78361e422648aec2eff69375fcc3ca810",
     "5f84c75e9a52780eca896e9cbce656698412a372",
@@ -88,6 +89,29 @@
     "fa1c504da13a0d2f8e75ef95566811e54750ff3d"
   ],
   "entries": [
+    {
+      "date": "2026-04-13",
+      "sha": "47cd53ef705bb9ae855e521bc68c0597b14f7325",
+      "pr": {
+        "number": 496,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/496",
+        "author": "Lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Lemmy",
+              "category": "Social",
+              "section": "Social Networks"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-04-12",
       "sha": "75ad504f96da49df98dc30842d820fd74c85deb0",
@@ -2989,6 +3013,26 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-04-13",
+      "title": "Add DarkVPS to VPS Hosting",
+      "pr": {
+        "number": 497,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/497",
+        "author": "darkvpshosting",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/245390928?v=4"
+      }
+    },
+    {
+      "date": "2026-04-12",
+      "title": "Update awesome-privacy.yml",
+      "pr": {
+        "number": 494,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/494",
+        "author": "darkvpshosting",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/245390928?v=4"
+      }
+    },
     {
       "date": "2026-04-12",
       "title": "Add SammaPix — privacy-first browser-based image toolkit (27 tools)",
