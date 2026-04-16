@@ -14,8 +14,10 @@
   export let serviceName: string;
   export let history: Array<{
     date: string;
-    type: 'added' | 'removed' | 'modified';
+    type: 'added' | 'removed' | 'modified' | 'moved' | 'renamed';
     fields?: string[];
+    from?: { category: string; section: string };
+    previousName?: string;
     pr?: ChangelogPr | null;
   }> = [];
 
@@ -56,7 +58,11 @@
             ? 'Added'
             : h.type === 'removed'
               ? 'Removed'
-              : 'Amended'}
+              : h.type === 'moved'
+                ? 'Moved'
+                : h.type === 'renamed'
+                  ? 'Renamed'
+                  : 'Amended'}
         </span>
         <time
           >{new Date(h.date + 'T00:00:00Z').toLocaleDateString('en-US', {
@@ -67,6 +73,12 @@
           })}</time
         >
         {#if h.fields}<span class="history-fields">({h.fields.join(', ')})</span
+          >{/if}
+        {#if h.previousName}<span class="history-fields"
+            >previously: {h.previousName}</span
+          >{/if}
+        {#if h.from}<span class="history-fields"
+            >from {h.from.category} › {h.from.section}</span
           >{/if}
         {#if h.pr?.author}
           <span class="history-author"
@@ -214,7 +226,9 @@
       background: color-mix(in srgb, var(--changelog-rem) 33%, transparent);
       color: var(--changelog-rem);
     }
-    &.modified {
+    &.modified,
+    &.moved,
+    &.renamed {
       background: color-mix(in srgb, var(--changelog-mod) 33%, transparent);
       color: var(--changelog-mod);
     }

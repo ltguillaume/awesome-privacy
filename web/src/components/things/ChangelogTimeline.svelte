@@ -53,11 +53,17 @@
       added: s?.added || [],
       removed: s?.removed || [],
       modified: s?.modified || [],
+      moved: s?.moved || [],
+      renamed: s?.renamed || [],
     };
   };
   const sec = (e: ChangelogEntry) => {
     const s = e.changes?.sections;
-    return { added: s?.added || [], removed: s?.removed || [] };
+    return {
+      added: s?.added || [],
+      removed: s?.removed || [],
+      moved: s?.moved || [],
+    };
   };
   const cat = (e: ChangelogEntry) => {
     const c = e.changes?.categories;
@@ -79,7 +85,11 @@
         (s.removed.length > 0 ||
           sc.removed.length > 0 ||
           ct.removed.length > 0)) ||
-      (f.modified && s.modified.length > 0)
+      (f.modified &&
+        (s.modified.length > 0 ||
+          s.moved.length > 0 ||
+          s.renamed.length > 0 ||
+          sc.moved.length > 0))
     );
   }
 
@@ -92,10 +102,19 @@
         (item.pr.author?.toLowerCase().includes(q) ?? false)
       );
     }
+    const s = svc(item.data);
     const all = [
-      ...svc(item.data).added,
-      ...svc(item.data).removed,
-      ...svc(item.data).modified,
+      ...s.added,
+      ...s.removed,
+      ...s.modified,
+      ...s.moved.flatMap((m) => [
+        { name: m.name, category: m.from.category, section: m.from.section },
+        { name: m.name, category: m.to.category, section: m.to.section },
+      ]),
+      ...s.renamed.flatMap((m) => [
+        { name: m.previousName, category: m.from.category, section: m.from.section },
+        { name: m.name, category: m.to.category, section: m.to.section },
+      ]),
     ];
     return (
       all.some(
@@ -116,8 +135,11 @@
     if (s.added.length) parts.push(pl(s.added.length, 'addition'));
     if (s.removed.length) parts.push(pl(s.removed.length, 'removal'));
     if (s.modified.length) parts.push(pl(s.modified.length, 'amendment'));
+    if (s.moved.length) parts.push(pl(s.moved.length, 'move'));
+    if (s.renamed.length) parts.push(pl(s.renamed.length, 'rename'));
     if (sc.added.length) parts.push(pl(sc.added.length, 'new section'));
     if (sc.removed.length) parts.push(pl(sc.removed.length, 'section removal'));
+    if (sc.moved.length) parts.push(pl(sc.moved.length, 'section rename'));
     return parts.join(', ') || 'Changes';
   }
 
@@ -132,7 +154,7 @@
     cls: string;
     name: string;
     href: string;
-    path: string;
+    path?: string;
     fields?: string[];
   };
 
@@ -163,6 +185,33 @@
         path: `in ${v.category} › ${v.section}`,
         fields: v.fields,
       })),
+      ...s.moved.map((v) => ({
+        badge: 'Moved',
+        cls: 'mod',
+        name: v.name,
+        href: serviceLink(
+          { name: v.name, category: v.to.category, section: v.to.section },
+          false,
+        ),
+        path: `from ${v.from.category} › ${v.from.section} → ${v.to.category} › ${v.to.section}`,
+      })),
+      ...s.renamed.map((v) => {
+        const sameLoc =
+          v.from.category === v.to.category &&
+          v.from.section === v.to.section;
+        return {
+          badge: 'Renamed',
+          cls: 'mod',
+          name: `${v.previousName} → ${v.name}`,
+          href: serviceLink(
+            { name: v.name, category: v.to.category, section: v.to.section },
+            false,
+          ),
+          path: sameLoc
+            ? `in ${v.to.category} › ${v.to.section}`
+            : `from ${v.from.category} › ${v.from.section} → ${v.to.category} › ${v.to.section}`,
+        };
+      }),
       ...sc.added.map((v) => ({
         badge: 'New Section',
         cls: 'add',
@@ -174,6 +223,16 @@
         cls: 'rem',
         name: v.name,
         href: '',
+      })),
+      ...sc.moved.map((v) => ({
+        badge: 'Section Renamed',
+        cls: 'mod',
+        name: `${v.from.section} → ${v.to.section}`,
+        href: `/${slugify(v.to.category)}/${slugify(v.to.section)}`,
+        path:
+          v.from.category === v.to.category
+            ? `in ${v.to.category}`
+            : `from ${v.from.category} to ${v.to.category}`,
       })),
       ...ct.added.map((v) => ({
         badge: 'New Category',
@@ -242,7 +301,7 @@
     <input
       class="search"
       type="text"
-      placeholder="Search..."
+      placeholder="Filter by service, category, user.."
       bind:value={searchQuery}
     />
     <div class="filters">
@@ -473,7 +532,7 @@
     display: flex;
     gap: var(--space-md);
     padding: 0.6rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--background-hr-color);
     &:last-child {
       border-bottom: none;
     }
@@ -512,7 +571,7 @@
       padding: 0 0.4rem;
       border-radius: var(--curve-sm);
       background: var(--accent-3);
-      color: var(--foreground);
+      color: var(--bright);
       text-decoration: none;
       font-family: var(--font-subtitle);
       &:hover {

@@ -156,10 +156,16 @@ const serviceHistory = await fetchChangelog().then(({ entries }) => {
 		c.name === name &&
 		c.category === categoryName &&
 		c.section === parentSection.name;
+	const isHere = (m: { name: string; to: { category: string; section: string } }) =>
+		m.name === name &&
+		m.to.category === categoryName &&
+		m.to.section === parentSection.name;
 	const results: Array<{
 		date: string;
-		type: 'added' | 'removed' | 'modified';
+		type: 'added' | 'removed' | 'modified' | 'moved' | 'renamed';
 		fields?: string[];
+		from?: { category: string; section: string };
+		previousName?: string;
 		pr?: import('@utils/fetch-changelog').ChangelogPr | null;
 	}> = [];
 	for (const e of entries) {
@@ -167,6 +173,8 @@ const serviceHistory = await fetchChangelog().then(({ entries }) => {
 		const added = (s?.added || []).find(isMatch);
 		const removed = (s?.removed || []).find(isMatch);
 		const modified = (s?.modified || []).find(isMatch);
+		const moved = (s?.moved || []).find(isHere);
+		const renamed = (s?.renamed || []).find(isHere);
 		if (added) results.push({ date: e.date, type: 'added', pr: e.pr });
 		else if (removed) results.push({ date: e.date, type: 'removed', pr: e.pr });
 		else if (modified)
@@ -176,6 +184,16 @@ const serviceHistory = await fetchChangelog().then(({ entries }) => {
 				fields: modified.fields,
 				pr: e.pr,
 			});
+		else if (renamed)
+			results.push({
+				date: e.date,
+				type: 'renamed',
+				previousName: renamed.previousName,
+				from: renamed.from,
+				pr: e.pr,
+			});
+		else if (moved)
+			results.push({ date: e.date, type: 'moved', from: moved.from, pr: e.pr });
 	}
 	return results;
 });

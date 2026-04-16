@@ -1,8 +1,8 @@
 import { error } from './logger';
 
 const changelogUrl =
-  'https://raw.githubusercontent.com/Lissy93/awesome-privacy/main/.github/changelog.json';
-// 'https://gist.githubusercontent.com/Lissy93/ddae176f3f21a0d3c0251f5f6cbd3b09/raw/7c6ec883ae70cb8b7a88f3c0babd67f719f59f65/changelog.json';
+  // 'https://raw.githubusercontent.com/Lissy93/awesome-privacy/main/.github/changelog.json';
+'https://gist.githubusercontent.com/Lissy93/ddae176f3f21a0d3c0251f5f6cbd3b09/raw/5fb0fe42a54a9395a988f7875e88a484769ea6dd/changelog.json';
 
 export interface ChangelogPr {
   number: number;
@@ -18,6 +18,24 @@ export interface ServiceChange {
   fields?: string[];
 }
 
+export interface ServiceMoved {
+  name: string;
+  from: { category: string; section: string };
+  to: { category: string; section: string };
+}
+
+export interface SectionMoved {
+  from: { category: string; section: string };
+  to: { category: string; section: string };
+}
+
+export interface ServiceRenamed {
+  previousName: string;
+  name: string;
+  from: { category: string; section: string };
+  to: { category: string; section: string };
+}
+
 export interface ChangelogEntry {
   date: string;
   sha: string;
@@ -27,10 +45,13 @@ export interface ChangelogEntry {
       added?: ServiceChange[];
       removed?: ServiceChange[];
       modified?: ServiceChange[];
+      moved?: ServiceMoved[];
+      renamed?: ServiceRenamed[];
     };
     sections?: {
       added?: { name: string; category: string }[];
       removed?: { name: string; category: string }[];
+      moved?: SectionMoved[];
     };
     categories?: {
       added?: string[];

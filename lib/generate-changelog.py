@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import time
+from typing import Any
 
 import requests
 
@@ -79,7 +80,7 @@ def extract_pr_from_message(message):
     return None
 
 
-def _compact(d):
+def _compact(d: Any) -> Any:
     """Recursively remove empty lists, empty dicts, and None values."""
     if isinstance(d, dict):
         return {k: _compact(v) for k, v in d.items() if v is not None and v != [] and v != {}}
@@ -100,20 +101,90 @@ def diff_commits(newer_sha, older_sha):
     sec_added, sec_removed, _ = diff_index(build_index(base_data, 2), build_index(head_data, 2))
     cat_added, cat_removed, _ = diff_index(build_index(base_data, 1), build_index(head_data, 1))
 
-    if not any([svc_added, svc_removed, svc_modified,
-                sec_added, sec_removed, cat_added, cat_removed]):
+    # Cross-match services by name across added/removed → moved (e.g. section rename)
+    add_by_name, rem_by_name = {}, {}
+    for k in svc_added:
+        add_by_name.setdefault(k[2], []).append(k)
+    for k in svc_removed:
+        rem_by_name.setdefault(k[2], []).append(k)
+    svc_moved, matched = [], set()
+    for name in sorted(add_by_name.keys() & rem_by_name.keys()):
+        if len(add_by_name[name]) == 1 == len(rem_by_name[name]):
+            r, a = rem_by_name[name][0], add_by_name[name][0]
+            svc_moved.append({"name": name,
+                              "from": {"category": r[0], "section": r[1]},
+                              "to": {"category": a[0], "section": a[1]}})
+            matched |= {a, r}
+    svc_added = [k for k in svc_added if k not in matched]
+    svc_removed = [k for k in svc_removed if k not in matched]
+
+    # Cross-match remaining services by url → renamed (same service, new name).
+    add_by_url, rem_by_url = {}, {}
+    for k in svc_added:
+        u = (head_svc[k].get("url") or "").strip()
+        if u:
+            add_by_url.setdefault(u, []).append(k)
+    for k in svc_removed:
+        u = (base_svc[k].get("url") or "").strip()
+        if u:
+            rem_by_url.setdefault(u, []).append(k)
+    svc_renamed, matched_rn = [], set()
+    def mk_rn(r, a):
+        return {"previousName": r[2], "name": a[2],
+                "from": {"category": r[0], "section": r[1]},
+                "to": {"category": a[0], "section": a[1]}}
+    for url in sorted(add_by_url.keys() & rem_by_url.keys()):
+        a_keys, r_keys = list(add_by_url[url]), list(rem_by_url[url])
+        a_loc = {(k[0], k[1]): k for k in a_keys}
+        r_loc = {(k[0], k[1]): k for k in r_keys}
+        for loc in sorted(a_loc.keys() & r_loc.keys()):
+            a, r = a_loc[loc], r_loc[loc]
+            svc_renamed.append(mk_rn(r, a))
+            matched_rn |= {a, r}
+            a_keys.remove(a)
+            r_keys.remove(r)
+        if len(a_keys) == 1 == len(r_keys):
+            svc_renamed.append(mk_rn(r_keys[0], a_keys[0]))
+            matched_rn |= {a_keys[0], r_keys[0]}
+    svc_added = [k for k in svc_added if k not in matched_rn]
+    svc_removed = [k for k in svc_removed if k not in matched_rn]
+
+    # Detect section renames: a removed section whose services all moved to one added section
+    moves_from = {}
+    for m in svc_moved + svc_renamed:
+        src = (m["from"]["category"], m["from"]["section"])
+        moves_from.setdefault(src, []).append((m["to"]["category"], m["to"]["section"]))
+    sec_added_set, sec_moved, matched_sec = set(sec_added), [], set()
+    for r in sec_removed:
+        dests = moves_from.get(r, [])
+        base_count = sum(1 for k in base_svc if k[0] == r[0] and k[1] == r[1])
+        if (dests and len(set(dests)) == 1
+                and len(dests) == base_count
+                and dests[0] in sec_added_set):
+            sec_moved.append({"from": {"category": r[0], "section": r[1]},
+                              "to": {"category": dests[0][0], "section": dests[0][1]}})
+            matched_sec |= {r, dests[0]}
+    sec_added = [k for k in sec_added if k not in matched_sec]
+    sec_removed = [k for k in sec_removed if k not in matched_sec]
+
+    if not any([svc_added, svc_removed, svc_modified, svc_moved, svc_renamed,
+                sec_added, sec_removed, sec_moved, cat_added, cat_removed]):
         return None
 
-    svc = lambda k: {"name": k[2], "category": k[0], "section": k[1]}
+    def svc(k):
+        return {"name": k[2], "category": k[0], "section": k[1]}
     return _compact({
         "services": {
             "added": [svc(k) for k in svc_added],
             "removed": [svc(k) for k in svc_removed],
             "modified": [{**svc(k), "fields": fields} for k, fields in svc_modified],
+            "moved": svc_moved,
+            "renamed": svc_renamed,
         },
         "sections": {
             "added": [{"name": k[1], "category": k[0]} for k in sec_added],
             "removed": [{"name": k[1], "category": k[0]} for k in sec_removed],
+            "moved": sec_moved,
         },
         "categories": {
             "added": list(cat_added),
@@ -159,9 +230,15 @@ def fetch_pr_metadata(pr_numbers):
     return metadata
 
 
-def fetch_rejections(headers):
-    """Fetch closed-without-merge PRs that touched awesome-privacy.yml (since 2026)."""
-    rejections = []
+def fetch_rejections(headers, cached_rejections, checked_prs):
+    """Fetch closed-without-merge PRs that touched awesome-privacy.yml (since 2026).
+
+    Reuses cached classifications: any PR number in `checked_prs` skips the /files
+    call. On any API failure, returns the cached state unchanged (never wipes).
+    Returns (rejections, updated checked_prs).
+    """
+    cached_by_num = {r["pr"]["number"]: r for r in cached_rejections}
+    rejections, checked, reused, new_calls = [], set(checked_prs), 0, 0
     page = 1
     while True:
         try:
@@ -171,28 +248,28 @@ def fetch_rejections(headers):
                 params={"state": "closed", "sort": "created", "direction": "desc",
                         "per_page": 100, "page": page},
             )
-            if resp.status_code == 403:
-                print("  Rate limited fetching rejections, stopping", file=sys.stderr)
-                break
             if resp.status_code != 200:
-                print(f"  Rejections page {page}: HTTP {resp.status_code}", file=sys.stderr)
-                break
+                print(f"  Rejections page {page}: HTTP {resp.status_code} — keeping cache",
+                      file=sys.stderr)
+                return cached_rejections, checked_prs
             prs = resp.json()
             if not prs:
                 break
 
             for pr in prs:
-                # Stop if we've gone before Jan 2026
-                created = pr.get("created_at", "")
-                if created < REJECTIONS_SINCE:
-                    return rejections
-
-                # Skip merged PRs
+                if pr.get("created_at", "") < REJECTIONS_SINCE:
+                    print(f"  Reused {reused} cached, checked {new_calls} new PR(s)")
+                    return rejections, checked
                 if pr.get("merged_at"):
                     continue
 
-                # Only include PRs that touched awesome-privacy.yml (check via files endpoint)
                 pr_num = pr["number"]
+                if pr_num in checked:
+                    if pr_num in cached_by_num:
+                        rejections.append(cached_by_num[pr_num])
+                        reused += 1
+                    continue
+
                 files_resp = requests.get(
                     f"https://api.github.com/repos/{REPO}/pulls/{pr_num}/files",
                     headers=headers, timeout=10,
@@ -200,14 +277,16 @@ def fetch_rejections(headers):
                 )
                 if files_resp.status_code != 200:
                     continue
-                filenames = [f.get("filename", "") for f in files_resp.json()]
-                if "awesome-privacy.yml" not in filenames:
+                checked.add(pr_num)
+                new_calls += 1
+                if "awesome-privacy.yml" not in [
+                    f.get("filename", "") for f in files_resp.json()
+                ]:
                     continue
 
-                closed_at = pr.get("closed_at", "")[:10]
                 user = pr.get("user", {})
                 rejections.append({
-                    "date": closed_at,
+                    "date": pr.get("closed_at", "")[:10],
                     "title": pr.get("title", ""),
                     "pr": {
                         "number": pr_num,
@@ -221,31 +300,35 @@ def fetch_rejections(headers):
             page += 1
             time.sleep(0.1)
         except requests.RequestException as e:
-            print(f"  Rejections: {e}", file=sys.stderr)
-            break
+            print(f"  Rejections: {e} — keeping cache", file=sys.stderr)
+            return cached_rejections, checked_prs
 
-    return rejections
+    print(f"  Reused {reused} cached, checked {new_calls} new PR(s)")
+    return rejections, checked
 
 
 def load_existing():
-    """Load existing changelog.json. Returns (entries, processed_shas)."""
+    """Load existing changelog.json. Returns (entries, processed_shas, rejections, checked_prs)."""
     if not os.path.exists(OUTPUT_PATH):
-        return [], set()
+        return [], set(), [], set()
     try:
         with open(OUTPUT_PATH) as f:
             data = json.load(f)
         entries = data.get("entries", [])
         processed = set(data.get("processedShas", []))
         processed.update(e["sha"] for e in entries)
-        return entries, processed
+        rejections = data.get("rejections", [])
+        checked_prs = set(data.get("checkedRejectionPrs", []))
+        checked_prs.update(r["pr"]["number"] for r in rejections)
+        return entries, processed, rejections, checked_prs
     except (json.JSONDecodeError, KeyError, TypeError):
-        return [], set()
+        return [], set(), [], set()
 
 
 def main():
     print("Generating changelog from git history...")
 
-    existing_entries, processed_shas = load_existing()
+    existing_entries, processed_shas, existing_rejections, checked_prs = load_existing()
     commits = get_commits()
 
     # Trim to commits at or after FIRST_COMMIT (newest-first order)
@@ -282,7 +365,9 @@ def main():
                 continue
 
             sv = changes.get("services", {})
-            counts = f"+{len(sv.get('added', []))} -{len(sv.get('removed', []))} ~{len(sv.get('modified', []))}"
+            counts = (f"+{len(sv.get('added', []))} -{len(sv.get('removed', []))} "
+                      f"~{len(sv.get('modified', []))} »{len(sv.get('moved', []))} "
+                      f"≈{len(sv.get('renamed', []))}")
             print(f"  [{i}/{len(new_commits)}] {c['date'][:10]} {counts}  {c['message'][:60]}", flush=True)
 
             pr = extract_pr_from_message(c["message"])
@@ -314,7 +399,7 @@ def main():
     if token:
         api_headers["Authorization"] = f"token {token}"
     print("Fetching rejected PRs...")
-    rejections = fetch_rejections(api_headers)
+    rejections, checked_prs = fetch_rejections(api_headers, existing_rejections, checked_prs)
     print(f"  Found {len(rejections)} rejection(s)")
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
@@ -322,6 +407,7 @@ def main():
         json.dump({
             "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "processedShas": sorted(processed_shas | new_processed),
+            "checkedRejectionPrs": sorted(checked_prs),
             "entries": all_entries,
             "rejections": rejections,
         }, f, indent=2, ensure_ascii=False)

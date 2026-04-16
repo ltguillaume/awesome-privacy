@@ -6,7 +6,10 @@ html {
 	--accent-3: #5f53f4;
 	--accent-4: #28dffd;
 
+	--bright: #fff;
+
 	--foreground: #fff;
+	--background-hr-color: #2f2f2f;
 
 	--curve-sm: 4px;
 	--curve-md: 6px;
@@ -99,5 +102,11 @@ html {
 		--bg-gradient-comp-1: #feecff;
 		--bg-gradient-comp-2: #e1e4fb;
 		--background-form: #fff;
+		--background-hr-color: #ececec;
+
+		--changelog-rem: #b59207;
+        --changelog-rej: #d71e41;
+        --changelog-mod: #2e89b5;
+        --changelog-add: #509762;
 	}
 }
