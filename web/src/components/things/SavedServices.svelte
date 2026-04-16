@@ -1,13 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { writable } from 'svelte/store';
 
   import type { Category, Service } from '../../types/Service';
   import { slugify } from '@utils/fetch-data';
   import ServiceCard from './ServiceCard.svelte';
 
-  export let allData: Category[];
-  export let serviceList: string[] | null = null;
+  interface Props {
+    allData: Category[];
+    serviceList?: string[] | null;
+  }
+  const { allData, serviceList = null }: Props = $props();
 
   interface SavedServices {
     category: string;
@@ -15,7 +17,7 @@
     service: Service;
   }
 
-  const savedServices = writable<SavedServices[]>([]);
+  let savedServices: SavedServices[] = $state([]);
 
   onMount(async () => {
     const results: SavedServices[] = [];
@@ -41,14 +43,14 @@
       if (!service) return;
       results.push({ category: category.name, section: section.name, service });
     });
-    savedServices.set(results || []);
+    savedServices = results;
   });
 </script>
 
 <div>
-  {#if $savedServices.length > 0}
+  {#if savedServices.length > 0}
     <div class="saved-services">
-      {#each $savedServices as thingy (thingy.service.name + thingy.section)}
+      {#each savedServices as thingy (thingy.service.name + thingy.section)}
         <ServiceCard
           categoryName={thingy.category}
           sectionName={thingy.section}

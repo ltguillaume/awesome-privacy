@@ -1,9 +1,9 @@
 <script lang="ts">
   import { slugify } from '@utils/fetch-data';
 
-  let linkId = '';
-  let done = false;
-  let error = false;
+  let linkId = $state('');
+  let done = $state(false);
+  let error = $state(false);
 
   const save = async () => {
     const savedServices = JSON.parse(
@@ -29,16 +29,16 @@
           `https://awesome-privacy.xyz/inventory/${linkId}`,
         );
       })
-      .catch((error) => {
+      .catch((err) => {
         error = true;
-        console.error('Error:', error);
+        console.error('Error:', err);
       });
   };
 </script>
 
 <div class="share-container">
   {#if !done}
-    <button class="save-button" on:click={save}>Get Sharable Link</button>
+    <button class="save-button" onclick={save}>Get Sharable Link</button>
   {/if}
   {#if done}
     <span class="success-msg">

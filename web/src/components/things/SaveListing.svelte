@@ -3,14 +3,24 @@
   import FontAwesome from '@components/form/FontAwesome.svelte';
   import { slugify } from '@utils/fetch-data';
 
-  export let categoryName: string;
-  export let sectionName: string;
-  export let serviceName: string;
-  export let showLabel: boolean = false;
+  interface Props {
+    categoryName: string;
+    sectionName: string;
+    serviceName: string;
+    showLabel?: boolean;
+  }
+  const {
+    categoryName,
+    sectionName,
+    serviceName,
+    showLabel = false,
+  }: Props = $props();
 
-  const serviceRef = `${slugify(categoryName)}/${slugify(sectionName)}/${slugify(serviceName)}`;
+  const serviceRef = $derived(
+    `${slugify(categoryName)}/${slugify(sectionName)}/${slugify(serviceName)}`,
+  );
 
-  let isSaved = false;
+  let isSaved = $state(false);
 
   onMount(async () => {
     const stored = JSON.parse(localStorage.getItem('savedServices') || '[]');
@@ -37,7 +47,7 @@
   <button
     class={`save-container ${isSaved ? 'saved' : ''} ${showLabel ? 'label-button' : ''}`}
     title={`Save ${serviceName}`}
-    on:click={toggleSave}
+    onclick={toggleSave}
   >
     {#if showLabel}
       <span>

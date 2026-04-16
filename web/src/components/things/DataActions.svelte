@@ -9,20 +9,29 @@
 
   import type { ChangelogPr } from '../../utils/fetch-changelog';
 
-  export let categoryName: string;
-  export let sectionName: string;
-  export let serviceName: string;
-  export let history: Array<{
+  interface HistoryItem {
     date: string;
     type: 'added' | 'removed' | 'modified' | 'moved' | 'renamed';
     fields?: string[];
     from?: { category: string; section: string };
     previousName?: string;
     pr?: ChangelogPr | null;
-  }> = [];
+  }
+  interface Props {
+    categoryName: string;
+    sectionName: string;
+    serviceName: string;
+    history?: HistoryItem[];
+  }
+  const {
+    categoryName,
+    sectionName,
+    serviceName,
+    history = [],
+  }: Props = $props();
 
-  let lineNumbers: { start: number; end: number } | null = null;
-  let yamlContent = '';
+  let lineNumbers: { start: number; end: number } | null = $state(null);
+  let yamlContent = $state('');
 
   const getGitHubSrcFile = () => {
     if (lineNumbers) {

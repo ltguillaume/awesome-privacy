@@ -5,14 +5,16 @@
   import { formatLink } from '@utils/parse-markdown';
   import type { Service } from 'src/types/Service';
 
-  export let service: Service;
-  export let categoryName: string;
-  export let sectionName: string;
+  interface Props {
+    service: Service;
+    categoryName: string;
+    sectionName: string;
+  }
+  const { service, categoryName, sectionName }: Props = $props();
 
-  // Computed values based on props
-  let serviceRef = slugify(service.name);
-  let categorySlug = slugify(categoryName);
-  let sectionSlug = slugify(sectionName);
+  const serviceRef = $derived(slugify(service.name));
+  const categorySlug = $derived(slugify(categoryName));
+  const sectionSlug = $derived(slugify(sectionName));
 </script>
 
 <div class="service" id={serviceRef}>

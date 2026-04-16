@@ -7,12 +7,14 @@
   import { prepareSearchItems, searchOptions } from '@utils/do-searchy-searchy';
   import type { SearchItem } from '@utils/do-searchy-searchy';
 
-  export let data: Category[];
-  export let previousSearch: string | undefined = undefined;
+  interface Props {
+    data: Category[];
+    previousSearch?: string | undefined;
+  }
+  const { data, previousSearch = undefined }: Props = $props();
 
-  let fuse: Fuse<SearchItem>;
-  let searchQuery = '';
-  let results: SearchItem[];
+  let fuse: Fuse<SearchItem> | null = $state(null);
+  let searchQuery = $state('');
 
   // Initialize Fuse.js
   onMount(() => {
@@ -34,12 +36,12 @@
     return '';
   };
 
-  const makeLogoSrc = (logo: string, url: string) => {
+  const makeLogoSrc = (logo?: string, url?: string) => {
     if (!logo && !url) return '/broken-image.png';
-    return logo || `https://icon.horse/icon/${formatLink(url)}`;
+    return logo || `https://icon.horse/icon/${formatLink(url || '')}`;
   };
 
-  const makeTitle = (typ: string, desc: string) => {
+  const makeTitle = (typ?: string, desc?: string) => {
     if (desc && typ === 'Service') {
       return `${desc.slice(0, 60)}...`;
     }
@@ -58,15 +60,14 @@
     }
   }
 
-  // Watch for changes in the search query and update results
-  $: if (searchQuery) {
-    results = fuse
-      .search(searchQuery)
-      .map((result) => result.item)
-      .splice(0, 25);
-  } else {
-    results = [];
-  }
+  const results: SearchItem[] = $derived(
+    searchQuery && fuse
+      ? fuse
+          .search(searchQuery)
+          .map((r) => r.item)
+          .slice(0, 25)
+      : [],
+  );
 </script>
 
 <div class="search-wrap">
@@ -81,7 +82,7 @@
     placeholder={previousSearch || 'Start typing...'}
     autocomplete="off"
     bind:value={searchQuery}
-    on:keydown={handleKeyDown}
+    onkeydown={handleKeyDown}
   />
 
   {#if searchQuery.length > 0}

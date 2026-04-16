@@ -1,47 +1,26 @@
 <script lang="ts">
   import yaml from 'js-yaml';
-  import { writable } from 'svelte/store';
   import { makeAdditionRequest } from '../../utils/data-src-delete-n-edit';
 
-  // Defining writable stores for each form field
-  const listingCategory = writable('');
-  const serviceName = writable('');
-  const serviceUrl = writable('');
-  const serviceIcon = writable('');
-  const serviceDescription = writable('');
-  const serviceGithub = writable('');
-  const serviceTosdrId = writable('');
-  const serviceIosApp = writable('');
-  const serviceAndroidApp = writable('');
-  const serviceDiscordInvite = writable('');
-  const serviceSubreddit = writable('');
-  const serviceOpenSource = writable(false);
-  const serviceSecurityAudited = writable(false);
-  const serviceCrypto = writable(false);
-  const additionalInfo = writable('');
+  // Form state
+  let listingCategory = $state('');
+  let serviceName = $state('');
+  let serviceUrl = $state('');
+  let serviceIcon = $state('');
+  let serviceDescription = $state('');
+  let serviceGithub = $state('');
+  let serviceTosdrId = $state('');
+  let serviceIosApp = $state('');
+  let serviceAndroidApp = $state('');
+  let serviceDiscordInvite = $state('');
+  let serviceSubreddit = $state('');
+  let serviceOpenSource = $state(false);
+  let serviceSecurityAudited = $state(false);
+  let serviceCrypto = $state(false);
+  let additionalInfo = $state('');
 
-  let codeBlock: HTMLElement | undefined;
-  let interactiveActivated = false;
-
-  $: (yamlText, updateHighlighting());
-
-  /* eslint-disable svelte/no-dom-manipulating -- hljs requires direct DOM access for syntax highlighting */
-  function updateHighlighting() {
-    if (codeBlock) {
-      codeBlock.textContent = yamlText;
-      codeBlock.dataset.highlighted && delete codeBlock.dataset.highlighted;
-      const hljs = (
-        window as Window & {
-          hljs?: { highlightElement: (el: HTMLElement) => void };
-        }
-      ).hljs;
-      if (hljs) {
-        hljs.highlightElement(codeBlock);
-        interactiveActivated = true;
-      }
-    }
-  }
-  /* eslint-enable svelte/no-dom-manipulating */
+  let codeBlock: HTMLElement | undefined = $state();
+  let interactiveActivated = $state(false);
 
   const filterEmptyValues = (obj: Record<string, unknown>) => {
     const filteredObj: Record<string, unknown> = {};
@@ -53,49 +32,70 @@
     return filteredObj;
   };
 
-  $: yamlText = yaml.dump(
-    [
+  const yamlText = $derived(
+    yaml.dump(
+      [
+        {
+          name: serviceName,
+          url: serviceUrl,
+          icon: serviceIcon,
+          description: serviceDescription,
+          github: serviceGithub,
+          tosdrId: serviceTosdrId,
+          iosApp: serviceIosApp,
+          androidApp: serviceAndroidApp,
+          discordInvite: serviceDiscordInvite,
+          subreddit: serviceSubreddit,
+          openSource: serviceOpenSource,
+          securityAudited: serviceSecurityAudited,
+          acceptsCrypto: serviceCrypto,
+        },
+      ].map((obj) => filterEmptyValues(obj)),
+    ),
+  );
+
+  const issueUrl = $derived(
+    makeAdditionRequest(
       {
-        name: $serviceName,
-        url: $serviceUrl,
-        icon: $serviceIcon,
-        description: $serviceDescription,
-        github: $serviceGithub,
-        tosdrId: $serviceTosdrId,
-        iosApp: $serviceIosApp,
-        androidApp: $serviceAndroidApp,
-        discordInvite: $serviceDiscordInvite,
-        subreddit: $serviceSubreddit,
-        openSource: $serviceOpenSource,
-        securityAudited: $serviceSecurityAudited,
-        acceptsCrypto: $serviceCrypto,
+        listingCategory,
+        serviceName,
+        serviceUrl,
+        serviceIcon,
+        serviceDescription,
+        serviceGithub,
+        serviceTosdrId,
+        serviceIosApp,
+        serviceAndroidApp,
+        serviceDiscordInvite,
+        serviceSubreddit,
+        serviceOpenSource,
+        serviceSecurityAudited,
+        serviceCrypto,
+        additionalInfo,
       },
-    ].map((obj) => filterEmptyValues(obj)),
+      yamlText,
+    ),
   );
 
-  $: issueUrl = makeAdditionRequest(
-    {
-      listingCategory: $listingCategory,
-      serviceName: $serviceName,
-      serviceUrl: $serviceUrl,
-      serviceIcon: $serviceIcon,
-      serviceDescription: $serviceDescription,
-      serviceGithub: $serviceGithub,
-      serviceTosdrId: $serviceTosdrId,
-      serviceIosApp: $serviceIosApp,
-      serviceAndroidApp: $serviceAndroidApp,
-      serviceDiscordInvite: $serviceDiscordInvite,
-      serviceSubreddit: $serviceSubreddit,
-      serviceOpenSource: $serviceOpenSource,
-      serviceSecurityAudited: $serviceSecurityAudited,
-      serviceCrypto: $serviceCrypto,
-      additionalInfo: $additionalInfo,
-    },
-    yamlText,
-  );
+  /* eslint-disable svelte/no-dom-manipulating -- hljs requires direct DOM access for syntax highlighting */
+  $effect(() => {
+    if (!codeBlock) return;
+    codeBlock.textContent = yamlText;
+    if (codeBlock.dataset.highlighted) delete codeBlock.dataset.highlighted;
+    const hljs = (
+      window as Window & {
+        hljs?: { highlightElement: (el: HTMLElement) => void };
+      }
+    ).hljs;
+    if (hljs) {
+      hljs.highlightElement(codeBlock);
+      interactiveActivated = true;
+    }
+  });
+  /* eslint-enable svelte/no-dom-manipulating */
 
-  // Form submission handler
-  function handleSubmit() {
+  function handleSubmit(event: Event) {
+    event.preventDefault();
     window.open(issueUrl, '_blank');
   }
 </script>
@@ -121,7 +121,7 @@
   You'll need a GitHub account in order to submit this form.
 </p>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form onsubmit={handleSubmit}>
   <h3>Basics</h3>
   <p class="sub-title-description">All fields here are required.</p>
 
@@ -129,7 +129,7 @@
   <div class="form-row">
     <label for="listing-category">Category</label>
     <select
-      bind:value={$listingCategory}
+      bind:value={listingCategory}
       id="listing-category"
       required
       autocomplete="off"
@@ -161,7 +161,7 @@
     <label for="service-name">Listing Name</label>
     <input
       type="text"
-      bind:value={$serviceName}
+      bind:value={serviceName}
       id="service-name"
       required
       autocomplete="off"
@@ -174,7 +174,7 @@
     <label for="service-url">Listing URL</label>
     <input
       type="url"
-      bind:value={$serviceUrl}
+      bind:value={serviceUrl}
       id="service-url"
       required
       autocomplete="off"
@@ -189,7 +189,7 @@
     <label for="service-icon">Listing Icon</label>
     <input
       type="url"
-      bind:value={$serviceIcon}
+      bind:value={serviceIcon}
       id="service-icon"
       required
       autocomplete="off"
@@ -204,7 +204,7 @@
   <div class="form-row">
     <label for="service-description">Listing Description</label>
     <textarea
-      bind:value={$serviceDescription}
+      bind:value={serviceDescription}
       id="service-description"
       required
       autocomplete="off"
@@ -231,7 +231,7 @@
     <label for="service-github">GitHub Repository</label>
     <input
       type="text"
-      bind:value={$serviceGithub}
+      bind:value={serviceGithub}
       id="service-github"
       required
       autocomplete="off"
@@ -247,7 +247,7 @@
     <label for="service-tosdr-id">ToS;DR ID</label>
     <input
       type="number"
-      bind:value={$serviceTosdrId}
+      bind:value={serviceTosdrId}
       id="service-tosdr-id"
       autocomplete="off"
     />
@@ -264,7 +264,7 @@
     <label for="service-tosdr-id">iOS App</label>
     <input
       type="url"
-      bind:value={$serviceIosApp}
+      bind:value={serviceIosApp}
       id="service-ios-app"
       autocomplete="off"
     />
@@ -279,7 +279,7 @@
     <label for="service-tosdr-id">Android App</label>
     <input
       type="url"
-      bind:value={$serviceAndroidApp}
+      bind:value={serviceAndroidApp}
       id="service-android-app"
       autocomplete="off"
     />
@@ -294,7 +294,7 @@
     <label for="service-tosdr-id">Discord Invite</label>
     <input
       type="text"
-      bind:value={$serviceDiscordInvite}
+      bind:value={serviceDiscordInvite}
       id="service-discord-invite"
       autocomplete="off"
     />
@@ -310,7 +310,7 @@
     <label for="service-tosdr-id">Subreddit</label>
     <input
       type="text"
-      bind:value={$serviceSubreddit}
+      bind:value={serviceSubreddit}
       id="service-subreddit"
       autocomplete="off"
     />
@@ -333,7 +333,7 @@
     <label for="service-open-source">Is Open Source?</label>
     <input
       type="checkbox"
-      bind:checked={$serviceOpenSource}
+      bind:checked={serviceOpenSource}
       id="service-open-source"
     />
     <p>
@@ -347,7 +347,7 @@
     <label for="service-security-audited">Security Audited?</label>
     <input
       type="checkbox"
-      bind:checked={$serviceSecurityAudited}
+      bind:checked={serviceSecurityAudited}
       id="service-security-audited"
     />
     <p>
@@ -359,7 +359,7 @@
   <!-- Accepts Crypto Checkbox -->
   <div class="form-row">
     <label for="service-crypto">Accepts Anon Payment?</label>
-    <input type="checkbox" bind:checked={$serviceCrypto} id="service-crypto" />
+    <input type="checkbox" bind:checked={serviceCrypto} id="service-crypto" />
     <p>
       If this is a hosted and paid for service, does it accept anonymous payment
       methods, including crypto (e.g., Monero)?
@@ -385,7 +385,7 @@
         Links to relevant discussions, past issues/PRs related to this service
       </li>
     </ul>
-    <textarea bind:value={$additionalInfo} id="additional-info" rows="5"
+    <textarea bind:value={additionalInfo} id="additional-info" rows="5"
     ></textarea>
   </div>
 

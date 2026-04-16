@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { writable } from 'svelte/store';
   import type { Category, Service } from '../../types/Service';
   import { formatLink } from '@utils/parse-markdown';
   import { slugify } from '@utils/fetch-data';
@@ -9,10 +8,13 @@
     path: string;
   }
 
-  export let categories: Category[];
-  export let searchTerm: string;
+  interface Props {
+    categories: Category[];
+    searchTerm: string;
+  }
+  const { categories, searchTerm }: Props = $props();
 
-  let results = writable<ServiceResult[]>([]);
+  let results: ServiceResult[] = $state([]);
 
   const normalize = (str: string) =>
     str.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -37,18 +39,18 @@
         });
       });
     });
-    results.set(tmpResults);
+    results = tmpResults;
   });
 </script>
 
-{#if $results.length === 1}
+{#if results.length === 1}
   <h3>Top Result</h3>
 {/if}
-{#if $results.length > 1}
+{#if results.length > 1}
   <h3>Top Results</h3>
 {/if}
 <section>
-  {#each $results as service (service)}
+  {#each results as service (service)}
     <a class="service-result" href={service.path}>
       <div class="service-head">
         <img
@@ -69,9 +71,7 @@
               <p class="follow-with">({service.followWith})</p>
             {/if}
           </h4>
-          <a class="service-link" href={service.url}
-            >{formatLink(service.url)}</a
-          >
+          <span class="service-link">{formatLink(service.url)}</span>
         </div>
       </div>
     </a>

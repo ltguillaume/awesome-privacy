@@ -1,7 +1,7 @@
 <script>
   import { onMount, tick } from 'svelte';
-  let title = 'Inventory'; // Default title
-  let editing = false;
+  let title = $state('Inventory'); // Default title
+  let editing = $state(false);
 
   // Function to save the title to local storage
   function saveTitle(newTitle) {
@@ -41,16 +41,16 @@
   }
 </script>
 
-<svelte:window on:click={handleClickOutside} />
+<svelte:window onclick={handleClickOutside} />
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div>
   <h2
     contenteditable={true}
     class:editable={editing}
-    on:click={() => (editing = true)}
-    on:keydown={handleKeydown}
-    on:blur={() => saveTitle(title)}
+    onclick={() => (editing = true)}
+    onkeydown={handleKeydown}
+    onblur={() => saveTitle(title)}
     tabindex="0"
   >
     {title}

@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import NavBar from '@components/scafold/NavBar.astro';
 import Footer from '@components/scafold/Footer.astro';
 import config from '../site-config';
@@ -64,7 +64,7 @@ const makeSearchLd = () => {
 <!doctype html>
 <html lang="en" data-theme="dark">
 	<head>
-		<ViewTransitions />
+		<ClientRouter />
 
 		<!-- Core info -->
 		<title>{title}</title>

@@ -30,7 +30,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="theme-switcher" on:click={toggleTheme}>
+<div class="theme-switcher" onclick={toggleTheme}>
   <div class={`toggle ${$theme}`}>
     <span class="theme-icon">🌘</span>
     <span class="theme-icon">☀️</span>

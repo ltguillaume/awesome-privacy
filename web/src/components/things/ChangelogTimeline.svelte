@@ -7,8 +7,11 @@
   } from '../../utils/fetch-changelog';
   import { slugify } from '@utils/fetch-data';
 
-  export let entries: ChangelogEntry[] = [];
-  export let rejections: Rejection[] = [];
+  interface Props {
+    entries?: ChangelogEntry[];
+    rejections?: Rejection[];
+  }
+  const { entries = [], rejections = [] }: Props = $props();
 
   type Filter = 'added' | 'removed' | 'modified' | 'rejected';
 
@@ -19,13 +22,13 @@
     { key: 'rejected', label: 'Rejections', icon: '✕' },
   ];
 
-  let on: Record<Filter, boolean> = {
+  let on: Record<Filter, boolean> = $state({
     added: true,
     removed: true,
     modified: true,
     rejected: true,
-  };
-  let searchQuery = '';
+  });
+  let searchQuery = $state('');
 
   function toggle(key: Filter) {
     on = { ...on, [key]: !on[key] };
@@ -252,41 +255,47 @@
     ];
   }
 
-  $: allItems = [
-    ...entries.map(
-      (e): TimelineItem => ({
-        kind: 'entry',
-        date: e.date,
-        sha: e.sha,
-        pr: e.pr,
-        data: e,
-      }),
-    ),
-    ...rejections.map(
-      (r): TimelineItem => ({
-        kind: 'rejection',
-        date: r.date,
-        sha: `rej-${r.pr.number}`,
-        pr: r.pr,
-        data: r,
-      }),
-    ),
-  ].sort((a, b) => b.date.localeCompare(a.date));
-
-  $: filtered = allItems.filter(
-    (item) => matchesFilters(item, on) && matchesSearch(item, searchQuery),
+  const allItems = $derived(
+    [
+      ...entries.map(
+        (e): TimelineItem => ({
+          kind: 'entry',
+          date: e.date,
+          sha: e.sha,
+          pr: e.pr,
+          data: e,
+        }),
+      ),
+      ...rejections.map(
+        (r): TimelineItem => ({
+          kind: 'rejection',
+          date: r.date,
+          sha: `rej-${r.pr.number}`,
+          pr: r.pr,
+          data: r,
+        }),
+      ),
+    ].sort((a, b) => b.date.localeCompare(a.date)),
   );
 
-  $: grouped = filtered.reduce<Record<string, TimelineItem[]>>((acc, item) => {
-    const d = new Date(item.date + 'T00:00:00Z');
-    const key = d.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      timeZone: 'UTC',
-    });
-    (acc[key] ??= []).push(item);
-    return acc;
-  }, {});
+  const filtered = $derived(
+    allItems.filter(
+      (item) => matchesFilters(item, on) && matchesSearch(item, searchQuery),
+    ),
+  );
+
+  const grouped = $derived(
+    filtered.reduce<Record<string, TimelineItem[]>>((acc, item) => {
+      const d = new Date(item.date + 'T00:00:00Z');
+      const key = d.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        timeZone: 'UTC',
+      });
+      (acc[key] ??= []).push(item);
+      return acc;
+    }, {}),
+  );
 
   function formatDate(dateStr: string): string {
     return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', {
@@ -312,7 +321,7 @@
         <button
           class="pill {f.key}"
           class:active={on[f.key]}
-          on:click={() => toggle(f.key)}
+          onclick={() => toggle(f.key)}
         >
           <span class="icon">{f.icon}</span>{f.label}
         </button>

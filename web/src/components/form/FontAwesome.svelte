@@ -81,7 +81,7 @@
     noTrackers: solidIcons.faShieldCheck,
   };
 
-  export let iconName: string;
+  let { iconName }: { iconName: string } = $props();
 </script>
 
 {#if iconMap[iconName]}

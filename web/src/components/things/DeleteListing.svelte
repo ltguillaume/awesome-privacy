@@ -6,15 +6,18 @@
   } from '@utils/data-src-delete-n-edit';
   import { onMount } from 'svelte';
 
-  export let categoryName: string;
-  export let sectionName: string;
-  export let serviceName: string;
+  interface Props {
+    categoryName: string;
+    sectionName: string;
+    serviceName: string;
+  }
+  const { categoryName, sectionName, serviceName }: Props = $props();
 
   const apYaml =
     'https://github.com/lissy93/awesome-privacy/blob/main/awesome-privacy.yml';
 
-  let yamlContent = '';
-  let editLink = apYaml;
+  let yamlContent = $state('');
+  let editLink = $state(apYaml);
 
   onMount(async () => {
     const results = await fetchSrcData(categoryName, sectionName, serviceName);
