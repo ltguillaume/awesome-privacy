@@ -3316,11 +3316,6 @@ categories:
           Secure file sync, sharing, collaboration and backup for individuals, small businesses and sole practitioners.
           Starts at $8/month for 2 TB.
 
-      - name: pCloud
-        url: https://www.pcloud.com
-        description: |
-          Secure and simple to use cloud storage, with cross-platform client apps. £3.99/month for 500 GB.
-
       - name: Peergos
         url: https://peergos.org/
         description: |
