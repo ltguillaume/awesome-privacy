@@ -4538,13 +4538,6 @@ categories:
         followWith: Bitcoin
         github: sparrowwallet/sparrow
 
-      - name: Atomic Wallet
-        url: https://atomicwallet.io/
-        description: |
-          Atomic is an open-source desktop and mobile-based wallet, where your private keys are stored on your local device, and do not touch the internet. Atomic has a great feature set, and supports swapping, staking, and lending directly from the app. However, most of Atomic's features require an active internet connection, and Atomic does not support hardware wallets yet. Therefore, it may only be a good choice as a secondary wallet, for storing small amounts of your actively used currency.
-        followWith: All Coins
-        github: Atomicwallet/bip38
-
       - name: CryptoSteel
         url: https://cryptosteel.com/how-it-works
         description: |
