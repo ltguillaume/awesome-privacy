@@ -4817,14 +4817,6 @@ categories:
         url: https://d.tube
         tosdrId: 2798
 
-      - name: BitChute
-        description: |
-          Established in 2017, BitChute is a video hosting service that offers a platform for
-          uploaders to evade the content restrictions found on other sites like YouTube.
-        url: https://www.bitchute.com
-        icon: https://i.ibb.co/gvxXK0Z/bitchute.png
-        tosdrId: 513
-
       wordOfWarning: |
         Without moderation, some of these platforms accommodate video creators
         whose content may not be appropriate for all audiences
