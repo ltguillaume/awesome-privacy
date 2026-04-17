@@ -75,16 +75,6 @@ categories:
           It omits the need for you to ever need to store or sync your passwords. They
           have apps for all the common platforms and a CLI, but you can also self-host it.
 
-      - name: Padloc
-        url: https://padloc.app
-        github: padloc/padloc
-        androidApp: app.padloc
-        iosApp: https://apps.apple.com/us/app/padloc/id1478877043
-        description: |
-          A modern, open source password manager for individuals and teams. Beautiful,
-          intuitive and dead simple to use. Apps available for all platforms and you can
-          self-host it as well.
-
       - name: ProtonPass
         url: https://proton.me/pass
         openSource: true
