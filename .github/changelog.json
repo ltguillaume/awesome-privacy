@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T13:44:35Z",
+  "generatedAt": "2026-04-18T22:26:36Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -29,6 +29,7 @@
     "26817ef8c36183cb7589b29134531a35ce4e2beb",
     "2a32df40e389822731ec2ab5b94c00a3a500581f",
     "2b28a28b42b9606c83e43485be5f8c830167fdaa",
+    "2b84d6dfeddf3f21e26a2035c13ae4266e59b7a1",
     "2db7dbd294780e8c49ea02f0b5daa735fd137809",
     "2e1e2f81063a2a87365058fb26f8db7cf28acf8a",
     "303cc2f8a124db8a9d0a2b5562725811069ceaa5",
@@ -185,6 +186,29 @@
     504
   ],
   "entries": [
+    {
+      "date": "2026-04-18",
+      "sha": "2b84d6dfeddf3f21e26a2035c13ae4266e59b7a1",
+      "pr": {
+        "number": 508,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/508",
+        "author": "Lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Nextcloud Calendar",
+              "category": "Productivity",
+              "section": "Calendar"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-04-18",
       "sha": "7bac41fe2e60a38e22a3a723d4f0af28cfe0661d",
