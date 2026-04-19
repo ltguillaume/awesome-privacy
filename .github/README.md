@@ -68,7 +68,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Task Management](#task-management) (1)
 	- [Backup and Sync](#backup-and-sync) (4)
 	- [Cloud Productivity Suites](#cloud-productivity-suites) (5)
-	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (6)
+	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (7)
 	- [Secret Sharing](#secret-sharing) (3)
 	- [File Drop](#file-drop) (2)
 	- [Browser Sync](#browser-sync) (4)
@@ -2568,6 +2568,13 @@ It is recommended to encrypt files on your client machine, before syncing to the
 		<summary>Stats</summary>
 
 		[![Privacy Policy](https://shields.tosdr.org/en_6820.svg)](https://tosdr.org/en/service/6820) [![FileN on Awesome Privacy](https://img.shields.io/badge/View%20Report-FC60A8?style=flat&logo=awesomelists&label=FileN)](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/filen)ㅤ 
+
+		</details>
+- **[<img src='https://icon.horse/icon/koofr.eu' width='16' height='16' alt='icon' /> Koofr](https://koofr.eu)** - GDPR compliant storage (web/desktop/mobile/WebDAV/RClone) with a sensible privacy policy. Has optional open-source client-side encryption, compatible with RClone. Can connect to other cloud services a[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/koofr "View full Koofr report") 
+	- <details>
+		<summary>Stats</summary>
+
+		[![Koofr on Awesome Privacy](https://img.shields.io/badge/View%20Report-FC60A8?style=flat&logo=awesomelists&label=Koofr)](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/koofr)ㅤ 
 
 		</details>
 

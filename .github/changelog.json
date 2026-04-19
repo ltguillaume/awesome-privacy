@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T22:26:36Z",
+  "generatedAt": "2026-04-19T18:02:29Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -68,6 +68,7 @@
     "7dd8e9943c9a138710901ecf1bf4775b6167629a",
     "81ed2551032e527bf5b752df5608411f91a12150",
     "824f20bf68f046a9f9bdaaf41a36a4a7e46c2d9f",
+    "83d9c485c292abc9089bdc807f34fb5367437729",
     "874dbdacae9c71cea100c85dc2b05bd348d20173",
     "88c0cb324458962c52691a05384aab459bf740b2",
     "8c0cdf76b53040df0fe362941ca4a085d346ce8a",
@@ -186,6 +187,29 @@
     504
   ],
   "entries": [
+    {
+      "date": "2026-04-19",
+      "sha": "83d9c485c292abc9089bdc807f34fb5367437729",
+      "pr": {
+        "number": 510,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/510",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Koofr",
+              "category": "Productivity",
+              "section": "Encrypted Cloud Storage"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-04-18",
       "sha": "2b84d6dfeddf3f21e26a2035c13ae4266e59b7a1",
