@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-19T18:02:29Z",
+  "generatedAt": "2026-04-19T20:39:24Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -17,6 +17,7 @@
     "16e19a7dd35eabf58961c296d63b06b3d8a686dc",
     "18638b8c99e173576f48a4296425b70277233794",
     "18d87f28c0cd393052d21fae15e9ca492b9a4243",
+    "1a7ad45362ba7dadf46adfaf50830215712630fc",
     "1b8fb78a4673bd93282dbbd6f715871189ec9f5f",
     "1be23415958275eb6c82c3e6ccb3f16ecbb62d15",
     "1c36e4b8015e4c1152b1d51a36ba4991f3d64e10",
@@ -45,10 +46,12 @@
     "3e760b3a774e6b65f62866dc3effa5b504a4e10f",
     "4145b323ab2b8e93d05392ba12ace9ee815c27f9",
     "4155d6bcfc0d01136a323bfb841452e478be1fa6",
+    "45a87356b37a54a2d289d5018bdbcb5a56575a02",
     "463d62190462ca5dfdf71fa72234a10e6dbcdd48",
     "474de7b56c37fb9bf8991fcc3e42df91acc74049",
     "47cd53ef705bb9ae855e521bc68c0597b14f7325",
     "48b4e2c0e5c66e573b3ab3bd567bf1c614d42473",
+    "4e8479e14ff71aa50e6bc0e8199e9b6600990206",
     "538f2364d3dbab3efdce45e3797da90f09da59b0",
     "5b772f3ea6f2e480b07bb09a1b523553198fd386",
     "5ec99fe78361e422648aec2eff69375fcc3ca810",
@@ -63,12 +66,15 @@
     "6cf287d925558028acb263fbafa7eb412abfed17",
     "7177ba26e054a6f173ec451b420ee64d5fdef69b",
     "75ad504f96da49df98dc30842d820fd74c85deb0",
+    "78d83c0266281333143f9a0cb5e6d6af6439befd",
     "7a3286122e197a9b5836cfcd73fca768ccf6f50e",
     "7bac41fe2e60a38e22a3a723d4f0af28cfe0661d",
     "7dd8e9943c9a138710901ecf1bf4775b6167629a",
     "81ed2551032e527bf5b752df5608411f91a12150",
     "824f20bf68f046a9f9bdaaf41a36a4a7e46c2d9f",
     "83d9c485c292abc9089bdc807f34fb5367437729",
+    "8428fdce3364820f6e573852b30c28b9050ed83f",
+    "843a49181fb47e1800953fd8b1b5b65ff8041454",
     "874dbdacae9c71cea100c85dc2b05bd348d20173",
     "88c0cb324458962c52691a05384aab459bf740b2",
     "8c0cdf76b53040df0fe362941ca4a085d346ce8a",
@@ -105,20 +111,24 @@
     "c9c49f8cde13d978c4fbdefbb78bc4de45546492",
     "ca4702933d6234a50f654e034869ed66a1dfd043",
     "cae7b723a635c2035907db9d2cbc7f42d17f92e2",
+    "cc3a63870aa3f6e2ecc286574f1699b471c29203",
     "ccac7d7e61218b60d2c74b497ff58f42f783e9fc",
     "ccbab9def79590fa9194fcb8ffb4e6ab193cba87",
     "ccc7b43aa598acf709f8f5c77f987c2b95ec2921",
     "d027f6bf3eb4420f106b6778fa302f326a05f08c",
     "d397fc760983ced96c6d187305c0ea210ac6cece",
     "da7374ad750bd07bc42649cfdd09edd14901cc40",
+    "dd6ae4904bf653b577869e6516907db1782d5884",
     "dec42f0572b2f52fad5ccd5f52ae6f4ae0b18721",
     "df686cd77a1ff89ba9a318089d46c1585b63b572",
     "e192c0a4ae62d6d5dc4f3d163825b6b90205527a",
     "e33ee115950f0d56c764e5d0581e1d697afbb63f",
+    "e55f08c8337bf322a0b10d1b6c9827cb2bac5a64",
     "e7474c579b7e33b3c47ed76492068d914e4566f1",
     "e9b1fee82705ca9b52a9db6e081d46bc4c417f01",
     "ec4cbec4affe6d6ddcb178504e137d552af3771f",
     "ec9119761c83aeafc5cf436dc2306280212c2470",
+    "ecff3a8955b5784394db558d7c1ee93e4d6b4c8b",
     "f3adf137b0415999e4625ddc7e4ba26c2c56d4a9",
     "f3d9d9a7950d13baaae2f973600499f0d7b12e15",
     "f4332e985d4064559535b16397d9c35fdce587eb",
@@ -972,6 +982,55 @@
     },
     {
       "date": "2026-03-14",
+      "sha": "45a87356b37a54a2d289d5018bdbcb5a56575a02",
+      "pr": {
+        "number": 424,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/424",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Windscribe",
+              "category": "Networking",
+              "section": "Virtual Private Networks"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "sha": "ecff3a8955b5784394db558d7c1ee93e4d6b4c8b",
+      "pr": {
+        "number": 425,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/425",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "modified": [
+            {
+              "name": "Mullvad",
+              "category": "Networking",
+              "section": "Virtual Private Networks",
+              "fields": [
+                "url"
+              ]
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-03-14",
       "sha": "bc2f085c6329b3e60b29017a40c5413b494679e8",
       "pr": {
         "number": 303,
@@ -1159,6 +1218,78 @@
               "fields": [
                 "url"
               ]
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "sha": "8428fdce3364820f6e573852b30c28b9050ed83f",
+      "pr": {
+        "number": 374,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/374",
+        "author": "ccleberg",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/156287552?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Bitwarden Authenticator",
+              "category": "Essentials",
+              "section": "2-Factor Authentication"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "sha": "cc3a63870aa3f6e2ecc286574f1699b471c29203",
+      "pr": {
+        "number": 376,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/376",
+        "author": "suprunchuk",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/57152612?v=4"
+      },
+      "changes": {
+        "services": {
+          "modified": [
+            {
+              "name": "Firefox",
+              "category": "Essentials",
+              "section": "Browsers",
+              "fields": [
+                "url"
+              ]
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "sha": "e55f08c8337bf322a0b10d1b6c9827cb2bac5a64",
+      "pr": {
+        "number": 389,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/389",
+        "author": "Bd-Mutant7",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/182138871?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "FFmpeg",
+              "category": "Media",
+              "section": "File Converters"
             }
           ]
         },
@@ -2281,6 +2412,29 @@
               "category": "Creativity",
               "section": "Animation"
             },
+            {
+              "name": "Gladys Assistant",
+              "category": "Smart Home & IoT",
+              "section": "Smart Home"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2024-03-27",
+      "sha": "4e8479e14ff71aa50e6bc0e8199e9b6600990206",
+      "pr": {
+        "number": 224,
+        "url": "https://github.com/Lissy93/awesome-privacy/pull/224",
+        "author": "cicoub13",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1773153?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
             {
               "name": "Gladys Assistant",
               "category": "Smart Home & IoT",
