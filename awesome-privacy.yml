@@ -3321,6 +3321,13 @@ categories:
           Zero knowledge end-to-end encrypted affordable cloud storage made in Germany. Open-source mobile and desktop apps.
           10GB FREE with paid plans starting at €0.92/month for 100GB.
 
+      - name: Koofr
+        url: https://koofr.eu
+        description: |
+          GDPR compliant storage (web/desktop/mobile/WebDAV/RClone) with a sensible privacy policy.
+          Has optional open-source client-side encryption, compatible with RClone. Can connect to other cloud services
+          and MS Office. 10GB free, on ISO27001 servers (DE).
+
       notableMentions: |
         An alternative option, is to use a cloud computing provider, and implement
         the syncing functionality yourself, and encrypt data locally before
