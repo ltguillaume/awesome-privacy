@@ -636,23 +636,6 @@ categories:
           [recommended](https://twitter.com/Snowden/status/661313394906161152)
           by Edward Snowden, and is a perfect solution for most users.
 
-      - name: Session
-        url: https://getsession.org
-        icon: https://getsession.org/favicon.ico
-        openSource: true
-        tosdrId: 3015
-        github: oxen-io/lokinet
-        subreddit: Session_Messenger
-        androidApp: network.loki.messenger
-        iosApp: https://apps.apple.com/us/app/session-private-messenger/id1470168868
-        description: |
-          Session is a fork of Signal, however unlike Signal it does not require a mobile
-          number (or any other personal data) to register, instead each user is identified
-          by a public key. It is also decentralized, with servers being run by the community
-          though [Loki Net](https://loki.network), messages are encrypted and routed through
-          several of these nodes. All communications are E2E encrypted, and there is no
-          meta data.
-
       - name: SimpleX
         url: https://simplex.chat/
         openSource: true
@@ -1321,9 +1304,8 @@ categories:
       notableMentions: >
         Some chat platforms allow for cross-platform group chats, voice and video
         conferencing, but without the additional collaboration features.
-        For example, [Tox](https://tox.chat/), [Session](https://getsession.org/),
-        [Ricochet](https://ricochet.im/), [Mumble](https://www.mumble.info/)
-        and [Jami](https://jami.net/).<br>
+        For example, [Tox](https://tox.chat/), [Ricochet](https://ricochet.im/),
+        [Mumble](https://www.mumble.info/) and [Jami](https://jami.net/).<br>
         For Conferences, [OSEM](https://osem.io) is an open source all-in-one
         conference management tool, providing Registration, Schedules, Live and
         Recorded Sessions, Paper Submissions, Marketing Pages and Administration.
