@@ -1,5 +1,5 @@
 ---
-import { formatLink } from '@utils/parse-markdown';
+import { formatLink, codebergUrl } from '@utils/parse-markdown';
 import type { Service } from 'src/types/Service';
 import FontAwesome from '@components/form/FontAwesome.svelte';
 import SaveListing from '@components/things/SaveListing.svelte';
@@ -51,6 +51,20 @@ const { service, sectionName, categoryName } = Astro.props;
 			service.github && (
 				<a class="link" href={`https://github.com/${service.github}`}>
 					<FontAwesome iconName="sourceCode" /> GitHub
+				</a>
+			)
+		}
+		{
+			service.codeberg && (
+				<a class="link" href={codebergUrl(service.codeberg)}>
+					<FontAwesome iconName="sourceCode" /> Codeberg
+				</a>
+			)
+		}
+		{
+			service.git && (
+				<a class="link" href={service.git}>
+					<FontAwesome iconName="sourceCode" /> Source
 				</a>
 			)
 		}

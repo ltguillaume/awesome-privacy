@@ -32,7 +32,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Browsers](#browsers) (5)
 	- [Search Engines](#search-engines) (6)
 - **Communication**
-	- [Encrypted Messaging](#encrypted-messaging) (5)
+	- [Encrypted Messaging](#encrypted-messaging) (4)
 	- [P2P Messaging](#p2p-messaging) (4)
 	- [Encrypted Email](#encrypted-email) (5)
 	- [Email Clients](#email-clients) (6)
@@ -42,7 +42,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Virtual Phone Numbers](#virtual-phone-numbers) (8)
 	- [Team Collaboration](#team-collaboration) (5)
 - **Security Tools**
-	- [Browser Extensions](#browser-extensions) (24)
+	- [Browser Extensions](#browser-extensions) (19)
 	- [Mobile Apps](#mobile-apps) (23)
 	- [Online Tools](#online-tools) (17)
 - **Networking**
@@ -68,11 +68,12 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Task Management](#task-management) (1)
 	- [Backup and Sync](#backup-and-sync) (4)
 	- [Cloud Productivity Suites](#cloud-productivity-suites) (5)
-	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (7)
+	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (6)
 	- [Secret Sharing](#secret-sharing) (3)
 	- [File Drop](#file-drop) (2)
 	- [Browser Sync](#browser-sync) (4)
 	- [Secure Conference Calls](#secure-conference-calls) (2)
+	- [Maps & Navigation](#maps--navigation) (1)
 - **Utilities**
 	- [Virtual Machines](#virtual-machines) (3)
 	- [PGP Managers](#pgp-managers) (8)
@@ -87,6 +88,9 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Anti-Malware](#anti-malware) (2)
 - **Development**
 	- [Code Hosting](#code-hosting) (5)
+	- [IDEs](#ides) (1)
+- **Developer Utilities**
+	- [Developer Tools](#developer-tools) (1)
 - **Smart Home & IoT**
 	- [Smart Home](#smart-home) (1)
 - **Finance**
@@ -103,7 +107,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [News Readers](#news-readers) (1)
 	- [Proxy Sites](#proxy-sites) (4)
 - **Media**
-	- [File Converters](#file-converters) (1)
+	- [File Converters](#file-converters) (2)
 - **Creativity**
 	- [Image Editors](#image-editors) (8)
 	- [Video Editors](#video-editors) (7)
@@ -183,7 +187,6 @@ corporations, governments, and hackers from logging, storing or selling your per
 
 > Where possible, choose a cross-platform and well established encryption method, so that you are never faced with not being able to access your files using your current system.<br> Although well-established encryption methods are usually very secure, if the password is not strong, then an adversary may be able to gain access to your files, with a powerful enough GPU. If your system is compromised, then the password may also be able to be skimmed with a keylogger or other similar malware, so take care to follow good basic security practices
 
-
 </details>
 
 <details>
@@ -202,25 +205,29 @@ that makes a good alternative to BitLocker.
 
 ### Browsers
 
-- **[<img src='https://librewolf.net/icon.svg' width='14' alt='' /> LibreWolf](https://librewolf.net)** - LibreWolf is an independent fork of Firefox that aims to provide better default settings to improve on privacy, security and user freedom. Mozilla telemetry is disabled, ties with Google (Safe Browsin[…](https://awesome-privacy.xyz/essentials/browsers/librewolf "View full LibreWolf report") 
-- **[<img src='https://brave.com/static-assets/images/brave-logo-sans-text.svg' width='14' alt='' /> Brave Browser](https://brave.com)** - Brave Browser, currently one of the most popular private browsers - it provides speed, security, and privacy by blocking trackers with a clean, yet fully-featured UI. It also pays you in [BAT tokens](https://basicattentiontoken.org/) fo[…](https://awesome-privacy.xyz/essentials/browsers/brave-browser "View full Brave Browser report") 
-- **[<img src='https://www.mozilla.org/media/protocol/img/logos/firefox/logo.fedb52c912d6.svg' width='14' alt='' /> Firefox](https://www.firefox.com/)** - Significantly more private, and offers some nifty privacy features than Chrome, Internet Explorer and Safari. After installing, there are a couple of small tweaks you will need to make, in order to se[…](https://awesome-privacy.xyz/essentials/browsers/firefox "View full Firefox report") 
-- **[<img src='https://www.torproject.org/static/images/favicon/favicon.ico' width='14' alt='' /> Tor Browser](https://www.torproject.org/)** - Tor provides an extra layer of anonymity, by encrypting each of your requests, then routing it through several nodes, making it near-impossible for you to be tracked by your ISP/ provider. It does mak[…](https://awesome-privacy.xyz/essentials/browsers/tor-browser "View full Tor Browser report") 
-- **[<img src='https://camo.githubusercontent.com/fc003f5ff33669908e7b929692fdbb8d10ec7df5ffa5e02e4d9becf405dd7804/68747470733a2f2f7777772e63726f6d6974652e6f72672f6170705f69636f6e2e706e67' width='14' alt='' /> Cromite](https://www.cromite.org/)** - Cromite is a Chromium fork based on Bromite with built-in support for ad blocking and an eye for privacy. 
+- **[<img src='https://librewolf.net/icon.svg' width='14' alt='' /> LibreWolf](https://librewolf.net)** - An independent fork of Firefox hardened for privacy by default. No telemetry, uBlock Origin bundled, anti-fingerprinting, strict settings 
+- **[<img src='https://brave.com/static-assets/images/brave-logo-sans-text.svg' width='14' alt='' /> Brave Browser](https://brave.com)** - Chromium-based browser with strong built-in ad, tracker and fingerprint blocking, and timely Chromium security updates. Note that Brave does bundle potentially unwanted features, like crypto, rewards[…](https://awesome-privacy.xyz/essentials/browsers/brave-browser "View full Brave Browser report") 
+- **[<img src='https://www.mozilla.org/media/protocol/img/logos/firefox/logo.fedb52c912d6.svg' width='14' alt='' /> Firefox](https://www.firefox.com/)** - The main independent browser, on Mozilla's own Gecko engine rather than Chromium. Reliable, long-standing, with frequent security updates, broad extension support and strong customization. However tel[…](https://awesome-privacy.xyz/essentials/browsers/firefox "View full Firefox report") 
+- **[<img src='https://www.torproject.org/static/images/favicon/favicon.ico' width='14' alt='' /> Tor Browser](https://www.torproject.org/)** - Tor provides an extra layer of anonymity, by encrypting each of your requests, then routing it through several nodes, making it near-impossible for you to be tracked by your ISP. While excellent for a[…](https://awesome-privacy.xyz/essentials/browsers/tor-browser "View full Tor Browser report") 
+- **[<img src='https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/mullvad-browser.png' width='14' alt='' /> Mullvad Browser](https://mullvad.net/browser)** - A Firefox-based browser maintained in collaboration between the Tor Project and Mullvad. With strong anti-fingerprinting (so users look alike), no telemetry and uBlock Origin bundled 
 
 <details>
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > New vulnerabilities are being discovered and patched all the time - use a browser that is being actively maintained, in order to receive these security-critical updates.<br> Even privacy-respecting browsers, often do not have the best privacy options enabled by default. After installing, check the privacy & security settings, and update the configuration to something that you are comfortable with. 12Bytes maintains a comprehensive guide on [Firefox Configuration for Privacy and Performance](https://codeberg.org/12bytes/firefox-config-guide)
 
-
 </details>
 
 <details>
 <summary>✳️ <b>Notable Mentions</b></summary>
 
-> **Mobile Browsers**: [Firefox Focus](https://support.mozilla.org/en-US/kb/focus) (Android/ iOS), [DuckDuckGo Browser](https://help.duckduckgo.com/duckduckgo-help-pages/mobile/ios/) (Android/ iOS), [Orbot](https://guardianproject.info/apps/orbot/) + [Tor](https://www.torproject.org/download/#android) (Android), [Onion Browser](https://onionbrowser.com/) (iOS)<br><br> **Additional Desktop**: [Nyxt](https://nyxt.atlas.engineer/), [WaterFox](https://www.waterfox.net), [Epic Privacy Browser](https://www.epicbrowser.com), [PaleMoon](https://www.palemoon.org), [Iridium](https://iridiumbrowser.de/), [Sea Monkey](https://www.seamonkey-project.org/), [Ungoogled-Chromium](https://github.com/Eloston/ungoogled-chromium), [Basilisk Browser](https://www.basilisk-browser.org/) and [IceCat](https://www.gnu.org/software/gnuzilla/) 12Bytes also maintains a list privacy & security [extensions](https://12bytes.org/articles/tech/firefox/firefox-extensions-my-picks/)
-> </details>
+> - [Cromite](https://www.cromite.org/) - Chromium fork and successor of Bromite. Adds built-in ad and tracker blocking, removes Google service calls, and disables several fingerprinting vectors. Note that patches often lag several weeks behind upstream> - [WaterFox](https://www.waterfox.net) - Firefox fork with telemetry, studies and data collection removed. The legacy Classic line retains support for XUL/NPAPI extensions; the current Quantum-based release does not.> - [PaleMoon](https://www.palemoon.org) - Independent Firefox-derived browser using its own Goanna engine. Disables telemetry and retains support for legacy XUL extensions. Lagging support for modern web-platform features (e.g. CSP) has led to incidents of Cloudflare blocking the browser.> - [Iridium](https://iridiumbrowser.de/) - Chromium fork with telemetry, background pings and most Google service integrations stripped out or made opt-in.> - [SeaMonkey](https://www.seamonkey-project.org/) - All-in-one internet suite (browser, mail, IRC, HTML editor) derived from the Mozilla Application Suite. Receives security fixes but lags upstream Firefox on features.> - [Ungoogled-Chromium](https://github.com/ungoogled-software/ungoogled-chromium) - Chromium with all Google web service integrations, binary blobs and background calls removed. Tries to retain the default Chromium experience as closely as possible. No built-in auto-updates; relies on third-party rebuilds for security patches.> - [Basilisk Browser](https://www.basilisk-browser.org/) - Firefox/UXP-based fork originally created by Moonchild Productions and independently maintained since 2022. Retains NPAPI plugin and XUL extension support dropped by mainline Firefox.> - [IceCat](https://www.gnu.org/software/gnuzilla/) - GNU's fully-free Firefox fork. Removes proprietary components such as DRM and EME, and bundles LibreJS to block non-free JavaScript. Tracks Firefox ESR, but release cadence lags upstream and can delay security fixes.</details>
+
+<details>
+<summary>ℹ️ <b>Further Info</b></summary>
+
+> 12Bytes maintains a list of privacy & security [extensions](https://12bytes.org/articles/tech/firefox/firefox-extensions-my-picks/).
+</details>
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
@@ -252,7 +259,6 @@ that makes a good alternative to BitLocker.
 ### Encrypted Messaging
 
 - **[<img src='https://signal.org/assets/images/favicon/android-chrome-192x192.png' width='14' alt='' /> Signal](https://signal.org)** - Probably one of the most popular, secure private messaging apps that combines strong encryption (see [Signal Protocol](https://en.wikipedia.org/wiki/Signal_Protocol)) with a simple UI and plenty of features. It's widely used across the world, and ea[…](https://awesome-privacy.xyz/communication/encrypted-messaging/signal "View full Signal report") 
-- **[<img src='https://getsession.org/favicon.ico' width='14' alt='' /> Session](https://getsession.org)** - Session is a fork of Signal, however unlike Signal it does not require a mobile number (or any other personal data) to register, instead each user is identified by a public key. It is also decentraliz[…](https://awesome-privacy.xyz/communication/encrypted-messaging/session "View full Session report") 
 - **[<img src='https://simplex.chat/img/new/logo-symbol-light.svg' width='14' alt='' /> SimpleX](https://simplex.chat/)** - Simplex is gaining popularity as a secure and private messaging app renowned for its robust encryption protocol without user IDs or phone numbers and this improves your privacy. Simplex offers instant[…](https://awesome-privacy.xyz/communication/encrypted-messaging/simplex "View full SimpleX report") 
 - **[<img src='https://xmpp.org/apple-touch-icon.png' width='14' alt='' /> XMPP](https://xmpp.org)** - XMPP, also known as Jabber, is an open standard for decentralized messaging that has been widely used for decades. It has actually been the basis upon which WhatsApp, Facebook's Chat and Google's Talk[…](https://awesome-privacy.xyz/communication/encrypted-messaging/xmpp "View full XMPP report") 
 - **[<img src='https://matrix.org/assets/favicon.ico' width='14' alt='' /> Matrix](https://matrix.org)** - Matrix is a decentralized open network for secure communications, with E2E encryption with Olm and Megolm. Along with the [Element](https://element.io/) client, it supports VOIP + video calling and IM + group chats. Since M[…](https://awesome-privacy.xyz/communication/encrypted-messaging/matrix "View full Matrix report") 
@@ -261,7 +267,6 @@ that makes a good alternative to BitLocker.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Many messaging apps claim to be secure, but if they are not open source, then this cannot be verified - and they **should not be trusted**. This applies to [Telegram](https://telegram.org), [Threema](https://threema.ch), [Cypher](https://www.goldenfrog.com/cyphr), [Wickr](https://wickr.com/), [Silent Phone](https://www.silentcircle.com/products-and-solutions/silent-phone/) and [Viber](https://www.viber.com/), to name a few - these apps should not be used to communicate any sensitive data. [Wire](https://wire.com/) has also been removed, due to a [recent acquisition](https://blog.privacytools.io/delisting-wire/)
-
 
 </details>
 
@@ -312,12 +317,11 @@ Email is not secure - your messages can be easily intercepted and read. Corporat
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > - When using an end-to-end encryption technology like OpenPGP, some metadata
-in the email header will not be encrypted.
-- OpenPGP also does not support Forward secrecy, which means if either
-your or the recipient's private key is ever stolen, all previous messages
-encrypted with it will be exposed. You should take great care to keep your
-private keys safe.
-
+> in the email header will not be encrypted.
+> - OpenPGP also does not support Forward secrecy, which means if either
+> your or the recipient's private key is ever stolen, all previous messages
+> encrypted with it will be exposed. You should take great care to keep your
+> private keys safe.
 
 </details>
 
@@ -350,7 +354,6 @@ Email clients are the programs used to interact with the mail server. For hosted
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > One disadvantage of mail clients, is that many of them do not support 2FA, so it is important to keep your device secured and encrypted
-
 
 </details>
 
@@ -431,7 +434,7 @@ Now more than ever we are relying on software to help with team collaboration. U
 <details>
 <summary>✳️ <b>Notable Mentions</b></summary>
 
-> Some chat platforms allow for cross-platform group chats, voice and video conferencing, but without the additional collaboration features. For example, [Tox](https://tox.chat/), [Session](https://getsession.org/), [Ricochet](https://ricochet.im/), [Mumble](https://www.mumble.info/) and [Jami](https://jami.net/).<br> For Conferences, [OSEM](https://osem.io) is an open source all-in-one conference management tool, providing Registration, Schedules, Live and Recorded Sessions, Paper Submissions, Marketing Pages and Administration.
+> Some chat platforms allow for cross-platform group chats, voice and video conferencing, but without the additional collaboration features. For example, [Tox](https://tox.chat/), [Ricochet](https://ricochet.im/), [Mumble](https://www.mumble.info/) and [Jami](https://jami.net/).<br> For Conferences, [OSEM](https://osem.io) is an open source all-in-one conference management tool, providing Registration, Schedules, Live and Recorded Sessions, Paper Submissions, Marketing Pages and Administration.
 > </details>
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
@@ -446,38 +449,32 @@ The following browser add-ons give you better control over what content is able 
 
 - **[<img src='https://i.ibb.co/8Y1ds5X/privacy-badger.png' width='14' alt='' /> Privacy Badger](https://privacybadger.org/)** - Blocks invisible trackers, in order to stop advertisers and other third-parties from secretly tracking where you go and what pages you look at. **Download**: [Chrome](https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp) - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/privacy-badger "View full Privacy Badger report") 
 - **[<img src='https://raw.githubusercontent.com/gorhill/uBlock/master/src/img/ublock.svg' width='14' alt='' /> uBlock Origin](https://ublockorigin.com)** - Block ads, trackers and malware sites. **Download**: [Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en-GB) - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/ublock-origin "View full uBlock Origin report") 
-- **[<img src='https://lh3.googleusercontent.com/c5co_NoLmEt48VC_yVp0JgKcgd83yiq_CdekGaOlBBfD5WII5mjxngERgikcQd4P56uoX9epiknU5ktXadPqj2EEVsE' width='14' alt='' /> ScriptSafe](https://www.andryou.com/scriptsafe)** - Allows you to block the execution of certain scripts. **Download**: [Chrome](https://chromewebstore.google.com/detail/scriptsafe/oiigbmnaadbkfbmpbfijlflahbdbdgdf) - [Opera](https://addons.opera.com/en/extensions/details/scriptsafe-2/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/scriptsafe "View full ScriptSafe report") 
 - **[<img src='https://addons.mozilla.org/user-media/addon_icons/782/782160-64.png' width='14' alt='' /> Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)** - Firefox Multi-Account Containers lets you keep parts of your online life separated into color-coded tabs that preserve your privacy. Cookies are separated by container, allowing you to use the web wit[…](https://awesome-privacy.xyz/security-tools/browser-extensions/firefox-multi-account-containers "View full Firefox Multi-Account Containers report") 
 - **[<img src='https://lh3.googleusercontent.com/n4XZC3SfmhMnrIwR1256Cmx5d51OaJImxBtJqaTQnNuWD7xqAgGI2LmAXQk6O1CffLzFNSiTqIO-ZxMCJIGTuKcG=s60' width='14' alt='' /> WebRTC-Leak-Prevent](https://diafygi.github.io/webrtc-ips)** - Provides user control over WebRTC privacy settings in Chromium, in order to prevent WebRTC leaks. **Download**: [Chrome](https://chrome.google.com/webstore/detail/webrtc-leak-prevent/eiadekoaikejlgdbkbdfeijglgfdalml?hl=en-GB). For Firefox users, you can do this through [browser settings](https://www.privacytools.io/browsers/#webrtc). Test for WebRTC leaks,[…](https://awesome-privacy.xyz/security-tools/browser-extensions/webrtc-leak-prevent "View full WebRTC-Leak-Prevent report") 
 - **[<img src='https://cdn.webextension.org/icons/canvas-fingerprint-blocker128.png' width='14' alt='' /> Canvas Fingerprint Blocker](https://add0n.com/canvas-fingerprint-blocker.html)** - Block fingerprint without removing access to HTML5 Canvas element. Canvas fingerprinting is commonly used for tracking, this extension helps to mitigate this through disallowing the browser to generat[…](https://awesome-privacy.xyz/security-tools/browser-extensions/canvas-fingerprint-blocker "View full Canvas Fingerprint Blocker report") 
 - **[<img src='https://addons.mozilla.org/user-media/addon_icons/839/839767-64.png' width='14' alt='' /> ClearURLs](https://gitlab.com/KevinRoebert/ClearUrls)** - This extension will automatically remove tracking elements from the GET parameters of URLs to help protect some privacy **Download**: [Chrome](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk) - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/clearurls/) / [Source](https://gitlab.com/KevinRoebert/ClearUrls)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/clearurls "View full ClearURLs report") 
-- **[<img src='https://www.mike-gualtieri.com/favicon.ico' width='14' alt='' /> CSS Exfil Protection](https://www.mike-gualtieri.com/css-exfil-vulnerability-tester)** - Sanitizes and blocks any CSS rules which may be designed to steal data, in order to guard against Exfil attacks **Download**: [Chrome](https://chrome.google.com/webstore/detail/css-exfil-protection/ibeemfhcbbikonfajhamlkdgedmekifo) - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/css-exfil-protection/) - [Source](https://github.com/mlgualtieri/CSS-Exfil-Protection)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/css-exfil-protection "View full CSS Exfil Protection report") 
-- **[<img src='https://addons.mozilla.org/user-media/addon_icons/865/865865-64.png?modified=1520892249' width='14' alt='' /> First Party Isolation](https://github.com/mozfreddyb/webext-firstpartyisolation)** - Enables the First Party isolation preference (Clicking the Fishbowl icon temporarily disables it) **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/first-party-isolation/) 
 - **[<img src='https://addons.mozilla.org/user-media/addon_icons/1012/1012731-64.png?modified=e97aa3af' width='14' alt='' /> Privacy-Oriented Origin Policy](https://claustromaniac.github.io/poop)** - Prevent Firefox from sending Origin headers when they are least likely to be necessary, to protect your privacy **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/privacy-oriented-origin-policy/) - [Source](https://github.com/claustromaniac/poop)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/privacy-oriented-origin-policy "View full Privacy-Oriented Origin Policy report") 
 - **[<img src='https://codeberg.org/repo-avatars/5014-6cc14ee9c85003bda3adb1d71762c306' width='14' alt='' /> LocalCDN](https://www.localcdn.org/)** - Emulates remote frameworks (e.g. jQuery, Bootstrap, Angular) and delivers them as local resource. Prevents unnecessary 3rd party requests to tracking CDNs **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/localcdn-fork-of-decentraleyes/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/localcdn "View full LocalCDN report") 
 - **[<img src='https://addons.mozilla.org/user-media/addon_icons/521/521554-64.png' width='14' alt='' /> Decentraleyes](https://decentraleyes.org)** - Similar to LocalCDN, Serves up local versions of common scripts instead of calling to 3rd-party CDN. Improves privacy and load times. Works out-of-the-box and plays nicely with regular content blocker[…](https://awesome-privacy.xyz/security-tools/browser-extensions/decentraleyes "View full Decentraleyes report") 
 - **[<img src='https://avatars.githubusercontent.com/u/342708' width='14' alt='' /> Privacy Essentials](https://duckduckgo.com/app)** - Simple extension by DuckDuckGo, which grades the security of each site. **Download**: [Chrome](https://chrome.google.com/webstore/detail/duckduckgo-privacy-essent/bkdgflcldnnnapblkhphbgpggdiikppg?hl=en-GB) \ [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/duckduckgo-for-firefox/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/privacy-essentials "View full Privacy Essentials report") 
-- **[<img src='https://lh3.googleusercontent.com/pC5a_u12RlaLQhJ-5Jz87rtju2s0tCksUfZHvr3JYzAaiYZJfJapmuftodT7wuAedFOHtgxR2BGh_GmKijgiK5bJyA' width='14' alt='' /> Privacy Redirect](https://github.com/SimonBrazell/privacy-redirect)** - A simple web extension that redirects Twitter, YouTube, Instagram & Google Maps requests to privacy friendly alternatives **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/privacy-redirect/) - [Chrome](https://chrome.google.com/webstore/detail/privacy-redirect/pmcmeagblkinmogikoikkdjiligflglb)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/privacy-redirect "View full Privacy Redirect report") 
 - **[<img src='https://i.ibb.co/hyb1SGK/useragent-switcher128.png' width='14' alt='' /> User Agent Switcher](https://add0n.com/useragent-switcher.html)** - Spoofs browser's User-Agent string, making it appear that you are on a different device, browser and version to what you are actually using. This alone does very little for privacy, but combined with[…](https://awesome-privacy.xyz/security-tools/browser-extensions/user-agent-switcher "View full User Agent Switcher report") 
 - **[<img src='https://privacyspy.org/static/img/favicon-32x32.png' width='14' alt='' /> PrivacySpy](https://privacyspy.org)** - The companion extension for PrivacySpy.org - an open project that rates, annotates, and archives privacy policies. The extension shows a score for the privacy policy of the current website. **Download**:[…](https://awesome-privacy.xyz/security-tools/browser-extensions/privacyspy "View full PrivacySpy report") 
-- **[<img src='https://addons.mozilla.org/user-media/addon_icons/1018/1018256-64.png?modified=9b273331' width='14' alt='' /> HTTPZ](https://github.com/claustromaniac/httpz)** - Simplified HTTPS upgrades for Firefox (lightweight alternative to HTTPS-Everywhere) **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/httpz/) 
 - **[<img src='https://addons.mozilla.org/user-media/addon_icons/642/642100-64.png?modified=1597226821' width='14' alt='' /> Skip Redirect](https://github.com/sblask/webextension-skip-redirect)** - Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/skip-redirect/)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/skip-redirect "View full Skip Redirect report") 
 - **[<img src='https://i.imgur.com/H9zwf8l.png' width='14' alt='' /> Web Archives](https://github.com/dessant/web-archives)** - View archived and cached versions of web pages on 10+ search engines, such as the Wayback Machine, Archive.is, Google etc Useful for checking legitimacy of websites, and viewing change logs **Download**:[…](https://awesome-privacy.xyz/security-tools/browser-extensions/web-archives "View full Web Archives report") 
 - **[<img src='https://flagfox.files.wordpress.com/2014/02/flagfoxlogowithname1.png' width='14' alt='' /> Flagfox](https://flagfox.wordpress.com/)** - Displays a country flag depicting the location of the current website's server, which can be useful to know at a glance. Click icon for more tools such as site safety checks, whois, validation etc **Download**[…](https://awesome-privacy.xyz/security-tools/browser-extensions/flagfox "View full Flagfox report") 
-- **[<img src='https://static.wixstatic.com/media/654565_824403a4d02548d783f8ca81f9e6bf48~mv2.png/v1/fill/w_268,h_264,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo_Button_TMN.png' width='14' alt='' /> Track Me Not](http://trackmenot.io)** - Helps protect web searchers from surveillance and data-profiling, through creating meaningless noise and obfuscation, outlined in their [whitepaper](http://trackmenot.io/resources/trackmenot2009.pdf). Controversial whether or not this is a good approach[…](https://awesome-privacy.xyz/security-tools/browser-extensions/track-me-not "View full Track Me Not report") 
 - **[<img src='https://amiunique.org/favicon.ico' width='14' alt='' /> AmIUnique Timeline](https://amiunique.org/timeline)** - Enables you to better understand the evolution of browser fingerprints (which is what websites use to uniquely identify and track you). **Download**: [Chrome](https://chrome.google.com/webstore/detail/amiunique/pigjfndpomdldkmoaiiigpbncemhjeca) - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/amiunique)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/amiunique-timeline "View full AmIUnique Timeline report") 
 - **[<img src='https://lh3.googleusercontent.com/c78SvSl7OD2thLmgX5irlo1tvxGVtkziKTKmp7VByjvvrw2czkP2cFbbRASmopQBV9-PpNBD_NOqt8WIC4JVc0WB3A=s60' width='14' alt='' /> Netcraft Extension](https://www.netcraft.com/apps/browser)** - Notifies you when visiting a known or potential phishing site, and detects suspicious JavaScript (including skimmers and miners). Also provides a simple rating for a given site's legitimacy and securi[…](https://awesome-privacy.xyz/security-tools/browser-extensions/netcraft-extension "View full Netcraft Extension report") 
 - **[<img src='https://icon.horse/icon/linguister.io' width='14' alt='' /> Linguist](https://linguister.io)** - Linguist is a privacy‑focused translation solution in-browser that has an embedded offline translator and lets users create [custom translators](https://linguister.io/docs/CustomTranslator) to use any translation API, even if it's locally deployed[…](https://awesome-privacy.xyz/security-tools/browser-extensions/linguist "View full Linguist report") 
+- **[<img src='https://raw.githubusercontent.com/libredirect/browser_extension/refs/heads/master/src/assets/images/libredirect.svg' width='14' alt='' /> LibRedirect](https://libredirect.github.io)** - A browser extension that redirects popular sites to alternative privacy friendly frontends **Download**: [Firefox](https://addons.mozilla.org/firefox/addon/libredirect/) - [Chrome](https://libredirect.github.io/download_chromium.html)[…](https://awesome-privacy.xyz/security-tools/browser-extensions/libredirect "View full LibRedirect report") 
 
 <details>
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > - Having many extensions installed raises entropy, causing your fingerprint to be more unique, hence making tracking easier.
-- Much of the functionality of the above addons can be applied without installing anything, by configuring browser settings yourself. For Firefox this is done in the user.js
-- Be careful when installing unfamiliar browser add-ons, since some can compromise your security and privacy. At the time of writing, the above list were all open source, verified and 'safe' extensions.
-- In most situations, only a few of the above extensions will be needed in combination.
-- See the [arkenfox wiki](https://github.com/arkenfox/user.js/wiki/4.1-Extensions) for more information on the obsolescence and purposelessness of many popular extensions, and why you may only need a very limited set.
-
+> - Much of the functionality of the above addons can be applied without installing anything, by configuring browser settings yourself. For Firefox this is done in the user.js
+> - Be careful when installing unfamiliar browser add-ons, since some can compromise your security and privacy. At the time of writing, the above list were all open source, verified and 'safe' extensions.
+> - In most situations, only a few of the above extensions will be needed in combination.
+> - See the [arkenfox wiki](https://github.com/arkenfox/user.js/wiki/4.1-Extensions) for more information on the obsolescence and purposelessness of many popular extensions, and why you may only need a very limited set.
 
 </details>
 
@@ -521,9 +518,8 @@ The following browser add-ons give you better control over what content is able 
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Too many installed apps will increase your attack surface - only install applications that you need.
-Be sure to check the permissions, and what data an app has access to prior to installation.
-Only install from official sources.
-
+> Be sure to check the permissions, and what data an app has access to prior to installation.
+> Only install from official sources.
 
 </details>
 
@@ -580,7 +576,6 @@ A selection of free online tools and utilities, to check, test and protect your 
 
 > Browsers are inherently insecure, be careful when uploading, or entering personal details.
 
-
 </details>
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
@@ -603,12 +598,11 @@ A selection of free online tools and utilities, to check, test and protect your 
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > - *A VPN does not make you anonymous - it merely changes your public IP address to that of your VPN provider, instead of your ISP. Your browsing session can still be linked back to your real identity either through your system details (such as user agent, screen resolution even typing patterns), cookies / session storage, or by the identifiable data that you enter. [Read more about fingerprinting](https://pixelprivacy.com/resources/browser-fingerprinting/)*
-- *Logging - If you choose to use a VPN because you do not agree with your ISP logging your full browsing history, then it is important to keep in mind that your VPN provider can see (and mess with) all your traffic. Many VPNs claim not to keep logs, but you cannot be certain of this ([VPN leaks](https://vpnleaks.com/)). See [this article](https://gist.github.com/joepie91/5a9909939e6ce7d09e29) for more*
-- *IP Leaks - If configured incorrectly, your IP may be exposed through a DNS leak. This usually happens when your system is unknowingly accessing default DNS servers rather than the anonymous DNS servers assigned by an anonymity network or VPN. Read more: [What is a DNS leak](https://www.dnsleaktest.com/what-is-a-dns-leak.html), [DNS Leak Test](https://www.dnsleaktest.com), [How to Fix a DNS Leak](https://www.dnsleaktest.com/how-to-fix-a-dns-leak.html)*
-- *Stealth - It will be visible to your adversary that you are using a VPN (usually from the IP address), but other system and browser data, can still reveal information about you and your device (such as your local time-zone, indicating which region you are operating from)*
-- *Many reviews are sponsored, and hence biased. Do your own research, or go with one of the above options*
-- *Using [Tor](https://www.torproject.org) (or another [Mix Network](/5_Privacy_Respecting_Software.md#mix-networks)) may be a better option for anonimity*
-
+> - *Logging - If you choose to use a VPN because you do not agree with your ISP logging your full browsing history, then it is important to keep in mind that your VPN provider can see (and mess with) all your traffic. Many VPNs claim not to keep logs, but you cannot be certain of this ([VPN leaks](https://vpnleaks.com/)). See [this article](https://gist.github.com/joepie91/5a9909939e6ce7d09e29) for more*
+> - *IP Leaks - If configured incorrectly, your IP may be exposed through a DNS leak. This usually happens when your system is unknowingly accessing default DNS servers rather than the anonymous DNS servers assigned by an anonymity network or VPN. Read more: [What is a DNS leak](https://www.dnsleaktest.com/what-is-a-dns-leak.html), [DNS Leak Test](https://www.dnsleaktest.com), [How to Fix a DNS Leak](https://www.dnsleaktest.com/how-to-fix-a-dns-leak.html)*
+> - *Stealth - It will be visible to your adversary that you are using a VPN (usually from the IP address), but other system and browser data, can still reveal information about you and your device (such as your local time-zone, indicating which region you are operating from)*
+> - *Many reviews are sponsored, and hence biased. Do your own research, or go with one of the above options*
+> - *Using [Tor](https://www.torproject.org) (or another [Mix Network](/5_Privacy_Respecting_Software.md#mix-networks)) may be a better option for anonimity*
 
 </details>
 
@@ -660,21 +654,20 @@ Fun little projects that you can run on a Raspberry Pi, or other low-powered com
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > To provide low-latency browsing, Tor does not mix packets or generate cover traffic.
-If an adversary is powerful enough, theoretically they could either observe the entire network,
-or just the victims entry and exit nodes. It's worth mentioning, that even though your ISP
-can not see what you are doing, they will be able determine that you are using a mix net,
-to hide this - a VPN could be used as well.
-If you are doing anything which could put you at risk, then good OpSec is essential,
-as the authorities have traced criminals through the Tor network before,
-and [made arrests](https://techcrunch.com/2019/05/03/how-german-and-us-authorities-took-down-the-owners-of-darknet-drug-emporium-wall-street-market).
-Don't let Tor provide you a false sense of security - be aware of information leaks through DNS, other programs or human error.
-Tor-supported browsers may might lag behind their upstream forks, and include exploitable unpatched issues.
-See [#19](https://github.com/Lissy93/personal-security-checklist/issues/19)
-
-Note: The Tor network is run by the community.
-If you benefit from using it and would like to help sustain uncensored internet access for all,
-consider [running a Tor relay](https://trac.torproject.org/projects/tor/wiki/TorRelayGuide)
-
+> If an adversary is powerful enough, theoretically they could either observe the entire network,
+> or just the victims entry and exit nodes. It's worth mentioning, that even though your ISP
+> can not see what you are doing, they will be able determine that you are using a mix net,
+> to hide this - a VPN could be used as well.
+> If you are doing anything which could put you at risk, then good OpSec is essential,
+> as the authorities have traced criminals through the Tor network before,
+> and [made arrests](https://techcrunch.com/2019/05/03/how-german-and-us-authorities-took-down-the-owners-of-darknet-drug-emporium-wall-street-market).
+> Don't let Tor provide you a false sense of security - be aware of information leaks through DNS, other programs or human error.
+> Tor-supported browsers may might lag behind their upstream forks, and include exploitable unpatched issues.
+> See [#19](https://github.com/Lissy93/personal-security-checklist/issues/19)
+>
+> Note: The Tor network is run by the community.
+> If you benefit from using it and would like to help sustain uncensored internet access for all,
+> consider [running a Tor relay](https://trac.torproject.org/projects/tor/wiki/TorRelayGuide)
 
 </details>
 
@@ -714,10 +707,9 @@ provide shared network connections and cache data to speed up common requests.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > [Malicious Proxies](https://www.defcon.org/images/defcon-17/dc-17-presentations/defcon-17-edward_zaborowski-doppelganger.pdf) are all too common.
-Always use open source software, host it yourself or pay for a reputable cloud service.
-Never use a free proxy; it can monitor your connection, steal cookies and contain malware.
-VPNs are a better option, better still - use the Tor network.
-
+> Always use open source software, host it yourself or pay for a reputable cloud service.
+> Never use a free proxy; it can monitor your connection, steal cookies and contain malware.
+> VPNs are a better option, better still - use the Tor network.
 
 </details>
 
@@ -747,10 +739,9 @@ a service that respects privacy and supports DNS-over-TLS, DNS-over-HTTPS or DNS
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Using an encrypted DNS resolver will not make you anonymous, it just makes
-it harder for third-partied to discover your domain history.
-If you are using a VPN, take a [DNS leak test](https://www.dnsleaktest.com/),
-to ensure that some requests are not being exposed.
-
+> it harder for third-partied to discover your domain history.
+> If you are using a VPN, take a [DNS leak test](https://www.dnsleaktest.com/),
+> to ensure that some requests are not being exposed.
 
 </details>
 
@@ -822,17 +813,16 @@ can access which IPs.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > There are different [types](https://www.networkstraining.com/different-types-of-firewalls)
-of firewalls, that are used in different circumstances.
-This does not omit the need to configure your operating systems defences.
-Follow these instructions to enable your firewall in
-[Windows](https://support.microsoft.com/en-us/help/4028544/windows-10-turn-windows-defender-firewall-on-or-off),
-[Mac OS](https://support.apple.com/en-us/HT201642), [Ubuntu](https://wiki.ubuntu.com/UncomplicatedFirewall)
-and other [Linux distros](https://www.tecmint.com/start-stop-disable-enable-firewalld-iptables-firewall).
-
-Even when properly configured, having a firewall enabled does not guarantee
-bad network traffic can not get through and especially during boot if you
-don't have root privileges.
-
+> of firewalls, that are used in different circumstances.
+> This does not omit the need to configure your operating systems defences.
+> Follow these instructions to enable your firewall in
+> [Windows](https://support.microsoft.com/en-us/help/4028544/windows-10-turn-windows-defender-firewall-on-or-off),
+> [Mac OS](https://support.apple.com/en-us/HT201642), [Ubuntu](https://wiki.ubuntu.com/UncomplicatedFirewall)
+> and other [Linux distros](https://www.tecmint.com/start-stop-disable-enable-firewalld-iptables-firewall).
+>
+> Even when properly configured, having a firewall enabled does not guarantee
+> bad network traffic can not get through and especially during boot if you
+> don't have root privileges.
 
 </details>
 
@@ -901,11 +891,10 @@ control over security, privacy and performance
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Flashing custom firmware may void your warranty.
-If power is interrupted mid-way through a firmware install/ upgrade it
-is possible for your device to become bricked. So long as you follow a
-guide, and use a well supported system, on a supported router, than it
-should be safe
-
+> If power is interrupted mid-way through a firmware install/ upgrade it
+> is possible for your device to become bricked. So long as you follow a
+> guide, and use a well supported system, on a supported router, than it
+> should be safe
 
 </details>
 
@@ -970,11 +959,10 @@ important.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > The country that your data is hosted in, will be subject to local laws and regulations.
-It is therefore important to avoid a jurisdiction that is part of the
-[5 eyes](https://en.wikipedia.org/wiki/Five_Eyes) (Australia, Canada, New Zealand, US and UK)
-and [other international cooperatives](https://en.wikipedia.org/wiki/Five_Eyes#Other_international_cooperatives)
-who have legal right to view your data.
-
+> It is therefore important to avoid a jurisdiction that is part of the
+> [5 eyes](https://en.wikipedia.org/wiki/Five_Eyes) (Australia, Canada, New Zealand, US and UK)
+> and [other international cooperatives](https://en.wikipedia.org/wiki/Five_Eyes#Other_international_cooperatives)
+> who have legal right to view your data.
 
 </details>
 
@@ -1020,8 +1008,7 @@ who have legal right to view your data.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Self-hosting your own mail server is not recommended for everyone, it can
-be time consuming to setup and maintain and securing it correctly is critical
-
+> be time consuming to setup and maintain and securing it correctly is critical
 
 </details>
 
@@ -1094,10 +1081,9 @@ be time consuming to setup and maintain and securing it correctly is critical
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > You should always ensure that any data stored in the cloud is encrypted.
-If you are hosting your own server, then take the necessary precautions
-to [secure the server](https://med.stanford.edu/irt/security/servers.html).
-For hosted solutions - use a strong password, keep your credentials safe and enable 2FA.
-
+> If you are hosting your own server, then take the necessary precautions
+> to [secure the server](https://med.stanford.edu/irt/security/servers.html).
+> For hosted solutions - use a strong password, keep your credentials safe and enable 2FA.
 
 </details>
 
@@ -1145,7 +1131,6 @@ It is recommended to encrypt files on your client machine, before syncing to the
 
 - **[<img src='https://icon.horse/icon/tresorit.com' width='14' alt='' /> Tresorit](https://tresorit.com)** - End-to-end encrypted zero knowledge file storage, syncing and sharing provider, based in Switzerland. The app is cross-platform, user-friendly client and with all expected features. £6.49/month for 50[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/tresorit "View full Tresorit report") 
 - **[<img src='https://icon.horse/icon/icedrive.net' width='14' alt='' /> IceDrive](https://icedrive.net)** - Very affordable encrypted storage provider, with cross-platform apps. Starts as £1.50/month for 150 GB or £3.33/month for 1 TB. 
-- **[<img src='https://icon.horse/icon/www.sync.com' width='14' alt='' /> Sync.com](https://www.sync.com)** - Secure file sync, sharing, collaboration and backup for individuals, small businesses and sole practitioners. Starts at $8/month for 2 TB. 
 - **[<img src='https://icon.horse/icon/peergos.org' width='14' alt='' /> Peergos](https://peergos.org/)** - A peer-to-peer end-to-end encrypted global filesystem with fine grained access control. Provides a secure and private space online where you can store, share and view your photos, videos, music and do[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/peergos "View full Peergos report") 
 - **[<img src='https://internxt.com/favicon.ico' width='14' alt='' /> Internxt](https://internxt.com/)** - Store your files in total privacy. Internxt Drive is a zero-knowledge cloud storage service based on best-in-class privacy and security. Made in Spain. Open-source mobile and desktop apps. 10GB FREE a[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/internxt "View full Internxt report") 
 - **[<img src='https://icon.horse/icon/filen.io' width='14' alt='' /> FileN](https://filen.io/)** - Zero knowledge end-to-end encrypted affordable cloud storage made in Germany. Open-source mobile and desktop apps. 10GB FREE with paid plans starting at €0.92/month for 100GB. 
@@ -1254,6 +1239,18 @@ security + privacy required in your situation.
 > and provides high-quality video streaming, multi-user whiteboards,
 > breakout rooms, and instant chat.
 > </details>
+
+<p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
+
+---
+
+### Maps & Navigation
+
+Mainstream mapping apps log your location history, search queries and routes,
+building a detailed picture of where you live, work and travel. A privacy-respecting
+maps app keeps navigation on your device, works offline, and collects nothing about you.
+
+- **[<img src='https://www.comaps.app/favicon.ico' width='14' alt='' /> CoMaps](https://www.comaps.app)** - Community-led, not-for-profit offline maps and navigation app built on OpenStreetMap data. No tracking, ads or data collection; all search and routing happen on-device. A community fork of Organic Map[…](https://awesome-privacy.xyz/productivity/maps-and-navigation/comaps "View full CoMaps report") 
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
@@ -1421,12 +1418,11 @@ is an open source, usually Google-free mobile OS that can be flashed to your dev
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > It is not recommended to root, or flash your device with a custom ROM if you are not an advanced user.
-There are risks involved
-- Although the above ROMs omit Google, they do open up other security issues: Without DM-verity on the system partition, the file system *could* be tampered with, and no verified boot stack, the kernel/initramfs also *could* be edited. You should understand the risks, before proceeding to flash a custom ROM to your device
-- You will need to rely on updates from the community, which could be slower to be released - this may be an issue for a time-urgent, security-critical patch
-- It is also possible to brick your device, through interrupted install or bad software
-- Finally, rooting and flashing your device, will void your warranty
-
+> There are risks involved
+> - Although the above ROMs omit Google, they do open up other security issues: Without DM-verity on the system partition, the file system *could* be tampered with, and no verified boot stack, the kernel/initramfs also *could* be edited. You should understand the risks, before proceeding to flash a custom ROM to your device
+> - You will need to rely on updates from the community, which could be slower to be released - this may be an issue for a time-urgent, security-critical patch
+> - It is also possible to brick your device, through interrupted install or bad software
+> - Finally, rooting and flashing your device, will void your warranty
 
 </details>
 
@@ -1613,16 +1609,15 @@ See: [Windows 10 security guide](https://heimdalsecurity.com/en/windows-10-secur
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > (The above software was last tested on 01/05/20).
-Many of the above tools are not necessary or suitable for beginners,
-and can cause your system to break - only use software that you need,
-according to your threat model. Take care to only download from an
-official/ legitimate source, verify the executable before proceeding,
-and check reviews/ forums.
-Create a system restore point, before making any significant changes to
-your OS (such as disabling core features).
-
-From a security and privacy perspective, Linux may be a better option.
-
+> Many of the above tools are not necessary or suitable for beginners,
+> and can cause your system to break - only use software that you need,
+> according to your threat model. Take care to only download from an
+> official/ legitimate source, verify the executable before proceeding,
+> and check reviews/ forums.
+> Create a system restore point, before making any significant changes to
+> your OS (such as disabling core features).
+>
+> From a security and privacy perspective, Linux may be a better option.
 
 </details>
 
@@ -1659,18 +1654,17 @@ Cross-platform, open source malware detection and virus prevention tools
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > For Microsoft Windows, Windows Defender provides totally adequate virus
-protection in most cases. These tools are intended for single-use in
-detecting/ removing threats on an infected machine, and are not recommended
-to be left running in the background, use portable editions where available.
-
-Many anti virus products have a history of introducing vulnerabilities themselves,
-and several of them seriously degrade the performance of your computer, as well as
-decrease your privacy. Never use a free anti-virus, and never trust the companies
-that offer free solutions, even if you pay for the premium package.
-This includes (but not limited to) Avast, AVG, McAfee and Kasperky.
-For AV to be effective, it needs intermate access to all areas of your PC,
-so it is important to go with a trusted vendor, and monitor its activity closely.
-
+> protection in most cases. These tools are intended for single-use in
+> detecting/ removing threats on an infected machine, and are not recommended
+> to be left running in the background, use portable editions where available.
+>
+> Many anti virus products have a history of introducing vulnerabilities themselves,
+> and several of them seriously degrade the performance of your computer, as well as
+> decrease your privacy. Never use a free anti-virus, and never trust the companies
+> that offer free solutions, even if you pay for the premium package.
+> This includes (but not limited to) Avast, AVG, McAfee and Kasperky.
+> For AV to be effective, it needs intermate access to all areas of your PC,
+> so it is important to go with a trusted vendor, and monitor its activity closely.
 
 </details>
 
@@ -1701,7 +1695,8 @@ so it is important to go with a trusted vendor, and monitor its activity closely
 
 ### IDEs
 
-<p  align="center"><b>⚠️ This section is still a work in progress ⚠️</b><br /><i>Check back soon, or help us complete it by submitting a pull request</i></p>
+- **[<img src='https://avatars.githubusercontent.com/u/40327449?s=200&v=4' width='14' alt='' /> VSCodium](https://vscodium.com/)** - Free and open source binaries of VS Code, built without Microsoft branding and with community-driven defaults. Extension compatibility can differ from Microsoft's official VS Code build. 
+
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
 ---
@@ -1713,9 +1708,12 @@ so it is important to go with a trusted vendor, and monitor its activity closely
 
 ---
 
-### Developer Utilities
+## Developer Utilities
 
-<p  align="center"><b>⚠️ This section is still a work in progress ⚠️</b><br /><i>Check back soon, or help us complete it by submitting a pull request</i></p>
+### Developer Tools
+
+- **[<img src='https://devtoys.app/favicon.ico' width='14' alt='' /> DevToys](https://devtoys.app/)** - Open-source offline toolbox for developers, with utilities for JSON, YAML, hashes, JWTs, Base64, text comparison and more. Useful alternative to pasting sensitive data into random online tools. 
+
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
 ---
@@ -1738,9 +1736,8 @@ human voice interface while also protecting your privacy and security
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > If you are building your own assistant, you may want to consider a hardware-switch
-for disabling the microphone. Keep tabs on issues and check the code, to ensure
-you are happy with how it works, from a privacy perspective.
-
+> for disabling the microphone. Keep tabs on issues and check the code, to ensure
+> you are happy with how it works, from a privacy perspective.
 
 </details>
 
@@ -1790,22 +1787,21 @@ you are happy with how it works, from a privacy perspective.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Not all cryptocurrencies are anonymous, and without using a privacy-focused coin,
-a record of your transaction will live on a publicly available distributed ledger, forever.
-If you send of receive multiple payments, ensure you switch up addresses or use a mixer,
-to make it harder for anyone trying to trace your transactions.
-Cryptocurrencies that allow private and public transactions may reveal meta
-data about your transactions and balances when funds are moving from
-private to public addresses which can compromise your privacy with methods
-similar to a knapsack problem.
-
-Always store private keys somewhere safe, but offline
-
-Note: Cryptocurrency prices can go down. Storing any wealth in crypto may result in losses.
-If you are new to digital currencies - do your research first, don't invest more than you can afford to loose,
-and be very weary crypto-related scams are very common. as is and cryptocurrency-related malware.
-
-**This is NOT financial advice**
-
+> a record of your transaction will live on a publicly available distributed ledger, forever.
+> If you send of receive multiple payments, ensure you switch up addresses or use a mixer,
+> to make it harder for anyone trying to trace your transactions.
+> Cryptocurrencies that allow private and public transactions may reveal meta
+> data about your transactions and balances when funds are moving from
+> private to public addresses which can compromise your privacy with methods
+> similar to a knapsack problem.
+>
+> Always store private keys somewhere safe, but offline
+>
+> Note: Cryptocurrency prices can go down. Storing any wealth in crypto may result in losses.
+> If you are new to digital currencies - do your research first, don't invest more than you can afford to loose,
+> and be very weary crypto-related scams are very common. as is and cryptocurrency-related malware.
+>
+> **This is NOT financial advice**
 
 </details>
 
@@ -1847,11 +1843,10 @@ be physically tracked (CCTV, phone location, card payments etc)
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Avoid using any online/ hot-wallet, as you will have no control over
-the security of your private keys.
-
-Offline paper wallets are very secure, but ensure you store it
-properly - to keep it safe from theft, loss or damage.
-
+> the security of your private keys.
+>
+> Offline paper wallets are very secure, but ensure you store it
+> properly - to keep it safe from theft, loss or damage.
 
 </details>
 
@@ -1924,11 +1919,10 @@ Not all services are available in all countries.
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Note that credit card providers heavily track transaction metadata, which build
-up a detailed picture of each persons spending habits. This is done both to
-provide improved fraud alerts, but also because the data is extremely valuable
-and is often 'anonymized' and sold to 3rd parties. Hence your privacy is degraded
-if these cards are used for daily transactions
-
+> up a detailed picture of each persons spending habits. This is done both to
+> provide improved fraud alerts, but also because the data is extremely valuable
+> and is often 'anonymized' and sold to 3rd parties. Hence your privacy is degraded
+> if these cards are used for daily transactions
 
 </details>
 
@@ -2028,8 +2022,7 @@ so should be avoided, but if you choose to keep using them see
 <summary>⚠️ <b>Word of Warning</b></summary>
 
 > Without moderation, some of these platforms accommodate video creators
-whose content may not be appropriate for all audiences
-
+> whose content may not be appropriate for all audiences
 
 </details>
 
@@ -2115,7 +2108,6 @@ or tracking (unless otherwise stated).
 
 > When proxies are involved - only use reputable services, and **never** enter any personal information
 
-
 </details>
 
 <details>
@@ -2199,6 +2191,7 @@ TikTok, and more.*
 ### File Converters
 
 - **[<img src='https://ffmpeg.org/favicon.ico' width='14' alt='' /> FFmpeg](https://ffmpeg.org/)** - A complete, cross-platform solution to record, convert, and stream audio and video. It's the industry standard multimedia framework, handling a vast range of formats. As a command-line tool, it guaran[…](https://awesome-privacy.xyz/media/file-converters/ffmpeg "View full FFmpeg report") 
+- **[<img src='https://vert.sh/lettermark.jpg' width='14' alt='' /> VERT](https://vert.sh)** - Web-based file conversion utility, which runs locally on your device using WebAssembly. Supports 250+ formats across images, audio, documents, and video. 
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 

@@ -130,6 +130,8 @@ classDiagram
         +description: string
         +url: string
         +github: string?
+        +codeberg: string?
+        +git: string?
         +icon: string?
         +followWith: string?
         +securityAudited: boolean?
@@ -155,26 +157,26 @@ At a high-level, the file exports an array of categories, each containing a `nam
 categories:
   - name: Essentials
     sections: []
-- name: Communication
+  - name: Communication
     sections: []
- - name: Security Tools
+  - name: Security Tools
     sections: []
 ```
 
 Each category contains a `name` an array of `sections` (like sub-categories)
 
 ```yaml
- - name: Communication
-   sections:
-   - name: Encrypted Messaging
-     services: []
-   - name: P2P Messaging
-     intro: ...
-     services: []
-   - name: Encrypted Email
-     services: []
-   - name: Email Clients
-     services: []
+  - name: Communication
+    sections:
+      - name: Encrypted Messaging
+        services: []
+      - name: P2P Messaging
+        intro: ...
+        services: []
+      - name: Encrypted Email
+        services: []
+      - name: Email Clients
+        services: []
 ```
 
 And within each section, we find a list of `services`, each containing a listing. For example:
@@ -213,6 +215,9 @@ Each service (aka an app/website/software) has the following fields:
 | `url`             | The fully qualified domain name of the listing's homepage                                                    | `string` | Required |
 | `icon`            | A path to an icon file for the listing's logo. Must be square, no less than 64x64 and no larger than 512x512 pixels | `string` | Required |
 | `github`          | The GitHub repository hosting the listing's source code. In the format of `[owner]/[repo]`                   | `string` | Optional |
+| `codeberg`        | The Codeberg repository hosting the listing's source code. In the format of `[owner]/[repo]`                 | `string` | Optional |
+| `git`             | Full URL to the listing's source repository on any other git host (GitLab, Gitea, self-hosted, etc.)         | `string` | Optional |
+| `followWith`      | Short text shown in parentheses after the listing's name, e.g. its platform, if not cross-platform           | `string` | Optional |
 | `securityAudited` | Has the listing been audited by an accredited security researcher, with the report publicly published?       | `bool`   | Optional |
 | `acceptsCrypto`   | If payment is required/accepted, do they accept anonymous payments using cryptocurrency, such as Monero?     | `bool`   | Optional |
 | `openSource`      | Is the source code in its entirety published somewhere accessible so it can be built-from-source or self-hosted? | `bool`   | Optional |
@@ -266,9 +271,11 @@ Below is the full list of checks - it's basically the same as what is listed in 
 	- 🟡 **Duplicate name** - Service name must not already exist
 	- 🟡 **Duplicate URL** - Service URL must not already exist
 	- 🟡 **Description length** - Should be 50–250 characters
-	- 🟡 **Open source + GitHub** - If marked open source, must include `github` field
+	- 🟡 **Open source + repo** - If marked open source, must include a `github`, `codeberg` or `git` field
 - **Project Health**
 	- 🟡 **Links reachable** - Service URL and icon must not return 404
+	- 🟡 **Repo exists** - The linked GitHub repository must not return a 404
+	- 🟡 **New account** - Flags PRs from very recently created GitHub accounts
 	- 🟡 **Author disclosure** - If PR author owns the repo, they should disclose it
 	- 🟡 **Not inactive** - Repo should have a push within the last 90 days
 	- 🟡 **Minimum age** - Repo should be ≥4 months old
@@ -278,13 +285,13 @@ Below is the full list of checks - it's basically the same as what is listed in 
 	- 🟡 **Not archived** - Repo must not be archived
 	- 🟡 **No security alerts** - No open critical/high Dependabot alerts
 	- 🟡 **Minimum stars** - Repo should have ≥100 stars
-	- 🟡 **Spam detection** - Flags if user opened ≥5 PRs to other awesome-* repos in 24h
+	- 🟡 **Spam detection** - Flags if the author opened ≥3 PRs to other awesome-* repos, or PRs across ≥7 distinct repos, in the last 2 days
 - **Addition Info** (fyi only, no pass/fail requirements or warnings)
-	- 🔵 **Website check** (if has `website`) - Quickly checks for basic security requirements for website
-	- 🔵 **Source check**  (if has `github`) - Brief audit of core GitHub metrics from submitted the repo
-	- 🔵 **Android check**  (if has `android`) - Lists the trackers, permissions and stats for the Android app
-	- 🔵 **iOS check**  (if has `ios`) - Shows average rating, and app stats from the Apple App Store
-	- 🔵 **Privacy Policy check**  (if has `tosdr`) - Outputs the privacy score from ToS;DR and links to policy
+	- 🔵 **Website check** (if has `url`) - Quickly checks for basic security requirements for website
+	- 🔵 **Source check**  (if has `github`) - Brief audit of core GitHub metrics from the submitted repo
+	- 🔵 **Android check**  (if has `androidApp`) - Lists the trackers, permissions and stats for the Android app
+	- 🔵 **iOS check**  (if has `iosApp`) - Shows average rating, and app stats from the Apple App Store
+	- 🔵 **Privacy Policy check**  (if has `tosdrId`) - Outputs the privacy score from ToS;DR and links to policy
  
 </details>
 

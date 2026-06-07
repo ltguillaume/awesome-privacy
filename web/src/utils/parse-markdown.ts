@@ -44,3 +44,7 @@ export const formatLink = (link: string) => {
     .replace(/^(https?:\/\/)?(www\.)?/, '')
     .replace(/\/+$/, '');
 };
+
+// Resolve a `codeberg` field (either `owner/repo` shorthand or a full URL) to a full URL.
+export const codebergUrl = (codeberg: string) =>
+  /^https?:\/\//.test(codeberg) ? codeberg : `https://codeberg.org/${codeberg}`;

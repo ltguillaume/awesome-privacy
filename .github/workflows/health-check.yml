@@ -12,6 +12,8 @@ on:
       service:
         description: Just run for a specific entry (optional)
         type: string
+  schedule:
+    - cron: '0 17 * * 5'  # Weekly drift check. 5PM on a Friday, in time for weekend updates
 
 permissions:
   contents: read

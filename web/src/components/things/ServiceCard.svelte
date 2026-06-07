@@ -2,7 +2,7 @@
   import FontAwesome from '@components/form/FontAwesome.svelte';
   import SaveListing from '@components/things/SaveListing.svelte';
   import { slugify } from '@utils/fetch-data';
-  import { formatLink } from '@utils/parse-markdown';
+  import { formatLink, codebergUrl } from '@utils/parse-markdown';
   import type { Service } from 'src/types/Service';
 
   interface Props {
@@ -68,6 +68,26 @@
         rel="noopener noreferrer"
       >
         <FontAwesome iconName="sourceCode" /> GitHub
+      </a>
+    {/if}
+    {#if service.codeberg}
+      <a
+        class="link"
+        href={codebergUrl(service.codeberg)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FontAwesome iconName="sourceCode" /> Codeberg
+      </a>
+    {/if}
+    {#if service.git}
+      <a
+        class="link"
+        href={service.git}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FontAwesome iconName="sourceCode" /> Source
       </a>
     {/if}
     <a href={`/${categorySlug}/${sectionSlug}/${serviceRef}`}>

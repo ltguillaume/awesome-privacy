@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T16:18:09Z",
+  "generatedAt": "2026-06-06T10:27:37Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -41,11 +41,13 @@
     "37a568f94afd5a677598f080186f10e202108678",
     "38441ff44cb085ce70667b79460e90fac4f847a6",
     "39fd929067cb8e48c12314e88ec42436fd30e024",
+    "3a0f205ebce011cbe436e71e3181cf7c2d3bf809",
     "3a462d6d2f792b391753a9b66cffa5e42dd68c55",
     "3c768cfd34bb4a75c740815874dfb99b31233fa7",
     "3e760b3a774e6b65f62866dc3effa5b504a4e10f",
     "4145b323ab2b8e93d05392ba12ace9ee815c27f9",
     "4155d6bcfc0d01136a323bfb841452e478be1fa6",
+    "41e72fe5b4c16c5ffced9d3b85e8ddb7c2011f5e",
     "4313ea5f7d58117889174d4d02f64127fa670dc9",
     "4396c163483fe7aaecb54e719ee5f3df690e146b",
     "45a87356b37a54a2d289d5018bdbcb5a56575a02",
@@ -57,9 +59,11 @@
     "4e8479e14ff71aa50e6bc0e8199e9b6600990206",
     "538f2364d3dbab3efdce45e3797da90f09da59b0",
     "5691025a10fbd8ad69962ba3b881ba73ddb6b3ba",
+    "575cf351328e99ed153241489782f1b231bdb896",
     "5b772f3ea6f2e480b07bb09a1b523553198fd386",
     "5ec99fe78361e422648aec2eff69375fcc3ca810",
     "5f84c75e9a52780eca896e9cbce656698412a372",
+    "604c93a2383beb8819caec46aee394ef310274af",
     "60f4dbb1d011f460385c7fe29b92bf0d122cd615",
     "61204318c73bb25efae3567bf64e55522b69cc47",
     "615fc63dbbcfc19a5fb911d893c2bc40ad33ab69",
@@ -67,31 +71,39 @@
     "690d3e40da8b0ef98b93ba5bf066dc88a84027cb",
     "698e818f03fda883ec55a630bd9380d7cf214bb8",
     "69f6a2755a08caaa814201be36c9a809961b7f78",
+    "6a34ef6b931861667da7d6227c1be8f48d26facc",
     "6cf287d925558028acb263fbafa7eb412abfed17",
+    "6d21892e771f8ca4a64b772e211b32db166626a6",
     "7177ba26e054a6f173ec451b420ee64d5fdef69b",
     "75ad504f96da49df98dc30842d820fd74c85deb0",
+    "77a0e3eb620e1324b194d619d44cb6f4b6b17006",
     "78d83c0266281333143f9a0cb5e6d6af6439befd",
     "7a3286122e197a9b5836cfcd73fca768ccf6f50e",
     "7bac41fe2e60a38e22a3a723d4f0af28cfe0661d",
     "7dd8e9943c9a138710901ecf1bf4775b6167629a",
     "81ed2551032e527bf5b752df5608411f91a12150",
     "824f20bf68f046a9f9bdaaf41a36a4a7e46c2d9f",
+    "8341f87fd48fbd92947238502e48a871000ef4c5",
     "83d9c485c292abc9089bdc807f34fb5367437729",
     "8428fdce3364820f6e573852b30c28b9050ed83f",
     "843a49181fb47e1800953fd8b1b5b65ff8041454",
     "874dbdacae9c71cea100c85dc2b05bd348d20173",
+    "88bc6299bfbaf786e134238c45ac4d9a6aa7de24",
     "88c0cb324458962c52691a05384aab459bf740b2",
     "8950c0b79c0fc336f579002466dcc2f8eaad43ea",
     "8c0cdf76b53040df0fe362941ca4a085d346ce8a",
     "8ee48cc161dd204f6eea70e8988ad3d4eb17e0c7",
     "90d8ef9b928ed9abb25b3c2480717e6174451488",
     "9138eddcdec8ede666db70bc44d98b33c9f9653e",
+    "923301401b6f5d19ea9bb2c4fb9360eff10a257a",
+    "9554aea077ef26edde7570d6ba0cdbdd83bc0535",
     "97087e9763354540028fc571aca552a83464cc1d",
     "99cf5f51acf1b8ac09558bf419abe18586233668",
     "9ad78e8af115f4c8115083d956da93d12a1a03f2",
     "9bada64f52e3504fb7470ccecbbb5a2b2bf545f7",
     "9bfe4992518d16b7877f13a4a3c6902b013670a1",
     "9d1bc2480ddd364c385f6ad6d9e0722202fe6205",
+    "9d6dcf7f92c91b4a035a1e97761fbe5ec02e403f",
     "9ef9e90d30804239482c9a6e2903fd015b1224c4",
     "a2cef5cbf9e19acbf192c97b59bb82e06a7f3a2a",
     "a539b1dd64eba2d9f68f3a63c4f2b170fc31fcef",
@@ -112,7 +124,9 @@
     "bbafb2908e2189ef959ebc5fa8ccfab91402f62f",
     "bc2f085c6329b3e60b29017a40c5413b494679e8",
     "bc99ed2b8704c26e3165320efe62dd863521b26e",
+    "bcc2a64a33c0bb4a07a4faa37288c324d0153bd7",
     "bd021a41c3c5858c0474bb407ad406d5c4664aaa",
+    "c34654569457ae084fbde06c77d2b80c55aba43a",
     "c58dec4d6fc4226b3365df168b68baefc02e12ac",
     "c867fd7423f3e4b8e455b435018be8fc3bd6c99a",
     "c9c49f8cde13d978c4fbdefbb78bc4de45546492",
@@ -127,6 +141,7 @@
     "d835706239a1a20d3cd98d511a82038823dbef9e",
     "da7374ad750bd07bc42649cfdd09edd14901cc40",
     "dbb44f56681d9456e5808737b8c3873c0c7e8af5",
+    "dc6bd7c8a78f3a9a054aa77327b040adf1ced610",
     "dd6ae4904bf653b577869e6516907db1782d5884",
     "dec42f0572b2f52fad5ccd5f52ae6f4ae0b18721",
     "df686cd77a1ff89ba9a318089d46c1585b63b572",
@@ -138,11 +153,13 @@
     "ec4cbec4affe6d6ddcb178504e137d552af3771f",
     "ec9119761c83aeafc5cf436dc2306280212c2470",
     "ecff3a8955b5784394db558d7c1ee93e4d6b4c8b",
+    "ef4b1e2d266551e76ffb202e9f78e86b66d347d1",
     "f3adf137b0415999e4625ddc7e4ba26c2c56d4a9",
     "f3d9d9a7950d13baaae2f973600499f0d7b12e15",
     "f4332e985d4064559535b16397d9c35fdce587eb",
     "f987d9969923ee65464d0de187183719af278998",
     "fa1c504da13a0d2f8e75ef95566811e54750ff3d",
+    "fd84267e31da8b5086eed9d3f2a0c2dfa7f23d93",
     "fd87f80e3777c170e28f035b7049f3bde57c69a6"
   ],
   "checkedRejectionPrs": [
@@ -189,9 +206,11 @@
     467,
     469,
     470,
+    474,
     475,
     476,
     479,
+    482,
     483,
     488,
     489,
@@ -218,9 +237,462 @@
     541,
     542,
     546,
-    547
+    547,
+    550,
+    551,
+    552,
+    554,
+    557,
+    560,
+    565,
+    579,
+    580,
+    581,
+    582,
+    583,
+    584,
+    585,
+    586,
+    587,
+    593,
+    594,
+    598,
+    600
   ],
   "entries": [
+    {
+      "date": "2026-06-06",
+      "sha": "bcc2a64a33c0bb4a07a4faa37288c324d0153bd7",
+      "pr": {
+        "number": 603,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/603",
+        "author": "Achal13jain",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/136223316?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "DevToys",
+              "category": "Developer Utilities",
+              "section": "Developer Tools"
+            }
+          ]
+        },
+        "sections": {
+          "added": [
+            {
+              "name": "Developer Tools",
+              "category": "Developer Utilities"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Developer Utilities",
+              "category": "Development"
+            }
+          ]
+        },
+        "categories": {
+          "added": [
+            "Developer Utilities"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2026-06-06",
+      "sha": "575cf351328e99ed153241489782f1b231bdb896",
+      "pr": {
+        "number": 602,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/602",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "CoMaps",
+              "category": "Productivity",
+              "section": "Maps & Navigation"
+            }
+          ]
+        },
+        "sections": {
+          "added": [
+            {
+              "name": "Maps & Navigation",
+              "category": "Productivity"
+            }
+          ]
+        },
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "sha": "ef4b1e2d266551e76ffb202e9f78e86b66d347d1",
+      "pr": {
+        "number": 595,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/595",
+        "author": "Achal13jain",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/136223316?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "VSCodium",
+              "category": "Development",
+              "section": "IDEs"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "sha": "9d6dcf7f92c91b4a035a1e97761fbe5ec02e403f",
+      "pr": {
+        "number": 577,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/577",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "modified": [
+            {
+              "name": "LibRedirect",
+              "category": "Security Tools",
+              "section": "Browser Extensions",
+              "fields": [
+                "icon"
+              ]
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "604c93a2383beb8819caec46aee394ef310274af",
+      "pr": {
+        "number": 576,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/576",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "LibRedirect",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "41e72fe5b4c16c5ffced9d3b85e8ddb7c2011f5e",
+      "pr": {
+        "number": 571,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/571",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "CSS Exfil Protection",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "3a0f205ebce011cbe436e71e3181cf7c2d3bf809",
+      "pr": {
+        "number": 574,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/574",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "Track Me Not",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "c34654569457ae084fbde06c77d2b80c55aba43a",
+      "pr": {
+        "number": 572,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/572",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "HTTPZ",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "fd84267e31da8b5086eed9d3f2a0c2dfa7f23d93",
+      "pr": {
+        "number": 573,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/573",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "Privacy Redirect",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "88bc6299bfbaf786e134238c45ac4d9a6aa7de24",
+      "pr": {
+        "number": 575,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/575",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "ScriptSafe",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "sha": "dc6bd7c8a78f3a9a054aa77327b040adf1ced610",
+      "pr": {
+        "number": 570,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/570",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "First Party Isolation",
+              "category": "Security Tools",
+              "section": "Browser Extensions"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-21",
+      "sha": "923301401b6f5d19ea9bb2c4fb9360eff10a257a",
+      "pr": {
+        "number": 563,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/563",
+        "author": "ccleberg",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/156287552?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "Session",
+              "category": "Communication",
+              "section": "Encrypted Messaging"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "sha": "6a34ef6b931861667da7d6227c1be8f48d26facc",
+      "pr": {
+        "number": 556,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/556",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Mullvad Browser",
+              "category": "Essentials",
+              "section": "Browsers"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "sha": "8341f87fd48fbd92947238502e48a871000ef4c5",
+      "pr": {
+        "number": 555,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/555",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "Cromite",
+              "category": "Essentials",
+              "section": "Browsers"
+            }
+          ],
+          "modified": [
+            {
+              "name": "Brave Browser",
+              "category": "Essentials",
+              "section": "Browsers",
+              "fields": [
+                "androidApp",
+                "description",
+                "iosApp"
+              ]
+            },
+            {
+              "name": "Firefox",
+              "category": "Essentials",
+              "section": "Browsers",
+              "fields": [
+                "androidApp",
+                "description",
+                "iosApp"
+              ]
+            },
+            {
+              "name": "LibreWolf",
+              "category": "Essentials",
+              "section": "Browsers",
+              "fields": [
+                "description"
+              ]
+            },
+            {
+              "name": "Tor Browser",
+              "category": "Essentials",
+              "section": "Browsers",
+              "fields": [
+                "description"
+              ]
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "sha": "6d21892e771f8ca4a64b772e211b32db166626a6",
+      "pr": {
+        "number": 430,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/430",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "VERT",
+              "category": "Media",
+              "section": "File Converters"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "sha": "9554aea077ef26edde7570d6ba0cdbdd83bc0535",
+      "pr": {
+        "number": 549,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/549",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "Sync.com",
+              "category": "Productivity",
+              "section": "Encrypted Cloud Storage"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-05-13",
       "sha": "5691025a10fbd8ad69962ba3b881ba73ddb6b3ba",
@@ -4547,6 +5019,186 @@
   ],
   "rejections": [
     {
+      "date": "2026-06-04",
+      "title": "Adds Screenpipe to Casting & Streaming",
+      "pr": {
+        "number": 600,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/600",
+        "author": "louis030195",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/25003283?v=4"
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "title": "Add SwapFile.io in Security Tools > Online Tools",
+      "pr": {
+        "number": 598,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/598",
+        "author": "mecanbay",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/21036722?v=4"
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "title": "[Add] VaultKeepR in Password Managers",
+      "pr": {
+        "number": 594,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/594",
+        "author": "0xJust1",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/82548334?v=4"
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "title": "Add NoChat - private E2EE messaging without a phone number",
+      "pr": {
+        "number": 593,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/593",
+        "author": "CatsMeow492",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/56234110?v=4"
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "title": "Add 3 VPN leak detection tools to Network Analysis",
+      "pr": {
+        "number": 587,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/587",
+        "author": "ricco020",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/27282568?v=4"
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "title": "Adds MetadataRemove to Metadata Removal notable mentions",
+      "pr": {
+        "number": 586,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/586",
+        "author": "Leonewu",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/22951514?v=4"
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "title": "Add MyIPNow tool for IP and network analysis",
+      "pr": {
+        "number": 585,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/585",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "title": "Add MyIPNow tool to awesome-privacy.yml",
+      "pr": {
+        "number": 584,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/584",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "title": "Add MyIPNow to awesome-privacy.yml",
+      "pr": {
+        "number": 583,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/583",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "title": "Patch 4",
+      "pr": {
+        "number": 582,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/582",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "title": "Adds MyIPNow to Online Tools",
+      "pr": {
+        "number": 581,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/581",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "title": "Add MyIPNow to awesome-privacy.yml",
+      "pr": {
+        "number": 580,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/580",
+        "author": "bodiana",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50101974?v=4"
+      }
+    },
+    {
+      "date": "2026-05-23",
+      "title": "add 3233.io to Encrypted Messaging",
+      "pr": {
+        "number": 565,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/565",
+        "author": "253153",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/23563565?v=4"
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "title": "Add NumberOTP to Virtual Phone Numbers",
+      "pr": {
+        "number": 560,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/560",
+        "author": "DishantSinghDev2",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/122022552?v=4"
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "title": "Add Koaich to Team Collaboration",
+      "pr": {
+        "number": 557,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/557",
+        "author": "heysteamer",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/195606194?v=4"
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "title": "Add firefox-stealth (Firefox hardening patches) to Browsers",
+      "pr": {
+        "number": 554,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/554",
+        "author": "feder-cr",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/85809106?v=4"
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "title": "Add Inspectfiles.com",
+      "pr": {
+        "number": 552,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/552",
+        "author": "PaoloCounter",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/205430380?v=4"
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "title": "Adds ConvertUnlimited to Metadata Removal",
+      "pr": {
+        "number": 550,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/550",
+        "author": "dunkin-novice",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/198360645?v=4"
+      }
+    },
+    {
       "date": "2026-05-13",
       "title": "Addition of BChat to Encrypted messaging section",
       "pr": {
@@ -4814,6 +5466,16 @@
         "url": "https://github.com/Lissy93/awesome-privacy/pull/475",
         "author": "redpersongpt",
         "authorAvatar": "https://avatars.githubusercontent.com/u/195727128?v=4"
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "title": "Add amneziawg-installer to Self-Hosted Network Security",
+      "pr": {
+        "number": 474,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/474",
+        "author": "bivlked",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/50226185?v=4"
       }
     },
     {

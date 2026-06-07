@@ -12,11 +12,8 @@ import yaml
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import utils
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s [%(filename)s] %(message)s",
-    stream=sys.stderr,
-)
+utils.setup_logging()
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_PATH = os.path.join(PROJECT_ROOT, "awesome-privacy.yml")
@@ -93,6 +90,10 @@ DUPLICATE_URL_MSG = (
     "The URL for this submission already exists in another listing."
     " Please check that this is not a duplicate entry"
 )
+REPO_404_MSG = (
+    "The GitHub repository linked in this submission returns a 404."
+    " Please ensure the repo exists and is publicly accessible"
+)
 
 
 def load_diff(path):
@@ -108,9 +109,9 @@ def check_url(url):
     """Return True if the URL is reachable. Transport errors are treated as reachable."""
     ok, status = utils.check_url(url, SESSION, TIMEOUT)
     if not ok:
-        logging.warning("URL check failed for %s (HTTP %d)", url, status)
+        logger.warning("URL check failed for %s (HTTP %d)", url, status)
     elif status is None:
-        logging.warning("URL check error for %s (unreachable)", url)
+        logger.warning("URL check error for %s (unreachable)", url)
     return ok
 
 
@@ -202,7 +203,7 @@ def check_security_alerts(owner, repo, token):
 def check_spam_prs(pr_user, token):
     """Return list of spam findings based on recent PR activity."""
     if not pr_user or not token:
-        logging.warning("check_spam_prs skipped: %s", "no PR_USER" if not pr_user else "no GITHUB_TOKEN")
+        logger.warning("check_spam_prs skipped: %s", "no PR_USER" if not pr_user else "no GITHUB_TOKEN")
         return []
     try:
         since = (datetime.now(timezone.utc) - timedelta(days=SPAM_WINDOW_DAYS)).strftime("%Y-%m-%d")
@@ -212,7 +213,7 @@ def check_spam_prs(pr_user, token):
         if not data:
             return []
         items = data.get("items", [])
-        logging.info("check_spam_prs: %d total PRs for %s (fetched %d)",
+        logger.info("check_spam_prs: %d total PRs for %s (fetched %d)",
                      data.get("total_count", 0), pr_user, len(items))
         this_repo = os.environ.get("GITHUB_REPOSITORY", "Lissy93/awesome-privacy").lower()
         awesome_count = 0
@@ -227,7 +228,7 @@ def check_spam_prs(pr_user, token):
             repo_name = repo_url.rstrip("/").split("/")[-1].lower()
             if repo_name.startswith("awesome-"):
                 awesome_count += 1
-        logging.info("check_spam_prs: %d awesome-* PRs, %d distinct repos",
+        logger.info("check_spam_prs: %d awesome-* PRs, %d distinct repos",
                      awesome_count, len(distinct_repos))
         findings = []
         if awesome_count >= SPAM_AWESOME_THRESHOLD:
@@ -236,7 +237,7 @@ def check_spam_prs(pr_user, token):
             findings.append(SPAM_MANY_MSG)
         return findings
     except Exception as exc:
-        logging.warning("check_spam_prs error for %s: %s", pr_user, exc)
+        logger.warning("check_spam_prs error for %s: %s", pr_user, exc)
         return []
 
 
@@ -289,6 +290,21 @@ _DISCLOSURE_RE = re.compile(
 def _pr_discloses_authorship(pr_body):
     """Return True if the PR body already discloses the submitter is the author."""
     return bool(pr_body and _DISCLOSURE_RE.search(pr_body))
+
+
+def check_repo_exists(diff, token):
+    """Return REPO_404_MSG if an added service's GitHub repo returns a 404."""
+    if not token:
+        return None
+    seen = set()
+    for svc in get_services(diff, "added"):
+        owner, repo = utils.parse_github_field(svc.get("fields", {}).get("github"))
+        if not owner or (owner, repo) in seen:
+            continue
+        seen.add((owner, repo))
+        if utils.repo_status(owner, repo, token, session=SESSION) == 404:
+            return {"msg": REPO_404_MSG, "level": "error"}
+    return None
 
 
 def check_repo_signals(diff, pr_user, token, pr_body=""):
@@ -370,11 +386,12 @@ def main():
     try:
         pr_user = os.environ.get("PR_USER", "")
         token = os.environ.get("GITHUB_TOKEN", "")
-        logging.info("PR_USER=%s, GITHUB_TOKEN=%s", pr_user or "(empty)", "present" if token else "MISSING")
+        logger.info("Checking project health: links, spam, account age, duplicate URLs, repo signals")
+        logger.info("PR_USER=%s, GITHUB_TOKEN=%s", pr_user or "(empty)", "present" if token else "MISSING")
 
         diff = load_diff(DIFF_PATH)
         if not diff:
-            logging.info("No diff file at %s, nothing to check", DIFF_PATH)
+            logger.info("No diff file at %s, nothing to check", DIFF_PATH)
             with open(FINDINGS_PATH, "w") as f:
                 json.dump(findings, f)
             sys.exit(0)
@@ -396,11 +413,15 @@ def main():
         if finding:
             findings.append(finding)
 
+        finding = check_repo_exists(diff, token)
+        if finding:
+            findings.append(finding)
+
         findings.extend(check_repo_signals(diff, pr_user, token, pr_body))
     except Exception as exc:
-        logging.error("Unhandled error in main: %s", exc, exc_info=True)
+        logger.error("Unhandled error in main: %s", exc, exc_info=True)
 
-    logging.info("Writing %d finding(s) to %s", len(findings), FINDINGS_PATH)
+    logger.info("Project health: %d finding(s), writing to %s", len(findings), FINDINGS_PATH)
     with open(FINDINGS_PATH, "w") as f:
         json.dump(findings, f)
     sys.exit(0)

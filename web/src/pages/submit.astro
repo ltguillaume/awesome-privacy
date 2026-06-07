@@ -7,6 +7,8 @@ import { formatDate } from '@utils/dates-n-stuff';
 
 const commits = ((await fetchGitHubStats('lissy93/awesome-privacy')) || {})
 	.commits;
+
+const isDisabled = true; // will set this back to false if/when we have better way to manage the AI spam
 ---
 
 <Layout title="Awesome Privacy">
@@ -35,7 +37,7 @@ const commits = ((await fetchGitHubStats('lissy93/awesome-privacy')) || {})
 	</section>
 	<section>
 		<h2>Submit an Addition</h2>
-		<AddNewService client:load />
+		<AddNewService client:load {isDisabled} />
 	</section>
 
 	<section>

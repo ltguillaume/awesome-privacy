@@ -30,6 +30,7 @@ def slugify(title):
     """Match the slug format used by awesome-privacy.xyz and the README generator."""
     if not title:
         return ""
-    title = re.sub(r"[+&]", "and", title.lower())
-    title = re.sub(r"\s+", "-", title)
-    return re.sub(r"[^a-z0-9-]", "", title)
+    title = title.lower()
+    title = re.sub(r"\s", "-", title)
+    title = re.sub(r"[+&]", "and", title)
+    return title.replace("?", "")

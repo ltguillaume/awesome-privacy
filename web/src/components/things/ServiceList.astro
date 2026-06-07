@@ -1,6 +1,6 @@
 ---
 import Button from '@components/form/Button.astro';
-import { parseMarkdown, formatLink } from '@utils/parse-markdown';
+import { parseMarkdown, formatLink, codebergUrl } from '@utils/parse-markdown';
 import type { Service } from 'src/types/Service';
 import FontAwesome from '@components/form/FontAwesome.svelte';
 import DeleteListing from '@components/things/DeleteListing.svelte';
@@ -111,7 +111,8 @@ const sortedServices = [...(services || [])].sort((a, b) =>
 										</span>
 									)}
 									{service.openSource ||
-									(service.github && service.openSource !== false) ? (
+									((service.github || service.codeberg || service.git) &&
+										service.openSource !== false) ? (
 										<span
 											class="meta-item great"
 											title={`${service.name} is open source`}
@@ -132,6 +133,27 @@ const sortedServices = [...(services || [])].sort((a, b) =>
 												target="_blank"
 											>
 												<FontAwesome iconName="github" /> {service.github}
+											</a>
+										</span>
+									)}
+									{service.codeberg && (
+										<span
+											class="meta-item"
+											title={`View ${service.name} on Codeberg`}
+										>
+											<a href={codebergUrl(service.codeberg)} target="_blank">
+												<FontAwesome iconName="sourceCode" />{' '}
+												{formatLink(codebergUrl(service.codeberg))}
+											</a>
+										</span>
+									)}
+									{service.git && (
+										<span
+											class="meta-item"
+											title={`View ${service.name} source code`}
+										>
+											<a href={service.git} target="_blank">
+												<FontAwesome iconName="sourceCode" /> Source
 											</a>
 										</span>
 									)}

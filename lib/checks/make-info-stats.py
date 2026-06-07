@@ -20,27 +20,28 @@ Excuse the code, it's a bit scrappy! But it's never used in the prod app.
 
 import argparse
 import json
+import logging
 import os
 import sys
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
-import requests
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils
+
+utils.setup_logging()
+logger = logging.getLogger(__name__)
 
 DIFF_PATH = "/tmp/pr-diff.json"
 OUTPUT_PATH = "/tmp/repo-stats.md"
 TIMEOUT = 10
 MAX_SUBMISSIONS = 5
 USER_AGENT = "awesome-privacy-ci/1.0"
-AI_BOT_AUTHORS = [
-    "noreply@anthropic.com",
-    "devin-ai-integration[bot]",
-    "copilot-swe-agent.github.com",
-    "noreply@cursor.com",
-]
 RESTRICTIVE_LICENSES = {
     "AGPL-3.0-only", "AGPL-3.0-or-later", "SSPL-1.0", "BSL-1.0", "BUSL-1.1",
 }
+
+SESSION = utils.make_session(user_agent=USER_AGENT)
 
 SITE_INFO_URL = "https://site-info-fetch.as93.workers.dev"
 ANDROID_API_URL = "https://android-app-privacy.as93.net"
@@ -52,15 +53,12 @@ GREEN, ORANGE, RED, BLUE, WHITE = "\U0001f7e2", "\U0001f7e0", "\U0001f534", "\U0
 
 def _api_get(url, params=None, timeout=TIMEOUT, headers=None):
     """GET a URL, return parsed JSON on 200, else None."""
-    hdrs = {"User-Agent": USER_AGENT}
-    if headers:
-        hdrs.update(headers)
     try:
-        resp = requests.get(url, headers=hdrs, timeout=timeout, params=params)
+        resp = SESSION.get(url, headers=headers, timeout=timeout, params=params)
         if resp.status_code == 200:
             return resp.json()
     except Exception as e:
-        print(f"Fetch failed for {url}: {e}", file=sys.stderr)
+        logger.warning("Fetch failed for %s: %s", url, e)
     return None
 
 
@@ -84,17 +82,6 @@ def relative_time(iso_str):
         y, rm = days // 365, (days % 365) // 30
         s = f"{y} year{'s' if y != 1 else ''}"
         return f"{s}, {rm} month{'s' if rm != 1 else ''}" if rm else s
-    except Exception:
-        return None
-
-
-def _days_since(iso_str):
-    """Return number of days since an ISO timestamp, or None."""
-    if not iso_str:
-        return None
-    try:
-        dt = datetime.fromisoformat(iso_str.replace("Z", "+00:00"))
-        return (datetime.now(timezone.utc) - dt).days
     except Exception:
         return None
 
@@ -131,28 +118,9 @@ def format_markdown(stats):
     return "\n".join(f"- {emoji} **{label}:** {value}" for emoji, label, value in stats)
 
 
-def parse_github_field(value):
-    """Parse 'owner/repo' or full URL into (owner, repo) or (None, None)."""
-    if not value:
-        return None, None
-    if value.startswith("https://github.com/"):
-        parts = value.removeprefix("https://github.com/").strip("/").split("/")
-        if len(parts) >= 2:
-            return parts[0], parts[1]
-        return None, None
-    if "/" in value:
-        parts = value.split("/")
-        if len(parts) == 2:
-            return parts[0], parts[1]
-    return None, None
-
-
 def gh_get(path, token, params=None):
     """GET a GitHub API endpoint. Returns JSON on 200, else None."""
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    if token:
-        headers["Authorization"] = f"token {token}"
-    return _api_get(f"https://api.github.com{path}", params=params, headers=headers)
+    return utils.gh_get(path, token, session=SESSION, params=params, timeout=TIMEOUT, label="repos")
 
 
 def fetch_all_data(owner, repo, token):
@@ -183,23 +151,9 @@ def fetch_all_data(owner, repo, token):
 
     commits = gh_get(f"/repos/{owner}/{repo}/commits", token, {"per_page": 100})
     if commits is not None:
-        bot_set = {a.lower() for a in AI_BOT_AUTHORS}
-        ai_count = 0
-        for c in commits:
-            author = c.get("commit", {}).get("author", {})
-            email = (author.get("email") or "").lower()
-            name = (author.get("name") or "").lower()
-            if email in bot_set or name in bot_set:
-                ai_count += 1
-                continue
-            message = (c.get("commit", {}).get("message") or "").lower()
-            for line in message.splitlines():
-                if line.strip().startswith("co-authored-by:"):
-                    if any(bot in line for bot in bot_set):
-                        ai_count += 1
-                        break
+        bot_set = {a.lower() for a in utils.AI_BOT_AUTHORS}
         data["commit_count"] = len(commits)
-        data["ai_commit_count"] = ai_count
+        data["ai_commit_count"] = sum(1 for c in commits if utils.commit_has_bot(c, bot_set))
     else:
         data["commit_count"] = None
         data["ai_commit_count"] = None
@@ -232,7 +186,7 @@ def grade_stats(data):
         else:
             stats.append((GREEN, "License", lic.get("name") or spdx or "Present"))
 
-    age_days = _days_since(data.get("created_at"))
+    age_days = utils.repo_age_days(data)
     age_str = relative_time(data.get("created_at"))
     if age_days is None:
         stats.append((WHITE, "Repo Age", "Unknown"))
@@ -243,7 +197,7 @@ def grade_stats(data):
     else:
         stats.append((RED, "Repo Age", age_str))
 
-    updated_days = _days_since(data.get("pushed_at"))
+    updated_days = utils.repo_pushed_days_ago(data)
     updated_str = _friendly_date(data.get("pushed_at"))
     if updated_days is None:
         stats.append((WHITE, "Last Updated", "Unknown"))
@@ -343,16 +297,13 @@ def check_security_txt(url):
     base = f"{parsed.scheme}://{parsed.netloc}"
     for path in ("/.well-known/security.txt", "/security.txt"):
         try:
-            resp = requests.get(
-                base + path, headers={"User-Agent": USER_AGENT},
-                timeout=TIMEOUT, allow_redirects=True,
-            )
+            resp = SESSION.get(base + path, timeout=TIMEOUT, allow_redirects=True)
             if resp.status_code == 200 and "contact:" in resp.text.lower():
                 return True
         except Exception:
             continue
     try:
-        requests.head(base, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT)
+        SESSION.head(base, timeout=TIMEOUT)
         return False
     except Exception:
         return None
@@ -545,9 +496,9 @@ def _resolve_args(argv):
         result = {"name": None, "owner": None, "repo": None, "url": args.url,
                   "android": args.android, "ios": args.ios, "tosdr": args.tosdr}
         if args.repo:
-            owner, repo = parse_github_field(args.repo)
+            owner, repo = utils.parse_github_field(args.repo)
             if not owner:
-                print(f"Invalid repo format: {args.repo}", file=sys.stderr)
+                logger.error("Invalid repo format: %s", args.repo)
                 sys.exit(1)
             result["owner"], result["repo"] = owner, repo
         return [result]
@@ -557,7 +508,7 @@ def _resolve_args(argv):
         with open(DIFF_PATH) as f:
             diff = json.load(f)
     except Exception:
-        print("No arguments and no diff file found", file=sys.stderr)
+        logger.info("No arguments and no diff file found, nothing to look up")
         sys.exit(0)
 
     field_map = {"github": "owner", "url": "url", "androidApp": "android",
@@ -570,16 +521,17 @@ def _resolve_args(argv):
         for yaml_key, result_key in field_map.items():
             if fields.get(yaml_key):
                 if yaml_key == "github":
-                    result["owner"], result["repo"] = parse_github_field(fields[yaml_key])
+                    result["owner"], result["repo"] = utils.parse_github_field(fields[yaml_key])
                 else:
                     result[result_key] = str(fields[yaml_key])
         if any(v for k, v in result.items() if k != "name"):
             services.append(result)
 
     if not services:
-        print("No checkable fields found in diff", file=sys.stderr)
+        logger.info("No checkable fields found in diff")
         sys.exit(0)
 
+    logger.info("Found %d service(s) with checkable fields in diff", len(services))
     return services
 
 
@@ -588,19 +540,21 @@ def _build_service_sections(args, token):
     sections = []
 
     if args["owner"] and args["repo"]:
+        logger.info("Fetching repo stats for %s/%s", args["owner"], args["repo"])
         data = fetch_all_data(args["owner"], args["repo"], token)
         if data:
             sections.append(("Repo Stats", format_markdown(grade_stats(data))))
         else:
-            print(f"Failed to fetch repo data for {args['owner']}/{args['repo']}", file=sys.stderr)
+            logger.warning("Failed to fetch repo data for %s/%s", args["owner"], args["repo"])
 
     if args["url"]:
         parsed_url = urlparse(args["url"])
         if parsed_url.hostname and parsed_url.hostname.rstrip(".").endswith("github.com"):
-            print(f"Skipped website checks, since github repo was specified: {args['url']}", file=sys.stderr)
+            logger.info("Skipped website checks, github repo was specified: %s", args["url"])
             sections.append(("Website Checks",
                              f"- {ORANGE} **Skipped** web checks, since repo URL was submitted instead of a website"))
         else:
+            logger.info("Fetching website checks for %s", args["url"])
             site_data = fetch_website_data(args["url"])
             has_sec_txt = check_security_txt(args["url"])
             if site_data or has_sec_txt is not None:
@@ -608,25 +562,28 @@ def _build_service_sections(args, token):
                                  format_markdown(grade_website_stats(site_data, args["url"], has_sec_txt))))
 
     if args["android"]:
+        logger.info("Fetching Android app info for %s", args["android"])
         data = fetch_android_data(args["android"])
         if data:
             sections.append(("Android App", format_markdown(grade_android_stats(data))))
         else:
-            print(f"Failed to fetch Android data for {args['android']}", file=sys.stderr)
+            logger.warning("Failed to fetch Android data for %s", args["android"])
 
     if args["ios"]:
+        logger.info("Fetching iOS app info for %s", args["ios"])
         data = fetch_ios_data(args["ios"])
         if data:
             sections.append(("iOS App", format_markdown(grade_ios_stats(data))))
         else:
-            print(f"Failed to fetch iOS data for {args['ios']}", file=sys.stderr)
+            logger.warning("Failed to fetch iOS data for %s", args["ios"])
 
     if args["tosdr"]:
+        logger.info("Fetching ToS;DR privacy policy for %s", args["tosdr"])
         data = fetch_tosdr_data(args["tosdr"])
         if data:
             sections.append(("Privacy Policy", format_markdown(grade_tosdr_stats(data))))
         else:
-            print(f"Failed to fetch ToS;DR data for {args['tosdr']}", file=sys.stderr)
+            logger.warning("Failed to fetch ToS;DR data for %s", args["tosdr"])
 
     return sections
 
@@ -640,6 +597,8 @@ def main():
         all_md_parts = []
 
         for svc_args in all_services:
+            if svc_args.get("name"):
+                logger.info("Looking up submission info for %s", svc_args["name"])
             sections = _build_service_sections(svc_args, token)
             if not sections:
                 continue
@@ -662,9 +621,9 @@ def main():
         else:
             with open(OUTPUT_PATH, "w") as f:
                 f.write(md + "\n")
-            print(f"Stats written to {OUTPUT_PATH}")
+            logger.info("Submission stats written to %s", OUTPUT_PATH)
     except Exception as e:
-        print(f"make-info-stats failed: {e}", file=sys.stderr)
+        logger.error("make-info-stats failed: %s", e, exc_info=True)
 
     sys.exit(0)
 

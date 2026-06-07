@@ -15,16 +15,22 @@
 #  - name: string (required) - The name of the service                          #
 #  - description: string (required) - A brief description of the service        #
 #  - url: string (required) - The URL of the service                            #
-#  - github: string - The GitHub repository of the service (user/repo-name)     #
 #  - icon: string - The URL of the service's icon                               #
-#  - followWith: string - Some categories need a prefix (e.g. platform)         #
+#  - github: string - The GitHub repository of the service (user/repo-name)     #
+#  - codeberg: string - ...or (if not GH) the Codeberg repo (user/repo-name)    #
+#  - git: string - ...or the full URL to the repo for an external git host      #
+#  - iosApp: string - URL to the service's iOS app on the Apple App Store       #
+#  - androidApp: string - Package ID of Android app on Google Play Store        #
+#  - tosdrId: integer - The ID of the service on ToS;DR  (find at tosdr.org)    #
 #  - securityAudited: boolean - Has the service has been publicly audited       #
 #  - openSource: boolean - Whether the service is fully open source             #
 #  - acceptsCrypto: boolean - Whether the service accepts anonymous payment     #
-#  - tosdrId: string - The ID of the service on ToS;DR  (find at tosdr.org)     #
+#  - discordInvite: string - The invite code for the service's Discord server   #
+#  - subreddit: string - The service's subreddit name (without the r/ prefix)   #
+#  - followWith: string - Some categories need a prefix (e.g. platform)         #
 #                                                                               #
 #################################################################################
-# Licensed under CC0-1.0 (C) Alicia Sykes <https://aliciasykes.com> 2019 - 2024 #
+# Licensed under CC0-1.0 (C) Alicia Sykes <https://aliciasykes.com> 2019 - 2026 #
 #################################################################################
 
 categories:
@@ -397,36 +403,36 @@ categories:
         openSource: true
         tosdrId: 6389
         description: |
-          LibreWolf is an independent fork of Firefox that aims to provide better default
-          settings to improve on privacy, security and user freedom. Mozilla telemetry is
-          disabled, ties with Google (Safe Browsing) are severed, the content blocker
-          [uBlock Origin](https://github.com/gorhill/uBlock) is included and privacy
-          defaults are guided by research like the
-          [Arkenfox project](https://github.com/arkenfox/user.js/).
+          An independent fork of Firefox hardened for privacy by default.
+          No telemetry, uBlock Origin bundled, anti-fingerprinting, strict settings
 
       - name: Brave Browser
         url: https://brave.com
         icon: https://brave.com/static-assets/images/brave-logo-sans-text.svg
         github: brave/brave-browser
         tosdrId: 1487
+        androidApp: com.brave.browser
+        iosApp: https://apps.apple.com/gb/app/brave-browser-private-web/id1052879175
         description: |
-          Brave Browser, currently one of the most popular private browsers - it provides
-          speed, security, and privacy by blocking trackers with a clean, yet fully-featured
-          UI. It also pays you in [BAT tokens](https://basicattentiontoken.org/) for using it.
-          Brave also has Tor built-in, when you open up a private tab/ window.
+          Chromium-based browser with strong built-in ad, tracker and fingerprint blocking,
+          and timely Chromium security updates.
+          Note that Brave does bundle potentially unwanted features,
+          like crypto, rewards and AI which add bloat and increase attack surface
 
       - name: Firefox
         url: https://www.firefox.com/
         icon: https://www.mozilla.org/media/protocol/img/logos/firefox/logo.fedb52c912d6.svg
         openSource: true
         tosdrId: 188
+        androidApp: org.mozilla.firefox
+        iosApp: https://apps.apple.com/gb/app/firefox-fast-private-browser/id989804926
         description: |
-          Significantly more private, and offers some nifty privacy features than Chrome,
-          Internet Explorer and Safari. After installing, there are a couple of small tweaks
-          you will need to make, in order to secure Firefox. For a though config, see
-          [@arkenfox's user.js](https://github.com/arkenfox/user.js/). You can also follow
-          one of these guides by: [Restore Privacy](https://restoreprivacy.com/firefox-privacy/)
-          or [12Bytes](https://codeberg.org/12bytes/firefox-config-guide)
+          The main independent browser, on Mozilla's own Gecko engine rather than Chromium.
+          Reliable, long-standing, with frequent security updates, broad extension support and strong customization.
+          However telemetry is on by default, and many other preferences need to be
+          tweaked for optimum privacy. Consider using a user.js similar to
+          [arkenfox's user.js](https://github.com/arkenfox/user.js/) or follow
+          [12Bytes's guide](https://codeberg.org/12bytes/firefox-config-guide) to harden your settings
 
       - name: Tor Browser
         url: https://www.torproject.org/
@@ -436,25 +442,75 @@ categories:
         androidApp: org.torproject.torbrowser
         description: |
           Tor provides an extra layer of anonymity, by encrypting each of your requests, then
-          routing it through several nodes, making it near-impossible for you to be tracked by
-          your ISP/ provider. It does make every-day browsing a little slower, and some sites
-          may not work correctly. As with everything there are
+          routing it through several nodes, making it near-impossible for you to be tracked by your ISP.
+          While excellent for anonymity, Tor is less suited for daily browsing;
+          it's slower and some sites will be blocked or broken, among other
           [trade-offs](https://github.com/Lissy93/personal-security-checklist/issues/19)
 
+      - name: Mullvad Browser
+        url: https://mullvad.net/browser
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/mullvad-browser.png
+        github: mullvad/mullvad-browser
+        openSource: true
+        tosdrId: 641
+        description: |
+          A Firefox-based browser maintained in collaboration between the Tor Project and Mullvad.
+          With strong anti-fingerprinting (so users look alike), no telemetry and uBlock Origin bundled
+
+      notableMentions:
       - name: Cromite
         url: https://www.cromite.org/
-        icon: https://camo.githubusercontent.com/fc003f5ff33669908e7b929692fdbb8d10ec7df5ffa5e02e4d9becf405dd7804/68747470733a2f2f7777772e63726f6d6974652e6f72672f6170705f69636f6e2e706e67
-        github: uazo/cromite
-        description: |
-          Cromite is a Chromium fork based on Bromite with built-in support for ad blocking and an eye for privacy.
-
-      notableMentions: >
-        **Mobile Browsers**: [Firefox Focus](https://support.mozilla.org/en-US/kb/focus) (Android/ iOS),
-        [DuckDuckGo Browser](https://help.duckduckgo.com/duckduckgo-help-pages/mobile/ios/) (Android/ iOS),
-        [Orbot](https://guardianproject.info/apps/orbot/) + [Tor](https://www.torproject.org/download/#android) (Android),
-        [Onion Browser](https://onionbrowser.com/) (iOS)<br><br>
-        **Additional Desktop**: [Nyxt](https://nyxt.atlas.engineer/), [WaterFox](https://www.waterfox.net), [Epic Privacy Browser](https://www.epicbrowser.com), [PaleMoon](https://www.palemoon.org), [Iridium](https://iridiumbrowser.de/), [Sea Monkey](https://www.seamonkey-project.org/), [Ungoogled-Chromium](https://github.com/Eloston/ungoogled-chromium), [Basilisk Browser](https://www.basilisk-browser.org/) and [IceCat](https://www.gnu.org/software/gnuzilla/)
-        12Bytes also maintains a list privacy & security [extensions](https://12bytes.org/articles/tech/firefox/firefox-extensions-my-picks/)
+        description: >-
+          Chromium fork and successor of Bromite. Adds built-in ad and tracker blocking,
+          removes Google service calls, and disables several fingerprinting vectors.
+          Note that patches often lag several weeks behind upstream
+      - name: WaterFox
+        url: https://www.waterfox.net
+        description: >-
+          Firefox fork with telemetry, studies and data collection removed. The legacy
+          Classic line retains support for XUL/NPAPI extensions; the current
+          Quantum-based release does not.
+      - name: PaleMoon
+        url: https://www.palemoon.org
+        description: >-
+          Independent Firefox-derived browser using its own Goanna engine. Disables
+          telemetry and retains support for legacy XUL extensions. Lagging support
+          for modern web-platform features (e.g. CSP) has led to incidents of
+          Cloudflare blocking the browser.
+      - name: Iridium
+        url: https://iridiumbrowser.de/
+        description: >-
+          Chromium fork with telemetry, background pings and most Google service
+          integrations stripped out or made opt-in.
+      - name: SeaMonkey
+        url: https://www.seamonkey-project.org/
+        description: >-
+          All-in-one internet suite (browser, mail, IRC, HTML editor) derived from the
+          Mozilla Application Suite. Receives security fixes but lags upstream Firefox
+          on features.
+      - name: Ungoogled-Chromium
+        url: https://github.com/ungoogled-software/ungoogled-chromium
+        description: >-
+          Chromium with all Google web service integrations, binary blobs and
+          background calls removed.
+          Tries to retain the default Chromium experience as closely as possible.
+          No built-in auto-updates; relies on third-party
+          rebuilds for security patches.
+      - name: Basilisk Browser
+        url: https://www.basilisk-browser.org/
+        description: >-
+          Firefox/UXP-based fork originally created by Moonchild Productions and
+          independently maintained since 2022. Retains NPAPI plugin and XUL extension
+          support dropped by mainline Firefox.
+      - name: IceCat
+        url: https://www.gnu.org/software/gnuzilla/
+        description: >-
+          GNU's fully-free Firefox fork. Removes proprietary components such as DRM
+          and EME, and bundles LibreJS to block non-free JavaScript. Tracks Firefox
+          ESR, but release cadence lags upstream and can delay security fixes.
+      furtherInfo: >
+        12Bytes maintains a list of privacy & security
+        [extensions](https://12bytes.org/articles/tech/firefox/firefox-extensions-my-picks/).
       wordOfWarning: >
         New vulnerabilities are being discovered and patched all the time - use a browser
         that is being actively maintained, in order to receive these security-critical updates.<br>
@@ -585,23 +641,6 @@ categories:
           It's cross-platform, open-source and totally free. Signal is
           [recommended](https://twitter.com/Snowden/status/661313394906161152)
           by Edward Snowden, and is a perfect solution for most users.
-
-      - name: Session
-        url: https://getsession.org
-        icon: https://getsession.org/favicon.ico
-        openSource: true
-        tosdrId: 3015
-        github: oxen-io/lokinet
-        subreddit: Session_Messenger
-        androidApp: network.loki.messenger
-        iosApp: https://apps.apple.com/us/app/session-private-messenger/id1470168868
-        description: |
-          Session is a fork of Signal, however unlike Signal it does not require a mobile
-          number (or any other personal data) to register, instead each user is identified
-          by a public key. It is also decentralized, with servers being run by the community
-          though [Loki Net](https://loki.network), messages are encrypted and routed through
-          several of these nodes. All communications are E2E encrypted, and there is no
-          meta data.
 
       - name: SimpleX
         url: https://simplex.chat/
@@ -1271,9 +1310,8 @@ categories:
       notableMentions: >
         Some chat platforms allow for cross-platform group chats, voice and video
         conferencing, but without the additional collaboration features.
-        For example, [Tox](https://tox.chat/), [Session](https://getsession.org/),
-        [Ricochet](https://ricochet.im/), [Mumble](https://www.mumble.info/)
-        and [Jami](https://jami.net/).<br>
+        For example, [Tox](https://tox.chat/), [Ricochet](https://ricochet.im/),
+        [Mumble](https://www.mumble.info/) and [Jami](https://jami.net/).<br>
         For Conferences, [OSEM](https://osem.io) is an open source all-in-one
         conference management tool, providing Registration, Schedules, Live and
         Recorded Sessions, Paper Submissions, Marketing Pages and Administration.
@@ -1310,15 +1348,6 @@ categories:
           Block ads, trackers and malware sites. **Download**:
           [Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en-GB) -
           [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/)
-
-      - name: ScriptSafe
-        url: https://www.andryou.com/scriptsafe
-        github: andryou/scriptsafe
-        icon: https://lh3.googleusercontent.com/c5co_NoLmEt48VC_yVp0JgKcgd83yiq_CdekGaOlBBfD5WII5mjxngERgikcQd4P56uoX9epiknU5ktXadPqj2EEVsE
-        description: |
-          Allows you to block the execution of certain scripts. **Download**:
-          [Chrome](https://chromewebstore.google.com/detail/scriptsafe/oiigbmnaadbkfbmpbfijlflahbdbdgdf) -
-          [Opera](https://addons.opera.com/en/extensions/details/scriptsafe-2/)
 
       - name: Firefox Multi-Account Containers
         github: mozilla/multi-account-containers
@@ -1362,23 +1391,6 @@ categories:
           help protect some privacy **Download**: [Chrome](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk) -
           [Firefox](https://addons.mozilla.org/en-US/firefox/addon/clearurls/) / [Source](https://gitlab.com/KevinRoebert/ClearUrls)
 
-      - name: CSS Exfil Protection
-        url: https://www.mike-gualtieri.com/css-exfil-vulnerability-tester
-        icon: https://www.mike-gualtieri.com/favicon.ico
-        github: mlgualtieri/CSS-Exfil-Protection
-        description: |
-          Sanitizes and blocks any CSS rules which may be designed to steal data, in order to guard against
-          Exfil attacks **Download**: [Chrome](https://chrome.google.com/webstore/detail/css-exfil-protection/ibeemfhcbbikonfajhamlkdgedmekifo) -
-          [Firefox](https://addons.mozilla.org/en-US/firefox/addon/css-exfil-protection/) - [Source](https://github.com/mlgualtieri/CSS-Exfil-Protection)
-
-      - name: First Party Isolation
-        url: https://github.com/mozfreddyb/webext-firstpartyisolation
-        github: mozfreddyb/webext-firstpartyisolation
-        icon: https://addons.mozilla.org/user-media/addon_icons/865/865865-64.png?modified=1520892249
-        description: |
-          Enables the First Party isolation preference (Clicking the Fishbowl icon temporarily disables it)
-          **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/first-party-isolation/)
-
       - name: Privacy-Oriented Origin Policy
         url: https://claustromaniac.github.io/poop
         github: claustromaniac/poop
@@ -1420,14 +1432,6 @@ categories:
           [Chrome](https://chrome.google.com/webstore/detail/duckduckgo-privacy-essent/bkdgflcldnnnapblkhphbgpggdiikppg?hl=en-GB) \
           [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/duckduckgo-for-firefox/)
 
-      - name: Privacy Redirect
-        url: https://github.com/SimonBrazell/privacy-redirect
-        github: SimonBrazell/privacy-redirect
-        icon: https://lh3.googleusercontent.com/pC5a_u12RlaLQhJ-5Jz87rtju2s0tCksUfZHvr3JYzAaiYZJfJapmuftodT7wuAedFOHtgxR2BGh_GmKijgiK5bJyA
-        description: |
-          A simple web extension that redirects Twitter, YouTube, Instagram & Google Maps requests to privacy friendly alternatives
-          **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/privacy-redirect/) - [Chrome](https://chrome.google.com/webstore/detail/privacy-redirect/pmcmeagblkinmogikoikkdjiligflglb)
-
       - name: User Agent Switcher
         url: https://add0n.com/useragent-switcher.html
         icon: https://i.ibb.co/hyb1SGK/useragent-switcher128.png
@@ -1453,14 +1457,6 @@ categories:
           The extension shows a score for the privacy policy of the current website. **Download**:
           [Chrome](https://chrome.google.com/webstore/detail/privacyspy/ppembnadnhiknioggbglgiciihgmkmnd) -
           [Firefox](https://addons.mozilla.org/en-US/firefox/addon/privacyspy/)
-
-      - name: HTTPZ
-        url: https://github.com/claustromaniac/httpz
-        github: claustromaniac/httpz
-        icon: https://addons.mozilla.org/user-media/addon_icons/1018/1018256-64.png?modified=9b273331
-        description: |
-          Simplified HTTPS upgrades for Firefox (lightweight alternative to HTTPS-Everywhere) **Download**:
-          [Firefox](https://addons.mozilla.org/en-US/firefox/addon/httpz/)
 
       - name: Skip Redirect
         url: https://github.com/sblask/webextension-skip-redirect
@@ -1492,16 +1488,6 @@ categories:
           Displays a country flag depicting the location of the current website's server, which can be useful to know at a glance.
           Click icon for more tools such as site safety checks, whois, validation etc **Download**:
           [Firefox](https://addons.mozilla.org/en-US/firefox/addon/flagfox/)
-
-      - name: Track Me Not
-        url: http://trackmenot.io
-        github: vtoubiana/TrackMeNot
-        icon: https://static.wixstatic.com/media/654565_824403a4d02548d783f8ca81f9e6bf48~mv2.png/v1/fill/w_268,h_264,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo_Button_TMN.png
-        description: >
-          Helps protect web searchers from surveillance and data-profiling, through creating
-          meaningless noise and obfuscation, outlined in their [whitepaper](http://trackmenot.io/resources/trackmenot2009.pdf).
-          Controversial whether or not this is a good approach **Download**: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/trackmenot/) -
-          [Source](https://github.com/vtoubiana/TrackMeNot)
 
       - name: AmIUnique Timeline
         url: https://amiunique.org/timeline
@@ -1535,6 +1521,14 @@ categories:
           Full-page translation, selected text translation, dictionary, history,
           and other features you may expect of a full-featured translation solution in-browser. **Download**:
           [Chrome](https://chrome.google.com/webstore/detail/gbefmodhlophhakmoecijeppjblibmie) / [Firefox](https://addons.mozilla.org/addon/linguist-translator/)
+
+      - name: LibRedirect
+        url: https://libredirect.github.io
+        github: libredirect/browser_extension
+        icon: https://raw.githubusercontent.com/libredirect/browser_extension/refs/heads/master/src/assets/images/libredirect.svg
+        description: |
+          A browser extension that redirects popular sites to alternative privacy friendly frontends
+          **Download**: [Firefox](https://addons.mozilla.org/firefox/addon/libredirect/) - [Chrome](https://libredirect.github.io/download_chromium.html)
 
       notableMentions:
       - name: Extension source viewer
@@ -3306,15 +3300,6 @@ categories:
           Very affordable encrypted storage provider, with cross-platform apps. Starts as £1.50/month for 150 GB
           or £3.33/month for 1 TB.
 
-      - name: Sync.com
-        url: https://www.sync.com
-        tosdrId: 698
-        androidApp: com.sync.mobileapp
-        iosApp: https://apps.apple.com/us/app/sync-secure-cloud-storage/id917410266
-        description: |
-          Secure file sync, sharing, collaboration and backup for individuals, small businesses and sole practitioners.
-          Starts at $8/month for 2 TB.
-
       - name: Peergos
         url: https://peergos.org/
         androidApp: peergos.android
@@ -3533,6 +3518,29 @@ categories:
         It allows for the host/ teacher to have full control over the session,
         and provides high-quality video streaming, multi-user whiteboards,
         breakout rooms, and instant chat.
+
+    ###############################
+    ###### Maps & Navigation ######
+    ###############################
+    - name: Maps & Navigation
+      alternativeTo: ['google maps', 'apple maps', 'waze']
+      intro: |
+        Mainstream mapping apps log your location history, search queries and routes,
+        building a detailed picture of where you live, work and travel. A privacy-respecting
+        maps app keeps navigation on your device, works offline, and collects nothing about you.
+      services:
+      - name: CoMaps
+        url: https://www.comaps.app
+        codeberg: comaps/comaps
+        icon: https://www.comaps.app/favicon.ico
+        followWith: Android, iOS, Linux, MacOS
+        openSource: true
+        androidApp: app.comaps.google
+        iosApp: https://apps.apple.com/us/app/comaps/id6747180809
+        description: |
+          Community-led, not-for-profit offline maps and navigation app built on OpenStreetMap data.
+          No tracking, ads or data collection; all search and routing happen on-device. A community fork
+          of Organic Maps, supporting driving, cycling and hiking.
 
   - name: Utilities
     sections:
@@ -4350,14 +4358,34 @@ categories:
 
     - name: IDEs
       alternativeTo: ['visual studio code', 'intellij idea', 'eclipse', 'pycharm', 'atom']
-      services: []
+      services:
+      - name: VSCodium
+        url: https://vscodium.com/
+        icon: https://avatars.githubusercontent.com/u/40327449?s=200&v=4
+        github: VSCodium/vscodium
+        openSource: true
+        description: |
+          Free and open source binaries of VS Code, built without Microsoft branding
+          and with community-driven defaults. Extension compatibility can differ from
+          Microsoft's official VS Code build.
 
     - name: Terminal Emulators
       alternativeTo: ['putty', 'iterm2', 'gnome terminal', 'hyper', 'powershell']
       services: []
 
-    - name: Developer Utilities
-      services: []
+  - name: Developer Utilities
+    sections:
+    - name: Developer Tools
+      services:
+      - name: DevToys
+        url: https://devtoys.app/
+        icon: https://devtoys.app/favicon.ico
+        github: DevToys-app/DevToys
+        openSource: true
+        description: |
+          Open-source offline toolbox for developers, with utilities for JSON, YAML,
+          hashes, JWTs, Base64, text comparison and more. Useful alternative to
+          pasting sensitive data into random online tools.
 
   - name: Smart Home & IoT
     sections:
@@ -4989,6 +5017,15 @@ categories:
           video. It's the industry standard multimedia framework, handling a vast range
           of formats. As a command-line tool, it guarantees that all processing is done
           locally on your machine.
+      - name: VERT
+        url: https://vert.sh
+        icon: https://vert.sh/lettermark.jpg
+        openSource: true
+        github: VERT-sh/VERT
+        discordInvite: kqevGxYPak
+        description: |
+          Web-based file conversion utility, which runs locally on your device using WebAssembly.
+          Supports 250+ formats across images, audio, documents, and video.
 
   - name: Creativity
     sections:

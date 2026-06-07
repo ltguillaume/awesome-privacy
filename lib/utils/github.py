@@ -67,6 +67,23 @@ def fetch_repo(owner, repo, token, session=None):
     return gh_get(f"/repos/{owner}/{repo}", token, session=session, label="repos")
 
 
+def repo_status(owner, repo, token, session=None, timeout=DEFAULT_TIMEOUT):
+    """Return the HTTP status code for a repo, or None on transport error."""
+    session = session or make_session()
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    if token:
+        headers["Authorization"] = f"token {token}"
+    try:
+        resp = session.get(
+            f"https://api.github.com/repos/{owner}/{repo}",
+            headers=headers, timeout=timeout,
+        )
+        return resp.status_code
+    except Exception as exc:
+        logging.warning("[repo-status] request error for %s/%s: %s", owner, repo, exc)
+        return None
+
+
 def commit_has_bot(commit, bot_set):
     """Return True if a commit was authored or co-authored by a known AI bot."""
     author = commit.get("commit", {}).get("author", {})

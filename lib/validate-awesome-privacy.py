@@ -1,9 +1,16 @@
 import json
+import logging
 import os
 import sys
 
 import yaml
 from jsonschema import Draft7Validator
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import utils
+
+utils.setup_logging()
+logger = logging.getLogger(__name__)
 
 # Paths (relative to project root)
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,13 +24,6 @@ EXIT_VALIDATION_ERRORS = 1
 EXIT_RUNTIME_ERROR = 2
 
 MAX_ERRORS = 20
-
-# ANSI color helpers (disabled when NO_COLOR is set or stderr is not a TTY)
-_use_color = sys.stderr.isatty() and not os.environ.get("NO_COLOR")
-red = (lambda s: f"\033[31m{s}\033[0m") if _use_color else (lambda s: s)
-green = (lambda s: f"\033[32m{s}\033[0m") if _use_color else (lambda s: s)
-yellow = (lambda s: f"\033[33m{s}\033[0m") if _use_color else (lambda s: s)
-dim = (lambda s: f"\033[2m{s}\033[0m") if _use_color else (lambda s: s)
 
 
 def _clean(v):
@@ -57,7 +57,9 @@ def resolve_path(data, path_parts):
 FIELD_HINTS = {
     "url": "must start with http:// or https://",
     "icon": "must start with http:// or https://",
-    "github": "must be `user/repo` or a full https://github.com/... URL",
+    "github": "must be `user/repo`",
+    "codeberg": "must be `user/repo`",
+    "git": "must be a full http(s):// URL to the source repository",
     "iosApp": "must be a full https://apps.apple.com/... URL",
     "androidApp": "must be a package name like `com.example.app`",
     "discordInvite": "must be a discord invite code or https://discord.gg/... URL",
@@ -137,12 +139,12 @@ def load_yaml(path):
         with open(path, "r") as f:
             return yaml.safe_load(f)
     except FileNotFoundError:
-        print(red(f"File not found: {path}"), file=sys.stderr)
+        logger.error("File not found: %s", path)
         sys.exit(EXIT_RUNTIME_ERROR)
     except yaml.YAMLError as e:
         msg = format_yaml_error(e)
         write_errors_file([msg])
-        print(red(f"Failed to parse YAML: {msg}"), file=sys.stderr)
+        logger.error("Failed to parse YAML: %s", msg)
         sys.exit(EXIT_RUNTIME_ERROR)
 
 
@@ -151,10 +153,10 @@ def load_schema(path):
         with open(path, "r") as f:
             return json.load(f)
     except FileNotFoundError:
-        print(red(f"File not found: {path}"), file=sys.stderr)
+        logger.error("File not found: %s", path)
         sys.exit(EXIT_RUNTIME_ERROR)
     except json.JSONDecodeError as e:
-        print(red(f"Failed to parse JSON schema: {e}"), file=sys.stderr)
+        logger.error("Failed to parse JSON schema: %s", e)
         sys.exit(EXIT_RUNTIME_ERROR)
 
 
@@ -169,6 +171,7 @@ def validate(data, schema):
 
 
 def main():
+    logger.info("Validating awesome-privacy.yml against schema")
     data = load_yaml(DATA_PATH)
     schema = load_schema(SCHEMA_PATH)
     errors = validate(data, schema)
@@ -177,10 +180,10 @@ def main():
         write_errors_file(errors)
         shown = errors[:MAX_ERRORS]
         for msg in shown:
-            print(red("ERROR") + " " + msg, file=sys.stderr)
+            logger.error(msg)
         if len(errors) > MAX_ERRORS:
-            print(dim(f"...and {len(errors) - MAX_ERRORS} more"), file=sys.stderr)
-        print(red(f"Validation failed: {len(errors)} error(s)"), file=sys.stderr)
+            logger.warning("...and %d more", len(errors) - MAX_ERRORS)
+        logger.error("Validation failed: %d error(s)", len(errors))
         sys.exit(EXIT_VALIDATION_ERRORS)
 
     # Gather stats
@@ -193,7 +196,8 @@ def main():
         for s in c.get("sections", [])
     )
     clear_errors_file()
-    print(green(f"Valid! {num_categories} categories, {num_sections} sections, {num_services} services"))
+    logger.info("Valid! %d categories, %d sections, %d services",
+                num_categories, num_sections, num_services)
     sys.exit(EXIT_VALID)
 
 

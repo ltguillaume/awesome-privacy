@@ -10,8 +10,16 @@ Writes:
   pr-meta/final-comment.md    — the body to post or update with
 """
 
+import logging
 import os
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils
+
+utils.setup_logging()
+logger = logging.getLogger(__name__)
 
 WORK_DIR = "pr-meta"
 
@@ -160,11 +168,13 @@ def write_output(action, body=""):
 
 
 def main():
+    logger.info("Preparing PR bot comment (deciding create/update/skip)")
     check_run_id = os.environ.get("CHECK_RUN_ID", "")
     repo = os.environ.get("GITHUB_REPOSITORY", "")
 
     new_body = read_file(os.path.join(WORK_DIR, "comment.md"))
     if not new_body:
+        logger.info("No new comment.md to post, action=skip")
         write_output("skip")
         return
 
@@ -172,15 +182,18 @@ def main():
 
     # No existing comment — create a new one
     if not existing_body:
+        logger.info("No existing bot comment, action=create")
         write_output("create", new_body)
         return
 
     # Existing comment — build an edit line to append
     if not check_run_id:
+        logger.info("Existing comment but no CHECK_RUN_ID, action=skip")
         write_output("skip")
         return
 
     findings_count = read_findings_count(new_body)
+    logger.info("Existing comment found, new run reports %d finding(s)", findings_count)
     edit_line = build_edit_line(existing_body, findings_count, check_run_id, repo)
 
     # Refresh the Submission Info block even if findings haven't changed
@@ -188,6 +201,7 @@ def main():
     info_changed = refreshed_body != existing_body
 
     if not edit_line and not info_changed:
+        logger.info("State unchanged and submission info unchanged, action=skip")
         write_output("skip")
         return
 
@@ -197,6 +211,8 @@ def main():
             updated = updated.rstrip() + "\n" + edit_line
         else:
             updated = updated.rstrip() + "\n\n---\n\n### Updates\n\n" + edit_line
+    logger.info("Updating comment (new edit=%s, submission info changed=%s), action=update",
+                bool(edit_line), info_changed)
     write_output("update", updated)
 
 

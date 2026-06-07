@@ -611,16 +611,16 @@
       color: var(--changelog-add);
     }
     &.rem {
-      background: color-mix(in srgb, var(--changelog-rem) 33%, transparent);
-      color: var(--changelog-rem);
+      background: color-mix(in srgb, var(--changelog-rej) 33%, transparent);
+      color: var(--changelog-rej);
     }
     &.mod {
       background: color-mix(in srgb, var(--changelog-mod) 33%, transparent);
       color: var(--changelog-mod);
     }
     &.rej {
-      background: color-mix(in srgb, var(--changelog-rej) 33%, transparent);
-      color: var(--changelog-rej);
+      background: color-mix(in srgb, var(--changelog-rem) 33%, transparent);
+      color: var(--changelog-rem);
     }
   }
 

@@ -4,6 +4,7 @@ and enriches entries with GitHub PR metadata.
 """
 
 import json
+import logging
 import os
 import re
 import subprocess
@@ -14,7 +15,11 @@ from typing import Any
 import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import utils
 from yaml_diff import build_index, diff_index, load_yaml_at_ref
+
+utils.setup_logging()
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_PATH = os.path.join(PROJECT_ROOT, ".github", "changelog.json")
@@ -49,7 +54,7 @@ def get_commits():
             continue
         lines = record.split("\n", 3)
         if len(lines) != 4:
-            print(f"  Skipping malformed log record: {record[:80]}", file=sys.stderr)
+            logger.warning("Skipping malformed log record: %s", record[:80])
             continue
         sha, date, author, message = lines
         commits.append({"sha": sha, "date": date, "author": author, "message": message})
@@ -216,7 +221,7 @@ def fetch_pr_metadata(pr_numbers):
     if token:
         headers["Authorization"] = f"token {token}"
     else:
-        print("  No GITHUB_TOKEN set, API rate limit will be low", file=sys.stderr)
+        logger.warning("No GITHUB_TOKEN set, API rate limit will be low")
 
     metadata = {}
     for i, pr_num in enumerate(sorted(pr_numbers)):
@@ -234,12 +239,12 @@ def fetch_pr_metadata(pr_numbers):
                     "authorAvatar": data.get("user", {}).get("avatar_url", ""),
                 }
             elif resp.status_code == 403:
-                print(f"  Rate limited at PR #{pr_num}, stopping API calls", file=sys.stderr)
+                logger.warning("Rate limited at PR #%s, stopping API calls", pr_num)
                 break
             elif resp.status_code != 404:
-                print(f"  PR #{pr_num}: HTTP {resp.status_code}", file=sys.stderr)
+                logger.warning("PR #%s: HTTP %s", pr_num, resp.status_code)
         except requests.RequestException as e:
-            print(f"  PR #{pr_num}: {e}", file=sys.stderr)
+            logger.warning("PR #%s: %s", pr_num, e)
         if i < len(pr_numbers) - 1:
             time.sleep(0.1)
 
@@ -265,8 +270,7 @@ def fetch_rejections(headers, cached_rejections, checked_prs):
                         "per_page": 100, "page": page},
             )
             if resp.status_code != 200:
-                print(f"  Rejections page {page}: HTTP {resp.status_code} — keeping cache",
-                      file=sys.stderr)
+                logger.warning("Rejections page %s: HTTP %s, keeping cache", page, resp.status_code)
                 return cached_rejections, checked_prs
             prs = resp.json()
             if not prs:
@@ -274,7 +278,7 @@ def fetch_rejections(headers, cached_rejections, checked_prs):
 
             for pr in prs:
                 if pr.get("created_at", "") < REJECTIONS_SINCE:
-                    print(f"  Reused {reused} cached, checked {new_calls} new PR(s)")
+                    logger.info("Reused %d cached, checked %d new PR(s)", reused, new_calls)
                     return rejections, checked
                 if pr.get("merged_at"):
                     continue
@@ -316,10 +320,10 @@ def fetch_rejections(headers, cached_rejections, checked_prs):
             page += 1
             time.sleep(0.1)
         except requests.RequestException as e:
-            print(f"  Rejections: {e} — keeping cache", file=sys.stderr)
+            logger.warning("Rejections: %s, keeping cache", e)
             return cached_rejections, checked_prs
 
-    print(f"  Reused {reused} cached, checked {new_calls} new PR(s)")
+    logger.info("Reused %d cached, checked %d new PR(s)", reused, new_calls)
     return rejections, checked
 
 
@@ -342,7 +346,7 @@ def load_existing():
 
 
 def main():
-    print("Generating changelog from git history...")
+    logger.info("Generating changelog from git history")
 
     existing_entries, processed_shas, existing_rejections, checked_prs = load_existing()
     commits = get_commits()
@@ -360,7 +364,7 @@ def main():
     new_processed = set()
 
     if new_commits:
-        print(f"Processing {len(new_commits)} new commit(s) ({len(existing_entries)} existing)...")
+        logger.info("Processing %d new commit(s) (%d existing)", len(new_commits), len(existing_entries))
 
         all_shas = [c["sha"] for c in commits]
         sha_to_parent = {all_shas[i]: all_shas[i + 1] for i in range(len(all_shas) - 1)}
@@ -387,9 +391,9 @@ def main():
                 continue
 
             changes = diff_commits(c["sha"], parent)
-            prefix = f"  [{i}/{len(new_commits)}]"
+            prefix = f"[{i}/{len(new_commits)}]"
             if changes is None:
-                print(f"{prefix} {c['date'][:10]} (no data changes)", flush=True)
+                logger.debug("%s %s (no data changes)", prefix, c["date"][:10])
                 continue
 
             # Sync merges pull content in via their 2nd parent, so their own message
@@ -407,11 +411,11 @@ def main():
                             continue
                         new_processed.add(pm["sha"])
                         counts = emit(pm["sha"], pm["date"], pm["message"], pm_changes)
-                        print(f"{prefix} {pm['date'][:10]} {counts}  (via sync) {pm['message'][:50]}", flush=True)
+                        logger.debug("%s %s %s  (via sync) %s", prefix, pm["date"][:10], counts, pm["message"][:50])
                     continue
 
             counts = emit(c["sha"], c["date"], c["message"], changes)
-            print(f"{prefix} {c['date'][:10]} {counts}  {c['message'][:60]}", flush=True)
+            logger.debug("%s %s %s  %s", prefix, c["date"][:10], counts, c["message"][:60])
 
         # Enrich entries missing full avatar data
         for e in existing_entries:
@@ -420,14 +424,14 @@ def main():
                 pr_numbers_to_fetch.add(pr["number"])
 
         if pr_numbers_to_fetch:
-            print(f"Fetching metadata for {len(pr_numbers_to_fetch)} PR(s)...")
+            logger.info("Fetching metadata for %d PR(s)", len(pr_numbers_to_fetch))
             pr_meta = fetch_pr_metadata(pr_numbers_to_fetch)
             for entry in new_entries + existing_entries:
                 pr = entry.get("pr")
                 if pr and pr.get("number") and pr["number"] in pr_meta:
                     entry["pr"] = pr_meta[pr["number"]]
     else:
-        print(f"No new commits. {len(existing_entries)} entries up to date.")
+        logger.info("No new commits, %d entries up to date", len(existing_entries))
 
     all_entries = sorted(new_entries + existing_entries, key=lambda e: e["date"], reverse=True)
 
@@ -436,9 +440,9 @@ def main():
     api_headers = {"User-Agent": "awesome-privacy", "Accept": "application/vnd.github.v3+json"}
     if token:
         api_headers["Authorization"] = f"token {token}"
-    print("Fetching rejected PRs...")
+    logger.info("Fetching rejected PRs")
     rejections, checked_prs = fetch_rejections(api_headers, existing_rejections, checked_prs)
-    print(f"  Found {len(rejections)} rejection(s)")
+    logger.info("Found %d rejection(s)", len(rejections))
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w") as f:
@@ -450,7 +454,7 @@ def main():
             "rejections": rejections,
         }, f, indent=2, ensure_ascii=False)
 
-    print(f"Wrote {len(all_entries)} entries + {len(rejections)} rejections to {OUTPUT_PATH}")
+    logger.info("Wrote %d entries + %d rejections to %s", len(all_entries), len(rejections), OUTPUT_PATH)
 
 
 if __name__ == "__main__":

@@ -5,13 +5,17 @@ formats into markdown, and inserts into README.md
 
 import os
 import re
+import sys
 import yaml
 import logging
 from urllib.parse import urlparse
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import utils
+
 # Configure Logging
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
-logging.basicConfig(level=LOG_LEVEL)
+utils.setup_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 # Determine the project root based on the script's location
@@ -19,11 +23,6 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 app_list_file_path = os.path.join(project_root, 'awesome-privacy.yml')
 readme_path = os.path.join(project_root, '.github/README.md')
 icon_size=14
-
-# Read the main YAML file, where all data lives
-logger.info("Reading the awesome-privacy file...")
-with open(app_list_file_path, 'r') as file:
-    data = yaml.safe_load(file)
 
 def iconElement(serviceUrl, serviceIcon):
   path = serviceIcon or f"https://icon.horse/icon/{urlparse(serviceUrl).netloc}"
@@ -73,7 +72,7 @@ def makeHref(text):
     if not text: return "#"
     return re.sub(r'[^\w\s-]', '', text.lower()).replace(" ", "-")
 
-def makeContents():
+def makeContents(data):
     contents = "<blockquote><details open>\n"
     contents += "<summary>📋 <b>Contents</b></summary>\n"
 
@@ -88,7 +87,7 @@ def makeContents():
     contents += "\n</details></blockquote>\n\n"
     return contents
 
-def makeAwesomePrivacy():
+def makeAwesomePrivacy(data):
   markdown = ""
   for category in data.get('categories'):
       markdown += f"## {category.get('name')}\n\n"
@@ -121,7 +120,10 @@ def makeAwesomePrivacy():
           # If word of warning exists, append it
           if section.get('wordOfWarning'):
             markdown += "<details>\n<summary>⚠️ <b>Word of Warning</b></summary>\n\n"
-            markdown += f"> {section.get('wordOfWarning')}\n\n"
+            word_of_warning = '\n'.join(
+              f"> {line}".rstrip() for line in section.get('wordOfWarning').strip().split('\n')
+            )
+            markdown += f"{word_of_warning}\n\n"
             markdown += "</details>\n\n"
           # If notable mentions exists, append it (either as a list or a single string)
           if section.get('notableMentions'):
@@ -145,13 +147,6 @@ def makeAwesomePrivacy():
           markdown += "\n---\n\n"
   return markdown
 
-awesome_privacy_results = makeContents() + makeAwesomePrivacy()
-
-# Update the README.md between markers
-logger.info("Reading README.md file...")
-with open(readme_path, 'r') as file:
-    readme_content = file.read()
-
 def update_content_between_markers(content, start_marker, end_marker, new_content):
     logger.info(f"Updating content between {start_marker} and {end_marker} markers...")
     start_index = content.find(start_marker)
@@ -166,18 +161,32 @@ def update_content_between_markers(content, start_marker, end_marker, new_conten
         logger.error(f"Markers {start_marker} and {end_marker} not found.")
         return content
 
-# Update guides and resources in README.md
-readme_content = update_content_between_markers(
-  readme_content,
-  "<!-- awesome-privacy-start -->",
-  "<!-- awesome-privacy-end -->",
-  awesome_privacy_results
-)
 
-# Write back the updated content to README.md
-logger.info("Writing back to README.md...")
-with open(readme_path, 'w') as file:
-    file.write(readme_content)
+def main():
+    logger.info("Reading the awesome-privacy file...")
+    with open(app_list_file_path, 'r') as file:
+        data = yaml.safe_load(file)
 
-# All done. Time to go home for tea and medals.
-logger.info("Script completed successfully!")
+    awesome_privacy_results = makeContents(data) + makeAwesomePrivacy(data)
+
+    logger.info("Reading README.md file...")
+    with open(readme_path, 'r') as file:
+        readme_content = file.read()
+
+    readme_content = update_content_between_markers(
+        readme_content,
+        "<!-- awesome-privacy-start -->",
+        "<!-- awesome-privacy-end -->",
+        awesome_privacy_results,
+    )
+
+    logger.info("Writing back to README.md...")
+    with open(readme_path, 'w') as file:
+        file.write(readme_content)
+
+    # All done. Time to go home for tea and medals.
+    logger.info("Script completed successfully!")
+
+
+if __name__ == "__main__":
+    main()

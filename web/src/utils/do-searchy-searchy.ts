@@ -9,6 +9,8 @@ export interface SearchItem {
   name?: string;
   url?: string;
   github?: string;
+  codeberg?: string;
+  git?: string;
   logo?: string;
 }
 
@@ -42,6 +44,8 @@ export const prepareSearchItems = (categories: Category[]): SearchItem[] => {
           description: service.description,
           url: service.url,
           github: service.github || '',
+          codeberg: service.codeberg || '',
+          git: service.git || '',
           category: category.name,
           sectionName: section.name,
           logo: service.icon || '',
@@ -61,6 +65,8 @@ export const searchOptions = {
     { name: 'notableMentions', weight: 0.5 },
     { name: 'alternativeTo', weight: 0.5 },
     { name: 'github', weight: 0.4 },
+    { name: 'codeberg', weight: 0.4 },
+    { name: 'git', weight: 0.3 },
     { name: 'url', weight: 0.2 },
     { name: 'description', weight: 0.1 },
     { name: 'intro', weight: 0.1 },
