@@ -13,6 +13,7 @@ export const CACHE_DAYS = {
   github: 7,
   discord: 14,
   reddit: 14,
+  docker: 90,
 } as const
 
 export type CacheRoute = keyof typeof CACHE_DAYS

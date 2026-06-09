@@ -72,6 +72,11 @@ describe('auth', () => {
     const res = await hit('/v1/enrich/security/jquery/jquery')
     expect(res.status).toBe(401)
   })
+
+  it('docker enrich route requires auth', async () => {
+    const res = await hit('/v1/enrich/docker/pihole')
+    expect(res.status).toBe(401)
+  })
 })
 
 describe('middleware scoping', () => {

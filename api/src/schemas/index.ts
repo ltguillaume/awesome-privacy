@@ -144,6 +144,10 @@ export const WebsiteReportSchema = z
   .object({})
   .openapi('WebsiteReport', { description: 'APIVoid url reputation report, passthrough' })
 
+export const DockerInfoSchema = z.object({}).openapi('DockerInfo', {
+  description: 'Portainer template, Docker Hub metrics and generated run/compose usage',
+})
+
 // GitHub repo summary, shape is fixed by the mapper functions
 export const GithubRepoSchema = z
   .object({

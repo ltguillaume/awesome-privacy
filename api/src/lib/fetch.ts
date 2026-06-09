@@ -18,6 +18,7 @@ const ALLOWED_HOSTS = new Set([
   'raw.githubusercontent.com',
   'api.deps.dev',
   'plexus.techlore.tech',
+  'hub.docker.com',
 ])
 
 export interface FetchOpts {

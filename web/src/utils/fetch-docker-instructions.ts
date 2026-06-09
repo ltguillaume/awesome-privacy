@@ -1,12 +1,13 @@
 import { error } from './logger';
 import { safeFetch } from './safe-fetch';
+import { apiBase, enrichHeaders } from './api-config';
 
 export const fetchDockerData = async (
   serviceName: string,
 ): Promise<TemplateResponse | null> => {
-  const endpoint = `https://docker-info.as93.workers.dev/${serviceName}`;
+  const endpoint = `${apiBase}/v1/enrich/docker/${encodeURIComponent(serviceName)}`;
   try {
-    const res = await safeFetch(endpoint);
+    const res = await safeFetch(endpoint, { headers: enrichHeaders() });
     if (!res.ok) {
       error('Docker', `HTTP ${res.status} for ${serviceName} (${endpoint})`);
       return null;

@@ -60,6 +60,7 @@ export interface AppEnv {
   APIVOID_API_KEY?: string
   EXODUS_TOKEN?: string
   GITHUB_TOKEN?: string
+  DOCKERHUB_TOKEN?: string
   CACHE?: KVNamespace
   RATE_LIMIT?: RateLimiter
   API_BASE?: string

@@ -22,6 +22,7 @@ import discord from '@/routes/private/discord'
 import reddit from '@/routes/private/reddit'
 import website from '@/routes/private/website'
 import security from '@/routes/private/security'
+import docker from '@/routes/private/docker'
 
 import mcp from '@/routes/mcp'
 
@@ -47,6 +48,7 @@ const buildPrivate = () => {
   priv.route('/', reddit)
   priv.route('/', website)
   priv.route('/', security)
+  priv.route('/', docker)
   return priv
 }
 
