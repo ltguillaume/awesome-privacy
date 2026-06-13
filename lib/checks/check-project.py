@@ -22,6 +22,8 @@ FINDINGS_PATH = "/tmp/findings-project.json"
 
 TIMEOUT = 10
 USER_AGENT = "awesome-privacy-ci/1.0"
+# Reachable but blocking automated probes (bot-block/rate-limit), not a missing page.
+SOFT_HTTP = {401, 403, 405, 406, 429}
 MIN_STARS = 100
 INACTIVE_DAYS = 90
 MIN_AGE_DAYS = 120
@@ -106,13 +108,13 @@ def load_diff(path):
 
 
 def check_url(url):
-    """Return True if the URL is reachable. Transport errors are treated as reachable."""
+    """Return True if reachable. Transport errors and bot-block/rate-limit statuses
+    (SOFT_HTTP) count as reachable; only a real bad status (404, 5xx, ...) fails."""
     ok, status = utils.check_url(url, SESSION, TIMEOUT)
-    if not ok:
-        logger.warning("URL check failed for %s (HTTP %d)", url, status)
-    elif status is None:
-        logger.warning("URL check error for %s (unreachable)", url)
-    return ok
+    if ok or status is None or status in SOFT_HTTP:
+        return True
+    logger.warning("URL check failed for %s (HTTP %d)", url, status)
+    return False
 
 
 def _gh_get(path, token, params=None, label=""):

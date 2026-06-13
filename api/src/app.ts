@@ -3,8 +3,8 @@ import { cors } from 'hono/cors'
 import { Scalar } from '@scalar/hono-api-reference'
 
 import { createStorage } from '@/lib/cache'
-import { errorHandler, notFound } from '@/lib/errors'
-import { requireBearer } from '@/lib/auth'
+import { ApiError, errorHandler, notFound } from '@/lib/errors'
+import { hasValidToken, authRequired } from '@/lib/auth'
 import { rateLimit } from '@/lib/ratelimit'
 import { newApp } from '@/lib/openapi'
 import type { AppEnv } from '@/types'
@@ -37,9 +37,8 @@ const buildPublic = () => {
 }
 
 const buildPrivate = () => {
-  // Private enrichment routes, bearer auth on every /enrich/* path
+  // Enrichment routes, public but rate-limited (see rate-limit wiring below)
   const priv = newApp()
-  priv.use('/enrich/*', requireBearer())
   priv.route('/', privacy)
   priv.route('/', github)
   priv.route('/', ios)
@@ -64,13 +63,21 @@ export const buildApp = () => {
     await next()
   })
 
-  // CORS everywhere; rate limiting and edge caching are for public routes only,
-  // authenticated /enrich/* requests are exempt from both
+  // CORS everywhere. Public browse routes get the standard limit; enrich routes
+  // are public too, but anonymous callers hit a stricter limit while a valid
+  // bearer token bypasses it. Edge caching stays off for enrich (below).
   app.use('*', cors({ origin: '*' }))
-  const limiter = rateLimit()
-  app.use('/v1/*', (c, next) =>
-    c.req.path.startsWith('/v1/enrich') ? next() : limiter(c, next),
-  )
+  const publicLimiter = rateLimit()
+  const enrichLimiter = rateLimit((env) => env.ENRICH_RATE_LIMIT ?? env.RATE_LIMIT)
+  app.use('/v1/*', (c, next) => {
+    if (!c.req.path.startsWith('/v1/enrich')) return publicLimiter(c, next)
+    const authed = hasValidToken(c.env.API_TOKEN, c.req.header('authorization'))
+    if (authRequired(c.env.REQUIRE_AUTH) && !authed) {
+      throw new ApiError('UNAUTHORIZED', 'Invalid or missing bearer token', 401)
+    }
+    if (authed) return next()
+    return enrichLimiter(c, next)
+  })
   app.use('/v1/*', async (c, next) => {
     if (c.req.path.startsWith('/v1/enrich')) return next()
     await next()
@@ -100,9 +107,12 @@ export const buildApp = () => {
 <details>
 <summary>Authenticating</summary>
 
-By default, no auth is needed.
-If you're self-hosting, you can enable auth by setting the \`API_TOKEN\` env var.
-Then, add the \`Authorization: Bearer <your-token>\` header when accessing the enrichment endpoints.
+The enrichment endpoints are public, but anonymous requests are rate-limited.
+On the hosted instance, sending a valid \`Authorization: Bearer <token>\` header
+exempts the request from rate limiting. Self-hosters can set the \`API_TOKEN\`
+env var to enable the same bypass for their own token.
+To lock the endpoints down entirely, set \`REQUIRE_AUTH\` (alongside \`API_TOKEN\`):
+requests without a valid token are then rejected with a 401.
 </details>
 
 <details>

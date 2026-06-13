@@ -26,6 +26,13 @@ type = "ratelimit"
 namespace_id = "1001"
 simple = { limit = 60, period = 60 }
 
+# Stricter limit for anonymous /enrich/* requests; a valid API_TOKEN bypasses it
+[[unsafe.bindings]]
+name = "ENRICH_RATE_LIMIT"
+type = "ratelimit"
+namespace_id = "1002"
+simple = { limit = 10, period = 60 }
+
 # Scheduled cache warmer
 [triggers]
 crons = ["*/15 * * * *"]
