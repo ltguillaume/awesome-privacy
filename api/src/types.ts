@@ -56,6 +56,8 @@ export interface RateLimiter {
 // Unified environment seen by both Workers + Node
 export interface AppEnv {
   API_TOKEN?: string
+  // When truthy, /enrich/* requires a valid bearer token (off by default)
+  REQUIRE_AUTH?: string
   DISCORD_BOT_TOKEN?: string
   APIVOID_API_KEY?: string
   EXODUS_TOKEN?: string
@@ -63,6 +65,7 @@ export interface AppEnv {
   DOCKERHUB_TOKEN?: string
   CACHE?: KVNamespace
   RATE_LIMIT?: RateLimiter
+  ENRICH_RATE_LIMIT?: RateLimiter
   API_BASE?: string
 }
 

@@ -55,27 +55,80 @@ describe('public routes', () => {
   })
 })
 
-describe('auth', () => {
-  it('private route rejects missing token', async () => {
-    const res = await hit('/v1/enrich/privacy/1')
-    expect(res.status).toBe(401)
+describe('enrich rate limiting', () => {
+  // A limiter that always denies, recording how many times it was consulted
+  const denyLimiter = () => {
+    const calls = { n: 0 }
+    const limiter = {
+      limit: async () => {
+        calls.n++
+        return { success: false }
+      },
+    }
+    return { limiter, calls }
+  }
+  // A KV cache pre-seeded so handlers serve cached data without any upstream call
+  const seededCache = (value: unknown) => ({
+    get: async () => ({ value, cachedAt: Date.now() }),
+    put: async () => {},
   })
 
-  it('private route rejects wrong token', async () => {
-    const res = await hit('/v1/enrich/privacy/1', {
-      headers: { authorization: 'Bearer wrong' },
+  it('anonymous enrich request is rate-limited', async () => {
+    const { limiter, calls } = denyLimiter()
+    const res = await app.fetch(new Request('http://localhost/v1/enrich/privacy/1'), {
+      API_TOKEN: 'test',
+      ENRICH_RATE_LIMIT: limiter,
     })
-    expect(res.status).toBe(401)
+    expect(res.status).toBe(429)
+    expect(calls.n).toBe(1)
   })
 
-  it('security enrich route requires auth', async () => {
-    const res = await hit('/v1/enrich/security/jquery/jquery')
-    expect(res.status).toBe(401)
+  it('valid bearer token bypasses the enrich rate limit', async () => {
+    const { limiter, calls } = denyLimiter()
+    const res = await app.fetch(
+      new Request('http://localhost/v1/enrich/privacy/1', {
+        headers: { authorization: 'Bearer test' },
+      }),
+      { API_TOKEN: 'test', ENRICH_RATE_LIMIT: limiter, CACHE: seededCache({ id: 1 }) },
+    )
+    expect(res.status).toBe(200)
+    expect(calls.n).toBe(0)
   })
 
-  it('docker enrich route requires auth', async () => {
-    const res = await hit('/v1/enrich/docker/pihole')
-    expect(res.status).toBe(401)
+  it('wrong token does not bypass the enrich rate limit', async () => {
+    const { limiter, calls } = denyLimiter()
+    const res = await app.fetch(
+      new Request('http://localhost/v1/enrich/privacy/1', {
+        headers: { authorization: 'Bearer wrong' },
+      }),
+      { API_TOKEN: 'test', ENRICH_RATE_LIMIT: limiter },
+    )
+    expect(res.status).toBe(429)
+    expect(calls.n).toBe(1)
+  })
+
+  it('REQUIRE_AUTH rejects missing/invalid token with 401', async () => {
+    const env = { API_TOKEN: 'test', REQUIRE_AUTH: 'true' }
+    expect(
+      (await app.fetch(new Request('http://localhost/v1/enrich/privacy/1'), env)).status,
+    ).toBe(401)
+    const wrong = await app.fetch(
+      new Request('http://localhost/v1/enrich/privacy/1', {
+        headers: { authorization: 'Bearer wrong' },
+      }),
+      env,
+    )
+    expect(wrong.status).toBe(401)
+  })
+
+  it('REQUIRE_AUTH still admits a valid token', async () => {
+    const res = await app.fetch(
+      new Request('http://localhost/v1/enrich/privacy/1', {
+        headers: { authorization: 'Bearer test' },
+      }),
+      { API_TOKEN: 'test', REQUIRE_AUTH: 'true', CACHE: seededCache({ id: 1 }) },
+    )
+    expect(res.status).toBe(200)
   })
 })
 
@@ -86,7 +139,15 @@ describe('middleware scoping', () => {
   })
 
   it('enrich routes are not advertised as public cacheable', async () => {
-    const res = await hit('/v1/enrich/privacy/1')
+    // Seed the cache so the handler serves without an upstream call
+    const cache = {
+      get: async () => ({ value: { id: 1 }, cachedAt: Date.now() }),
+      put: async () => {},
+    }
+    const res = await app.fetch(new Request('http://localhost/v1/enrich/privacy/1'), {
+      API_TOKEN: 'test',
+      CACHE: cache,
+    })
     expect(res.headers.get('cache-control') ?? '').not.toContain('public')
   })
 })
