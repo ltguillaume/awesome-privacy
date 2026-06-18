@@ -5105,9 +5105,21 @@ categories:
     - name: E-Book Readers
       alternativeTo: ['kindle', 'google play books', 'apple books', 'adobe digital editions', 'calibre']
       services: []
+
     - name: Podcast Players
       alternativeTo: ['apple podcasts', 'spotify', 'google podcasts', 'pocket casts', 'overcast']
-      services: []
+      services:
+      - name: AntennaPod
+        url: https://antennapod.org
+        icon: https://avatars.githubusercontent.com/u/10713470?s=256&v=4
+        followWith: Android
+        openSource: true
+        github: AntennaPod/AntennaPod
+        androidApp: de.danoeh.antennapod
+        description: |
+          An open-source podcast manager for Android. Subscribe to any RSS feed,
+          with offline downloads, variable playback speed, and optional gpodder.net or Nextcloud
+          sync. Contains no ads or trackers, but is Android-only, with no iOS or desktop app.
 
     - name: Torrent Downloaders
       alternativeTo: ['utorrent', 'bittorrent', 'qBittorrent', 'deluge', 'transmission']
