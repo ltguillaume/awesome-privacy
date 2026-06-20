@@ -2641,12 +2641,19 @@ categories:
           tracking, ads and known malware. uBlock is easy-to-use out-of-the-box, but also has a highly customisable
           advanced mode, with a point-and-click firewall which can be configured on a per-site basis.
 
-      notableMentions: |
-        [AdGuardHome](https://github.com/AdguardTeam/AdGuardHome) is a cross-platform DNS Ad Blocker,
-        similar to Pi Hole, but with some additional features, like parental controls,
-        per-device configuration and the option to force safe search.
-        This may be a good solution for families with young children.
+      - name: AdGuard Home
+        url: https://adguard.com/en/adguard-home/overview.html
+        icon: https://avatars.githubusercontent.com/u/8361145?s=256&v=4
+        github: AdguardTeam/AdGuardHome
+        followWith: Self-Hosted
+        tosdrId: 2776
+        subreddit: Adguard
+        description: |
+          Self-hosted, network-wide DNS server that blocks ads and trackers for every device on
+          your network, comparable to Pi-hole. Open source, with a web dashboard, encrypted
+          DNS, and parental controls. Needs an always-on machine, and some setup knowledge.
 
+      notableMentions: |
         Some VPNs have ad-tracking blocking features, such as
         [TrackStop with PerfectPrivacy](https://www.perfect-privacy.com/en/features/trackstop?a_aid=securitychecklist).
 
