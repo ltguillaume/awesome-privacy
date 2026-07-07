@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T11:13:42Z",
+  "generatedAt": "2026-07-07T11:17:28Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -92,6 +92,7 @@
     "7a3286122e197a9b5836cfcd73fca768ccf6f50e",
     "7bac41fe2e60a38e22a3a723d4f0af28cfe0661d",
     "7dd8e9943c9a138710901ecf1bf4775b6167629a",
+    "81c6367b10f514409659cbc2f32e5e49301bf3a9",
     "81ed2551032e527bf5b752df5608411f91a12150",
     "824f20bf68f046a9f9bdaaf41a36a4a7e46c2d9f",
     "8341f87fd48fbd92947238502e48a871000ef4c5",
@@ -320,6 +321,36 @@
     659
   ],
   "entries": [
+    {
+      "date": "2026-07-07",
+      "sha": "81c6367b10f514409659cbc2f32e5e49301bf3a9",
+      "pr": {
+        "number": 397,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/397",
+        "author": "Jinjinov",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/20396198?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "OpenHabitTracker",
+              "category": "Productivity",
+              "section": "Habit Trackers"
+            }
+          ]
+        },
+        "sections": {
+          "added": [
+            {
+              "name": "Habit Trackers",
+              "category": "Productivity"
+            }
+          ]
+        },
+        "categories": {}
+      }
+    },
     {
       "date": "2026-07-07",
       "sha": "e1235f1a6cf8694cb54f2c612de154f90db86a07",
