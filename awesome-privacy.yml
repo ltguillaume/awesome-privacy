@@ -5142,6 +5142,7 @@ categories:
         url: https://www.videolan.org/vlc/
         icon: https://avatars.githubusercontent.com/u/1389585?s=256&v=4
         github: videolan/vlc
+        git: https://code.videolan.org/videolan/vlc
         iosApp: https://apps.apple.com/us/app/vlc-media-player/id650377962
         androidApp: org.videolan.vlc
         subreddit: VLC
