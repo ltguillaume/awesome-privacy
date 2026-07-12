@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T12:13:20Z",
+  "generatedAt": "2026-07-12T15:08:46Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -173,6 +173,7 @@
     "e33ee115950f0d56c764e5d0581e1d697afbb63f",
     "e52675c9d125682d9ee09b4d681173bf90bfdc7f",
     "e55f08c8337bf322a0b10d1b6c9827cb2bac5a64",
+    "e60f397fd1fc7703fc2258ce4b65d585259040a2",
     "e7474c579b7e33b3c47ed76492068d914e4566f1",
     "e9b1fee82705ca9b52a9db6e081d46bc4c417f01",
     "eb3b8411aea7bca9e3093a66b8313ade4e516ffc",
@@ -319,9 +320,37 @@
     656,
     657,
     658,
-    659
+    659,
+    665,
+    666,
+    667,
+    668,
+    671
   ],
   "entries": [
+    {
+      "date": "2026-07-12",
+      "sha": "e60f397fd1fc7703fc2258ce4b65d585259040a2",
+      "pr": {
+        "number": 673,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/673",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "33Mail",
+              "category": "Communication",
+              "section": "Mail Forwarding"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-07-07",
       "sha": "3e4dbc7a1919781cb28dbfb5d75cf36daac9bd4e",
@@ -6365,6 +6394,56 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-07-11",
+      "title": "Add MirrorNotes in Digital Notes",
+      "pr": {
+        "number": 671,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/671",
+        "author": "lokii49",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/37953290?v=4"
+      }
+    },
+    {
+      "date": "2026-07-09",
+      "title": "Add PrivacyScrubber in Security Tools > Online Tools",
+      "pr": {
+        "number": 668,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/668",
+        "author": "moxno",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/26788419?v=4"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "title": "Adds Packetra to Cloud Hosting",
+      "pr": {
+        "number": 667,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/667",
+        "author": "packetrahosting-create",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/297612039?v=4"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "title": "Add Tomatoes.run in Mail Forwarding",
+      "pr": {
+        "number": 666,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/666",
+        "author": "eric-houzelle",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/9348353?v=4"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "title": "Adds Loomey to Photo Management",
+      "pr": {
+        "number": 665,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/665",
+        "author": "blendstylez",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/9035975?v=4"
+      }
+    },
     {
       "date": "2026-07-04",
       "title": "Adds In Case to Password Managers",

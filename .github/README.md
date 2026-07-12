@@ -36,7 +36,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [P2P Messaging](#p2p-messaging) (4)
 	- [Encrypted Email](#encrypted-email) (4)
 	- [Email Clients](#email-clients) (6)
-	- [Mail Forwarding](#mail-forwarding) (6)
+	- [Mail Forwarding](#mail-forwarding) (5)
 	- [Email Security Tools](#email-security-tools) (2)
 	- [VOIP Clients](#voip-clients) (2)
 	- [Virtual Phone Numbers](#virtual-phone-numbers) (8)
@@ -373,7 +373,6 @@ Email clients are the programs used to interact with the mail server. For hosted
 Revealing your real email address online can put you at risk. Email aliasing allows messages to be sent to [anything]@my-domain.com and still land in your primary inbox. This protects your real email address from being revealed. Aliases are generated automatically, the first time they are used. This approach lets you identify which provider leaked your email address, and block an alias with 1-click.
 
 - **[<img src='https://addy.io/apple-touch-icon.png' width='14' alt='' /> Addy](https://addy.io)** - An open source anonymous email forwarding service, allowing you to create unlimited email aliases. Has a free plan. 
-- **[<img src='https://33mail.com/favicon.ico' width='14' alt='' /> 33Mail](http://33mail.com)** - A long-standing aliasing service. As well as receiving, 33Mail also lets you reply to forwarded addresses anonymously. Free plan, as well as Premium plan ($1/ month) if you'd like to use a custom doma[…](https://awesome-privacy.xyz/communication/mail-forwarding/33mail "View full 33Mail report") 
 - **[<img src='https://simplelogin.io/favicon.ico' width='14' alt='' /> SimpleLogin](https://simplelogin.io)** - Fully open source (view on [GitHub](https://github.com/simple-login)) alias service with many additional features. Can be self-hosted, or the managed version has a free plan, as well as hosted premium option ($2.99/ month) for using cu[…](https://awesome-privacy.xyz/communication/mail-forwarding/simplelogin "View full SimpleLogin report") 
 - **[<img src='https://relay.firefox.com/favicon.svg' width='14' alt='' /> Firefox Private Relay](https://relay.firefox.com)** - Developed and managed by Mozilla, Relay is a Firefox addon, that lets you make an email alias with 1 click, and have all messages forwarded onto your personal email. Relay is totally free to use, and[…](https://awesome-privacy.xyz/communication/mail-forwarding/firefox-private-relay "View full Firefox Private Relay report") 
 - **[<img src='https://forwardemail.net/img/android-chrome-192x192.png' width='14' alt='' /> Forward Email](https://forwardemail.net)** - Catch-all email forwarding service with unlimited aliases and custom domains, configured via DNS records. Self-hostable; the hosted version has a limited free plan, with paid plans (from $3/month) add[…](https://awesome-privacy.xyz/communication/mail-forwarding/forward-email "View full Forward Email report") 
